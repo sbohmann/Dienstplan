@@ -40,6 +40,10 @@
       "reserve": {
         "person": 157,
         "name": "Scheuninger"
+      },
+      "secondReserve": {
+        "person": 157,
+        "name": "Schwammerl"
       }
     },
     {
@@ -56,6 +60,10 @@
       "reserve": {
         "person": 157,
         "name": "Medwed"
+      },
+      "secondReserve": {
+        "person": 157,
+        "name": "Fux"
       }
     },
     {
@@ -100,6 +108,10 @@
       "reserve": {
         "person": 157,
         "name": "Schwammerl"
+      },
+      "secondReserve": {
+        "person": 157,
+        "name": "Wels"
       }
     },
     {
@@ -111,7 +123,7 @@
       },
       "reserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Fux"
       }
     },
     {
@@ -123,40 +135,24 @@
       },
       "reserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Scheuninger"
       }
     },
     {
       "dayOfMonth": 13,
-      "dayOfWeek": "Fr",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
-      }
+      "dayOfWeek": "Fr"
     },
     {
       "dayOfMonth": 14,
       "dayOfWeek": "Sa",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
+      "secondReserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Scheuninger"
       }
     },
     {
       "dayOfMonth": 15,
       "dayOfWeek": "So",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
       "reserve": {
         "person": 157,
         "name": "Schwammerl"
@@ -167,11 +163,15 @@
       "dayOfWeek": "Mo",
       "primary": {
         "person": 27,
-        "name": "Wels"
+        "name": "Scheuninger"
       },
       "reserve": {
         "person": 157,
         "name": "Schwammerl"
+      },
+      "secondReserve": {
+        "person": 157,
+        "name": "Fux"
       }
     },
     {
@@ -183,7 +183,7 @@
       },
       "reserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Fux"
       }
     },
     {
@@ -191,7 +191,7 @@
       "dayOfWeek": "Mi",
       "primary": {
         "person": 27,
-        "name": "Wels"
+        "name": "Fux"
       },
       "reserve": {
         "person": 157,
@@ -204,10 +204,6 @@
       "primary": {
         "person": 27,
         "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
       }
     },
     {
@@ -215,23 +211,19 @@
       "dayOfWeek": "Fr",
       "primary": {
         "person": 27,
-        "name": "Wels"
+        "name": "Steinis"
       },
       "reserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Scheuninger"
       }
     },
     {
       "dayOfMonth": 21,
       "dayOfWeek": "Sa",
-      "primary": {
+      "secondReserve": {
         "person": 27,
         "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
       }
     },
     {
@@ -243,67 +235,39 @@
       },
       "reserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Fux"
       }
     },
     {
       "dayOfMonth": 23,
       "dayOfWeek": "Mo",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
       "reserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Fux"
       }
     },
     {
       "dayOfMonth": 24,
       "dayOfWeek": "Di",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
       "reserve": {
         "person": 157,
-        "name": "Schwammerl"
+        "name": "Steinis"
       }
     },
     {
       "dayOfMonth": 25,
-      "dayOfWeek": "Mi",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
-      }
+      "dayOfWeek": "Mi"
     },
     {
       "dayOfMonth": 26,
-      "dayOfWeek": "Do",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
-      }
+      "dayOfWeek": "Do"
     },
     {
       "dayOfMonth": 27,
       "dayOfWeek": "Fr",
       "primary": {
         "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
+        "name": "Fux"
       }
     },
     {
@@ -311,21 +275,17 @@
       "dayOfWeek": "Sa",
       "primary": {
         "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
         "name": "Schwammerl"
+      },
+      "secondReserve": {
+        "person": 157,
+        "name": "Steinis"
       }
     },
     {
       "dayOfMonth": 29,
       "dayOfWeek": "So",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
+      "secondReserve": {
         "person": 157,
         "name": "Schwammerl"
       }
@@ -333,26 +293,14 @@
     {
       "dayOfMonth": 30,
       "dayOfWeek": "Mo",
-      "primary": {
+      "secondReserve": {
         "person": 27,
         "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
       }
     },
     {
       "dayOfMonth": 31,
-      "dayOfWeek": "Di",
-      "primary": {
-        "person": 27,
-        "name": "Wels"
-      },
-      "reserve": {
-        "person": 157,
-        "name": "Schwammerl"
-      }
+      "dayOfWeek": "Di"
     }
   ]
 }
