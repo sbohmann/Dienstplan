@@ -16,7 +16,7 @@ for (let dayIndex = 0; dayIndex < storedMonth.days.length; ++dayIndex) {
         rows.push({week_change: true})
     }
     let row = {
-        day: day.dayOfMonth,
+        day_of_month: day.dayOfMonth,
         weekday: day.dayOfWeek,
         primary_id: day.primary ? " (" + day.primary.id + ")" : "",
         reserve_id: day.reserve ? " (" + day.reserve.id + ")" : "",

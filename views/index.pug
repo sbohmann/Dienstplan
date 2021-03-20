@@ -1,34 +1,55 @@
 extends layout
 
 block scripts
-  script(src="javascripts/index.js")
+    script(src="javascripts/index.js")
 
 block content
-  h1=title
-  table(id='monats-dienstplan')
-    tr
-      th(id='week-day-column')
-      th(id='day-column')
-      th(class='name-column') Name
-      th(class='name-column') Reservetermin
-      th(class='name-column') Zweiter Reservetermin
-    for row in rows
-      if row.week_change
+    h1=title
+    table(id='monats-dienstplan')
         tr
-          td(colspan=6 class='new-week')
-      else
-        tr
-          if row.sunday
-            td(class='sunday')=row.weekday
-            td(class='sunday')=row.day + '. ' + month
-          else
-            td=row.weekday
-            td=row.day + '. ' + month
-          if show_ids
-            td(id='name_' + row.day)=row.primary_name + row.primary_id
-            td(id='reserve_' + row.day)=row.reserve_name + row.reserve_id
-            td(id='second-reserve_' + row.day)=row.second_reserve_name + row.secondary_reserve_id
-          else
-            td(id='name_' + row.day title=row.primary_id)=row.primary_name
-            td(id='reserve_' + row.day title=row.reserve_id)=row.reserve_name
-            td(id='second-reserve_' + row.day title=row.secondary_reserve_id)=row.second_reserve_name
+            th(id='week-day-column')
+            th(id='day-column')
+            th(class='name-column') Name
+            th(class='name-column') Reservetermin
+            th(class='name-column') Zweiter Reservetermin
+        for row in rows
+            if row.week_change
+                tr
+                    td(colspan=6 class='new-week')
+            else
+                tr
+                    if row.sunday
+                        td(class='sunday')=row.weekday
+                        td(class='sunday')=row.day_of_month + '. ' + month
+                    else
+                        td=row.weekday
+                        td=row.day_of_month + '. ' + month
+                    if show_ids
+                        td(
+                            id='name_' + row.day
+                            onclick='nameClicked(' + row.day_of_month + ')'
+                        )=row.primary_name + row.primary_id
+                        td(
+                            id='reserve_' + row.day
+                            onclick='reserveClicked(' + row.day_of_month + ')'
+                        )=row.reserve_name + row.reserve_id
+                        td(
+                            id='second-reserve_' + row.day
+                            onclick='secondaryReserveClicked(' + row.day_of_month + ')'
+                        )=row.second_reserve_name + row.secondary_reserve_id
+                    else
+                        td(
+                            id='name_' + row.day
+                            title=row.primary_id
+                            onclick='nameClicked(' + row.day_of_month + ')'
+                        )=row.primary_name
+                        td(
+                            id='reserve_' + row.day
+                            title=row.reserve_id
+                            onclick='reserveClicked(' + row.day_of_month + ')'
+                        )=row.reserve_name
+                        td(
+                            id='second-reserve_' + row.day
+                            title=row.secondary_reserve_id
+                            onclick='secondaryReserveClicked(' + row.day_of_month + ')'
+                        )=row.second_reserve_name
