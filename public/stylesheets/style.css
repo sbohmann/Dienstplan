@@ -1,0 +1,43 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.sunday {
+  background-color: yellow;
+}
+
+.new-week {
+  background-color: darkblue;
+  height: 3px;
+}
+
+#monats-dienstplan {
+  left: 50px;
+  text-align: center;
+  table-layout: fixed;
+}
+
+#week-day-column {
+  width: 100px;
+}
+
+#day-column {
+  width: 100px;
+}
+
+#name-column {
+  width: 300px;
+}
+
+#reserve-column {
+  width: 300px;
+}
+
+#second-reserve-column {
+  width: 300px;
+}
