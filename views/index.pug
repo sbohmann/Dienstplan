@@ -7,11 +7,11 @@ block content
   h1=title
   table(id='monats-dienstplan')
     tr
-      th(id=week-day-column)
-      th(id=day-column)
-      th(id=name-column) Name
-      th(id=reserve-column) Reservetermin
-      th(id=second-reserve-column) Zweiter Reservetermin
+      th(id='week-day-column')
+      th(id='day-column')
+      th(class='name-column') Name
+      th(class='name-column') Reservetermin
+      th(class='name-column') Zweiter Reservetermin
     for row in rows
       if row.week_change
         tr

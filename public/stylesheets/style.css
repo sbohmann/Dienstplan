@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+th {
+  text-align: initial;
+}
+
 .sunday {
   background-color: yellow;
 }
@@ -18,26 +22,17 @@ a {
 
 #monats-dienstplan {
   left: 50px;
-  text-align: center;
   table-layout: fixed;
 }
 
 #week-day-column {
-  width: 100px;
+  width: 30px;
 }
 
 #day-column {
   width: 100px;
 }
 
-#name-column {
-  width: 300px;
-}
-
-#reserve-column {
-  width: 300px;
-}
-
-#second-reserve-column {
-  width: 300px;
+.name-column {
+  width: 150px;
 }
