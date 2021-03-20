@@ -15,7 +15,7 @@ block content
     for row in rows
       if row.week_change
         tr
-          td(colspan=5 class='new-week')
+          td(colspan=6 class='new-week')
       else
         tr
           if row.sunday
@@ -24,6 +24,11 @@ block content
           else
             td=row.weekday
             td=row.day + '. ' + month
-          td(id='name_' + row.day)=row.name
-          td(id='reserve_' + row.day)=row.reserve
-          td(id='second-reserve_' + row.day)=row.second_reserve
+          if show_ids
+            td(id='name_' + row.day)=row.primary_name + row.primary_id
+            td(id='reserve_' + row.day)=row.reserve_name + row.reserve_id
+            td(id='second-reserve_' + row.day)=row.second_reserve_name + row.secondary_reserve_id
+          else
+            td(id='name_' + row.day)=row.primary_name
+            td(id='reserve_' + row.day)=row.reserve_name
+            td(id='second-reserve_' + row.day)=row.second_reserve_name

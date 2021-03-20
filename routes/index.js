@@ -18,9 +18,12 @@ for (let dayIndex = 0; dayIndex < storedMonth.days.length; ++dayIndex) {
     let row = {
         day: day.dayOfMonth,
         weekday: day.dayOfWeek,
-        name: day.primary ? day.primary.name : "",
-        reserve: day.reserve ? day.reserve.name : "",
-        second_reserve: day.secondReserve ? day.secondReserve.name : "",
+        primary_id: day.primary ? " (" + day.primary.id + ")" : "",
+        reserve_id: day.reserve ? " (" + day.reserve.id + ")" : "",
+        second_reserve_id: day.secondReserve ? " (" + day.secondReserve.id + ")" : "",
+        primary_name: day.primary ? day.primary.name : "",
+        reserve_name: day.reserve ? day.reserve.name : "",
+        second_reserve_name: day.secondReserve ? day.secondReserve.name : "",
         sunday: day.dayOfWeek === 'So' // TODO replace check for 'Mo' with week day lookup for the date
     }
     rows.push(row)
@@ -31,8 +34,8 @@ router.get('/', function (req, res, next) {
     res.render('index', {
         title: "August 2021",
         month: "August",
-        rows: [
-            ...rows]
+        rows,
+        show_ids: false
     })
 })
 
