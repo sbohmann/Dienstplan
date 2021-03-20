@@ -29,6 +29,6 @@ block content
             td(id='reserve_' + row.day)=row.reserve_name + row.reserve_id
             td(id='second-reserve_' + row.day)=row.second_reserve_name + row.secondary_reserve_id
           else
-            td(id='name_' + row.day)=row.primary_name
-            td(id='reserve_' + row.day)=row.reserve_name
-            td(id='second-reserve_' + row.day)=row.second_reserve_name
+            td(id='name_' + row.day title=row.primary_id)=row.primary_name
+            td(id='reserve_' + row.day title=row.reserve_id)=row.reserve_name
+            td(id='second-reserve_' + row.day title=row.secondary_reserve_id)=row.second_reserve_name
