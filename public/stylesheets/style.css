@@ -36,3 +36,12 @@ th {
 .name-column {
   width: 150px;
 }
+
+.hover-button {
+  color: transparent;
+}
+
+.hover-button:hover {
+  color: black;
+  background-color: #ddffdd;
+}

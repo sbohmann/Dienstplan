@@ -18,9 +18,9 @@ for (let dayIndex = 0; dayIndex < storedMonth.days.length; ++dayIndex) {
     let row = {
         day_of_month: day.dayOfMonth,
         weekday: day.dayOfWeek,
-        primary_id: day.primary ? " (" + day.primary.id + ")" : "",
-        reserve_id: day.reserve ? " (" + day.reserve.id + ")" : "",
-        second_reserve_id: day.secondReserve ? " (" + day.secondReserve.id + ")" : "",
+        primary_id: day.primary ? day.primary.id : null,
+        reserve_id: day.reserve ? day.reserve.id : null,
+        second_reserve_id: day.secondReserve ? day.secondReserve.id : null,
         primary_name: day.primary ? day.primary.name : "",
         reserve_name: day.reserve ? day.reserve.name : "",
         second_reserve_name: day.secondReserve ? day.secondReserve.name : "",
@@ -35,7 +35,8 @@ router.get('/', function (req, res, next) {
         title: "August 2021",
         month: "August",
         rows,
-        show_ids: false
+        user_id: 80776,
+        user_name: "Steinis"
     })
 })
 
