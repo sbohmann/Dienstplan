@@ -20,8 +20,14 @@ th {
   height: 3px;
 }
 
+#content {
+  position: relative;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 #monats-dienstplan {
-  left: 50px;
   table-layout: fixed;
 }
 
@@ -37,11 +43,18 @@ th {
   width: 150px;
 }
 
-.hover-button {
+.add-button {
   color: transparent;
 }
 
-.hover-button:hover {
+.add-button:hover {
   color: black;
   background-color: #ddffdd;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  color: #cc6666;
+  background-color: #ffdddd;
+  cursor: pointer;
 }

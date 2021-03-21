@@ -4,62 +4,66 @@ block scripts
     script(src="javascripts/index.js")
 
 block content
-    h1=title
-    table(id='monats-dienstplan')
-        tr
-            th(id='week-day-column')
-            th(id='day-column')
-            th(class='name-column') Name
-            th(class='name-column') Reservetermin
-            th(class='name-column') Zweiter Reservetermin
-        for row in rows
-            if row.week_change
-                tr
-                    td(colspan=6 class='new-week')
-            else
-                tr
-                    if row.sunday
-                        td(class='sunday')=row.weekday
-                        td(class='sunday')=row.day_of_month + '. ' + month
-                    else
-                        td=row.weekday
-                        td=row.day_of_month + '. ' + month
-                    if row.primary_id
-                        td(
-                            id='name_' + row.day
-                            title=row.primary_id
-                            onclick='removePrimary(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                        )=row.primary_name
-                    else
-                        td(
-                            id='name_' + row.day
-                            title=row.primary_id
-                            onclick='addPrimary(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                            class='hover-button'
-                        )=user_name
-                    if row.reserve_id
-                        td(
-                            id='reserve_' + row.day
-                            title=row.reserve_id
-                            onclick='removeReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                        )=row.reserve_name
-                    else
-                        td(
-                            id='reserve_' + row.day
-                            title=row.reserve_id
-                            onclick='addReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                            class='hover-button'
-                        )=user_name
-                    if row.second_reserve_id
-                        td(
-                            id='second-reserve_' + row.day
-                            title=row.secondary_reserve_id
-                            onclick='removeSecondaryReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                        )=row.second_reserve_name
-                    else
-                        td(
-                            id='second-reserve_' + row.day
-                            title=row.secondary_reserve_id
-                            onclick='addSecondaryReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                            class='hover-button'
-                        )=user_name
+    div(id='content')
+        h1=title
+        table(id='monats-dienstplan')
+            tr
+                th(id='week-day-column')
+                th(id='day-column')
+                th(class='name-column') Name
+                th(class='name-column') Reservetermin
+                th(class='name-column') Zweiter Reservetermin
+            for row in rows
+                if row.week_change
+                    tr
+                        td(colspan=6 class='new-week')
+                else
+                    tr
+                        if row.sunday
+                            td(class='sunday')=row.weekday
+                            td(class='sunday')!=row.day_of_month + '.&nbsp;' + month
+                        else
+                            td=row.weekday
+                            td!=row.day_of_month + '.&nbsp;' + month
+                        if row.primary_id
+                            td(
+                                id='name_' + row.day
+                                title=row.primary_id
+                                onclick='removePrimary(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
+                                class='remove-button'
+                            )=row.primary_name
+                        else
+                            td(
+                                id='name_' + row.day
+                                title=row.primary_id
+                                onclick='addPrimary(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
+                                class='add-button'
+                            )=user_name
+                        if row.reserve_id
+                            td(
+                                id='reserve_' + row.day
+                                title=row.reserve_id
+                                onclick='removeReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
+                                class='remove-button'
+                            )=row.reserve_name
+                        else
+                            td(
+                                id='reserve_' + row.day
+                                title=row.reserve_id
+                                onclick='addReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
+                                class='add-button'
+                            )=user_name
+                        if row.second_reserve_id
+                            td(
+                                id='second-reserve_' + row.day
+                                title=row.secondary_reserve_id
+                                onclick='removeSecondaryReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
+                                class='remove-button'
+                            )=row.second_reserve_name
+                        else
+                            td(
+                                id='second-reserve_' + row.day
+                                title=row.secondary_reserve_id
+                                onclick='addSecondaryReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
+                                class='add-button'
+                            )=user_name
