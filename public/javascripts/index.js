@@ -1,5 +1,5 @@
 window.onload = () => {
-    document.getElementById('monday_0').appendChild(document.createTextNode('Vorname Nachname'))
+    buildTableContent()
 }
 
 function addPrimary(day, id, name) {
@@ -24,4 +24,17 @@ function addSecondaryReserve(day, id, name) {
 
 function removeSecondaryReserve(day, id, name) {
     alert("remove secondary reserve user " + id + " (" + name + ") for day " + day)
+}
+
+function buildTableContent() {
+    let days = JSON.parse(initialData)
+    let table = document.getElementById('monats-dienstplan')
+
+    for (let day of days) {
+        let row = document.createElement('tr')
+        let cell = document.createElement('td')
+        cell.appendChild(document.createTextNode(day.toString()))
+        row.appendChild(cell)
+        table.appendChild(row)
+    }
 }

@@ -36,7 +36,8 @@ router.get('/', function (req, res, next) {
         month: "August",
         rows,
         user_id: 80776,
-        user_name: "Steinis"
+        user_name: "Steinis",
+        initialData: JSON.stringify(JSON.stringify(storedMonth.days))
     })
 })
 
