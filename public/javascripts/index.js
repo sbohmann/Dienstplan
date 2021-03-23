@@ -32,9 +32,20 @@ function buildTableContent() {
 
     for (let day of days) {
         let row = document.createElement('tr')
-        let cell = document.createElement('td')
-        cell.appendChild(document.createTextNode(day.toString()))
-        row.appendChild(cell)
+        row.appendChild(dayOWeek(day))
+        row.appendChild(dayOMonth(day))
         table.appendChild(row)
     }
+}
+
+function dayOWeek(day) {
+    let cell = document.createElement('td')
+    cell.appendChild(document.createTextNode(day.dayOfWeek))
+    return cell
+}
+
+function dayOMonth(day) {
+    let cell = document.createElement('td')
+    cell.appendChild(document.createTextNode(day.dayOfMonth + ". "))
+    return cell
 }
