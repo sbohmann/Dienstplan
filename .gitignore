@@ -1,6 +1,5 @@
 # Project exclude paths
 /node_modules/
 .idea
-/users.json
 /data.json
 /history

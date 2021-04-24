@@ -5,6 +5,7 @@ let historyDirectory = 'history'
 
 function Data() {
     return {
+        users: [],
         months: new Map()
     }
 }
@@ -32,7 +33,7 @@ function Storage() {
 
     function backupAndReadExistingData() {
         const destinationPath = 'history/data_' + new Date().toISOString() + '.json'
-        console.log(dataPath + " is present, creating a copy as " + destinationPath)
+        console.log(dataPath + " is present, copying to [" + destinationPath + "]")
         if (!fs.existsSync(historyDirectory)) {
             fs.mkdirSync(historyDirectory)
         }
