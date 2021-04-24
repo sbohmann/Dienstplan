@@ -11,15 +11,6 @@ th {
   text-align: initial;
 }
 
-.sunday {
-  background-color: yellow;
-}
-
-.new-week {
-  background-color: darkblue;
-  height: 3px;
-}
-
 #content {
   position: relative;
   display: table;
@@ -61,4 +52,19 @@ th {
 
 table#monats-dienstplan {
   border-collapse: collapse;
+}
+
+table#monats-dienstplan td {
+  height: 30px;
+  padding: 5px;
+}
+
+.sunday {
+  background-color: yellow;
+}
+
+table#monats-dienstplan td.new-week {
+  background-color: darkblue;
+  height: 3px;
+  padding: 0;
 }
