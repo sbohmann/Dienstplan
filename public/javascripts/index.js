@@ -1,5 +1,5 @@
 window.onload = () => {
-    buildTableContent()
+    fillTableContent()
 }
 
 function addPrimary(day, id, name) {
@@ -24,4 +24,12 @@ function addSecondaryReserve(day, id, name) {
 
 function removeSecondaryReserve(day, id, name) {
     alert("remove secondary reserve user " + id + " (" + name + ") for day " + day)
+}
+
+function fillTableContent() {
+    console.log(initialData)
+    const days = JSON.parse(initialData)
+    for (day of days) {
+        console.log(day)
+    }
 }
