@@ -58,3 +58,7 @@ th {
   background-color: #ffdddd;
   cursor: pointer;
 }
+
+table#monats-dienstplan {
+  border-collapse: collapse;
+}
