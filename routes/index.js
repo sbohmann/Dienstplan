@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const fs = require('fs')
+const storage = require('../storage/storage.js')
+
+storage.hello()
 
 let weekdayName = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
 
