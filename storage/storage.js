@@ -1,0 +1,52 @@
+const fs = require('fs')
+
+let dataPath = 'data.json'
+let historyDirectory = 'history'
+
+function Data() {
+    return {
+        months: new Map()
+    }
+}
+
+function Storage() {
+    let data
+
+    function initialize() {
+        readOrCreateData()
+    }
+
+    function readOrCreateData() {
+        if (!fs.existsSync(dataPath)) {
+            createInitialData()
+        } else {
+            backupAndReadExistingData()
+        }
+    }
+
+    function createInitialData() {
+        console.log(dataPath + " is missing, creating initial empty data.")
+        data = Data()
+        fs.writeFileSync(dataPath, JSON.stringify(data), {flag: 'wx', encoding: 'UTF-8'})
+    }
+
+    function backupAndReadExistingData() {
+        const destinationPath = 'history/data_' + new Date().toISOString() + '.json'
+        console.log(dataPath + " is present, creating a copy as " + destinationPath)
+        if (!fs.existsSync(historyDirectory)) {
+            fs.mkdirSync(historyDirectory)
+        }
+        data = JSON.parse(fs.readFileSync(dataPath, 'UTF-8'))
+        fs.copyFileSync(dataPath, destinationPath, fs.constants.COPYFILE_EXCL)
+    }
+
+    initialize()
+
+    return {
+        hello() {
+            console.log('hello')
+        }
+    }
+}
+
+module.exports = Storage()
