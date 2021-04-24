@@ -24,7 +24,7 @@ for (let dayIndex = 0; dayIndex < storedMonth.days.length; ++dayIndex) {
         primary_name: day.primary ? day.primary.name : "",
         reserve_name: day.reserve ? day.reserve.name : "",
         second_reserve_name: day.secondReserve ? day.secondReserve.name : "",
-        sunday: day.dayOfWeek === 'So' // TODO replace check for 'Mo' with week day lookup for the date
+        sunday: day.dayOfWeek === 'So' // TODO replace check for 'So' with week day lookup for the date
     }
     rows.push(row)
 }
