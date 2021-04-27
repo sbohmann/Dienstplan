@@ -17,13 +17,21 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/add', function (req, res, next) {
-    console.log("add: " + req.body)
-    res.json("add response")
+    // TODO check against current user ID - rules still outstanding
+    const dayIndex = req.body.day - 1
+    storage.data.years[year][month][dayIndex][req.body.context] =
+        {
+            id: req.body.id,
+            name: storage.userForId.get(req.body.id).name
+        }
+    res.send()
 })
 
 router.post('/remove', function (req, res, next) {
-    console.log("remove: " + req.body)
-    res.json("remove response")
+    // TODO check against current user ID - rules still outstanding
+    const dayIndex = req.body.day - 1
+    storage.data.years[year][month][dayIndex][req.body.context] = undefined
+    res.send()
 })
 
 module.exports = router

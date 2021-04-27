@@ -43,8 +43,17 @@ function Storage() {
 
     initialize()
 
+    const userForId = new Map()
+    for (const user of data.users) {
+        if (userForId.has(user.id)) {
+            throw RangeError("Duplicate user ID: " + user.id)
+        }
+        userForId.set(user.id, user)
+    }
+
     return {
-        data
+        data,
+        userForId
     }
 }
 

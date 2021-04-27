@@ -7,11 +7,35 @@ let month
 let userId
 
 function add(day, id, context) {
-    alert("add " + context + " user " + id + " for day " + day)
+    // alert("add " + context + " user " + id + " for day " + day)
+    const request = new XMLHttpRequest()
+    request.open('POST', '/data/add', true)
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    const data = {
+        year,
+        month,
+        day,
+        context,
+        id
+    }
+    request.onload = fillTableContent
+    request.send(JSON.stringify(data))
 }
 
 function remove(day, id, context) {
-    alert("remove " + context + " user " + id + " for day " + day)
+    // alert("remove " + context + " user " + id + " for day " + day)
+    const request = new XMLHttpRequest()
+    request.open('POST', '/data/remove', true)
+    request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    const data = {
+        year,
+        month,
+        day,
+        context,
+        id
+    }
+    request.onload = fillTableContent
+    request.send(JSON.stringify(data))
 }
 
 function fillTableContent() {
