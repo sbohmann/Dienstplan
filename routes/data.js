@@ -18,29 +18,13 @@ router.get('/', function (req, res, next) {
 
 router.post('/add', function (req, res, next) {
     // TODO check against current user ID - rules still outstanding
-    const dayIndex = req.body.day - 1
-    let currentEntry = storage.data.years[year][month][dayIndex][req.body.context]
-    if (currentEntry !== undefined) {
-        throw RangeError("Attempting to add while ID present - current entru: " + JSON.stringify(currentEntry) +
-            ", request: " + JSON.stringify(req.body))
-    }
-    storage.data.years[year][month][dayIndex][req.body.context] =
-        {
-            id: req.body.id,
-            name: storage.userForId.get(req.body.id).name
-        }
+    storage.add(year, month, req.body.day, req.body.context, req.body.id, JSON.stringify(req.body))
     res.send()
 })
 
 router.post('/remove', function (req, res, next) {
     // TODO check against current user ID - rules still outstanding
-    const dayIndex = req.body.day - 1
-    let currentId = storage.data.years[year][month][dayIndex][req.body.context].id
-    if (currentId !== req.body.id) {
-        throw RangeError("Attempting to remove non-matching ID - current: " + currentId +
-            ", request: " + JSON.stringify(req.body))
-    }
-    storage.data.years[year][month][dayIndex][req.body.context] = undefined
+    storage.remove(year, month, req.body.day, req.body.context, req.body.id, JSON.stringify(req.body))
     res.send()
 })
 

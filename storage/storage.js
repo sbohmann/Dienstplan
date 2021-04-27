@@ -1,4 +1,5 @@
 const fs = require('fs')
+const writeFileAtomic = require('write-file-atomic')
 
 let dataPath = 'data.json'
 let historyDirectory = 'history'
@@ -51,9 +52,42 @@ function Storage() {
         userForId.set(user.id, user)
     }
 
+    function writeChanges() {
+        writeFileAtomic(dataPath, JSON.stringify(data))
+            .then(_ => console.log("Changes successfully written"))
+            .catch(error => {
+                console.error("Error writing changes: " + error)
+                console.error(error.stack)
+            })
+    }
+
     return {
         data,
-        userForId
+        userForId,
+        add(year, month, day, context, id, request) {
+            const dayIndex = day - 1
+            let currentEntry = data.years[year][month][dayIndex][context]
+            if (currentEntry !== undefined) {
+                throw RangeError("Attempting to add while ID present - current entru: " + JSON.stringify(currentEntry) +
+                    ", request: " + request)
+            }
+            data.years[year][month][dayIndex][context] =
+                {
+                    id: id,
+                    name: userForId.get(id).name
+                }
+            writeChanges()
+        },
+        remove(year, month, day, context, id, request) {
+            const dayIndex = day - 1
+            let currentId = data.years[year][month][dayIndex][context].id
+            if (currentId !== id) {
+                throw RangeError("Attempting to remove non-matching ID - current: " + currentId +
+                    ", request: " + request)
+            }
+            data.years[year][month][dayIndex][context] = undefined
+            writeChanges()
+        }
     }
 }
 
