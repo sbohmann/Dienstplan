@@ -29,41 +29,29 @@ block content
                             td(
                                 id='primary_' + row.day_of_month
                                 title=row.primary_id
-                                onclick='removePrimary(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                                class='remove-button'
                             )=row.primary_name
                         else
                             td(
                                 id='primary_' + row.day_of_month
                                 title=row.primary_id
-                                onclick='addPrimary(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                                class='add-button'
                             )=user_name
                         if row.reserve_id
                             td(
                                 id='reserve_' + row.day_of_month
                                 title=row.reserve_id
-                                onclick='removeReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                                class='remove-button'
                             )=row.reserve_name
                         else
                             td(
                                 id='reserve_' + row.day_of_month
                                 title=row.reserve_id
-                                onclick='addReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                                class='add-button'
                             )=user_name
                         if row.second_reserve_id
                             td(
                                 id='secondReserve_' + row.day_of_month
                                 title=row.secondary_reserve_id
-                                onclick='removeSecondaryReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                                class='remove-button'
                             )=row.second_reserve_name
                         else
                             td(
                                 id='secondReserve_' + row.day_of_month
                                 title=row.secondary_reserve_id
-                                onclick='addSecondaryReserve(' + row.day_of_month + ', ' + user_id + ', "' + user_name + '")'
-                                class='add-button'
                             )=user_name
