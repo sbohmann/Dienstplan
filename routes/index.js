@@ -39,8 +39,8 @@ for (let date = joda.LocalDate.of(year, month, 1);
 
 router.get('/', function (req, res, next) {
     res.render('index', {
-        title: monthName[month] + " " + year,
-        month: monthName[month],
+        title: monthName[month - 1] + " " + year,
+        month: monthName[month - 1],
         rows,
         user_id: 80776,
         user_name: "Steinis"

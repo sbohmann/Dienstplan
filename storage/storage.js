@@ -12,7 +12,9 @@ function Data() {
 }
 
 function Storage() {
-    let data
+    let state = {
+        data: undefined
+    }
 
     function initialize() {
         readOrCreateData()
@@ -28,8 +30,8 @@ function Storage() {
 
     function createInitialData() {
         console.log(dataPath + " is missing, creating initial empty data.")
-        data = Data()
-        fs.writeFileSync(dataPath, JSON.stringify(data), {flag: 'wx', encoding: 'UTF-8'})
+        state.data = Data()
+        fs.writeFileSync(dataPath, JSON.stringify(state.data), {flag: 'wx', encoding: 'UTF-8'})
     }
 
     function backupAndReadExistingData() {
@@ -38,55 +40,70 @@ function Storage() {
         if (!fs.existsSync(historyDirectory)) {
             fs.mkdirSync(historyDirectory)
         }
-        data = JSON.parse(fs.readFileSync(dataPath, 'UTF-8'))
+        state.data = JSON.parse(fs.readFileSync(dataPath, 'UTF-8'))
         fs.copyFileSync(dataPath, destinationPath, fs.constants.COPYFILE_EXCL)
     }
 
     initialize()
 
     const userForId = new Map()
-    for (const user of data.users) {
+    for (const user of state.data.users) {
         if (userForId.has(user.id)) {
             throw RangeError("Duplicate user ID: " + user.id)
         }
         userForId.set(user.id, user)
     }
 
-    function writeChanges() {
-        writeFileAtomic(dataPath, JSON.stringify(data))
-            .then(_ => console.log("Changes successfully written"))
+    function writeChanges(newData, postAction) {
+        // TODO report back in case of both success and error - a pending and error state in the UI are required
+        // TODO create a copy of data before writing, only update if successful
+        writeFileAtomic(dataPath, JSON.stringify(newData))
+            .then(_ => {
+                state.data = newData
+                console.log("Changes successfully written")
+                if (postAction) {
+                    postAction()
+                }
+            })
             .catch(error => {
                 console.error("Error writing changes: " + error)
                 console.error(error.stack)
             })
     }
 
+    function createCopyOfData() {
+        // TODO find a smarter way to create a copy
+        return JSON.parse(JSON.stringify(state.data));
+    }
+
     return {
-        data,
+        state: state,
         userForId,
-        add(year, month, day, context, id, request) {
+        add(year, month, day, context, id, request, postAction) {
             const dayIndex = day - 1
-            let currentEntry = data.years[year][month][dayIndex][context]
+            let currentEntry = state.data.years[year][month][dayIndex][context]
             if (currentEntry !== undefined) {
                 throw RangeError("Attempting to add while ID present - current entru: " + JSON.stringify(currentEntry) +
                     ", request: " + request)
             }
-            data.years[year][month][dayIndex][context] =
+            const newData = createCopyOfData()
+            newData.years[year][month][dayIndex][context] =
                 {
                     id: id,
                     name: userForId.get(id).name
                 }
-            writeChanges()
+            writeChanges(newData, postAction)
         },
-        remove(year, month, day, context, id, request) {
+        remove(year, month, day, context, id, request, postAction) {
             const dayIndex = day - 1
-            let currentId = data.years[year][month][dayIndex][context].id
+            let currentId = state.data.years[year][month][dayIndex][context].id
             if (currentId !== id) {
                 throw RangeError("Attempting to remove non-matching ID - current: " + currentId +
                     ", request: " + request)
             }
-            data.years[year][month][dayIndex][context] = undefined
-            writeChanges()
+            const newData = createCopyOfData()
+            newData.years[year][month][dayIndex][context] = undefined
+            writeChanges(newData, postAction)
         }
     }
 }
