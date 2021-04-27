@@ -6,7 +6,7 @@ let historyDirectory = 'history'
 function Data() {
     return {
         users: [],
-        months: new Map()
+        years: []
     }
 }
 
@@ -44,9 +44,7 @@ function Storage() {
     initialize()
 
     return {
-        hello() {
-            console.log('hello')
-        }
+        data
     }
 }
 

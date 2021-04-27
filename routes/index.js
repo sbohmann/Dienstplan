@@ -1,40 +1,49 @@
 const express = require('express')
 const router = express.Router()
-const fs = require('fs')
-const storage = require('../storage/storage.js')
+const joda = require('@js-joda/core')
 
-storage.hello()
+const year = 2021
+const month = 8
 
-let weekdayName = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
-
-let storedMonthFileContent = fs.readFileSync('test_data/2021/2021-08.json', 'utf8')
-
-let storedMonth = JSON.parse(storedMonthFileContent)
+let weekdayName = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+let monthName = [
+    "Januar",
+    "Februar",
+    "März",
+    "April",
+    "Mai",
+    "Juni",
+    "Juli",
+    "August",
+    "September",
+    "Oktober",
+    "November",
+    "Dezember"]
 
 let rows = []
-for (let dayIndex = 0; dayIndex < storedMonth.days.length; ++dayIndex) {
-    let day = storedMonth.days[dayIndex]
-    // TODO get the date from storedMonth.year, storedMonth.month, and day.day
-    if (dayIndex > 0 && day.dayOfWeek === 'So') { // TODO replace check for 'So' with week day lookup for the date
+for (let date = joda.LocalDate.of(year, month, 1);
+     date.month().value() === month;
+     date = date.plusDays(1)) {
+    const dayOfWeek = date.dayOfWeek()
+    let sunday = (dayOfWeek === joda.DayOfWeek.SUNDAY)
+    if (date.dayOfMonth() > 1 && sunday) {
         rows.push({week_change: true})
     }
     let row = {
-        day_of_month: day.dayOfMonth,
-        weekday: day.dayOfWeek,
-        sunday: day.dayOfWeek === 'So' // TODO replace check for 'So' with week day lookup for the date
+        day_of_month: date.dayOfMonth(),
+        weekday: weekdayName[dayOfWeek.ordinal()],
+        sunday
     }
     rows.push(row)
 }
 
-/* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index', {
-        title: "August 2021",
-        month: "August",
+        title: monthName[month] + " " + year,
+        month: monthName[month],
         rows,
         user_id: 80776,
-        user_name: "Steinis",
-        initialData: JSON.stringify(storedMonth.days)
+        user_name: "Steinis"
     })
 })
 
