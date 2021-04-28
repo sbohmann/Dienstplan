@@ -6,7 +6,8 @@ const year = 2021
 const month = 8
 
 router.get('/', function (req, res, next) {
-    if (!req.session.userId) {
+    let userId = req.session.userId
+    if (!userId) {
         res.status(401)
         res.send()
         return
@@ -15,7 +16,7 @@ router.get('/', function (req, res, next) {
     const monthData = {
         year,
         month,
-        userId: 80776, // TODO replace with user ID from session context
+        userId,
         days
     }
     res.json(monthData)
