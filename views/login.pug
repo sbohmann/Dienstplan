@@ -4,6 +4,6 @@ block content
     div(id='content')
         h1="Login"
         form(action="/login" method="POST")
-            input(type="text" placeholder="username" class="login-text-field")
-            input(type="password" placeholder="password" class="login-text-field")
+            input(name="user" type="text" placeholder="username" class="login-text-field")
+            input(name="password" type="password" placeholder="password" class="login-text-field")
             input(type="submit" value="login" class="login-button")
