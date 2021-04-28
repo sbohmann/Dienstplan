@@ -3,7 +3,7 @@ const crypto = require('crypto')
 const storage = require('../storage/storage')
 
 for (let user of storage.data.users) {
-    if (!user.salt || user.hash) {
+    if (!user.salt || !user.hash) {
         const salt = bcrypt.genSaltSync()
         const password = Array.from(crypto.randomBytes(6))
             .map(value => {
@@ -21,5 +21,9 @@ for (let user of storage.data.users) {
         console.log("salt: " + salt + "")
         console.log("password: " + password)
         console.log("hash: " + hash)
+        user.salt = salt
+        user.hash = hash
     }
 }
+
+storage.writeData(() => console.log("User data updated."))

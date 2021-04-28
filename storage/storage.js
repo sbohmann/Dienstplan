@@ -103,6 +103,9 @@ function Storage() {
             const newData = createCopyOfData()
             newData.years[year][month][dayIndex][context] = undefined
             writeChanges(newData, postAction)
+        },
+        writeData(postAction) {
+            writeChanges(data, postAction)
         }
     }
 }
