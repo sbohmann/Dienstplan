@@ -6,7 +6,12 @@ const year = 2021
 const month = 8
 
 router.get('/', function (req, res, next) {
-    let days = storage.state.data.years[year][month]
+    if (!req.session.userId) {
+        res.status(401)
+        res.send()
+        return
+    }
+    let days = storage.data.years[year][month]
     const monthData = {
         year,
         month,
@@ -17,6 +22,11 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/add', function (req, res, next) {
+    if (!req.session.userId) {
+        res.status(401)
+        res.send()
+        return
+    }
     // TODO check against current user ID - rules still outstanding
     storage.add(
         year,

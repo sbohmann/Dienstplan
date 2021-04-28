@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const joda = require('@js-joda/core')
+const storage = require('../storage/storage.js')
 
 const year = 2021
 const month = 8
@@ -38,12 +39,19 @@ for (let date = joda.LocalDate.of(year, month, 1);
 }
 
 router.get('/', function (req, res, next) {
+    let userId = req.session.userId
+    if (!userId) {
+        res.status(302)
+        res.set('Location', '/login')
+        res.send()
+        return
+    }
     res.render('index', {
         title: monthName[month - 1] + " " + year,
         month: monthName[month - 1],
         rows,
-        user_id: 80776,
-        user_name: "Steinis"
+        user_id: userId,
+        user_name: storage.userForId.get(userId).name
     })
 })
 

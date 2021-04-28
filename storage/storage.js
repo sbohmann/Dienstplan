@@ -6,15 +6,14 @@ let historyDirectory = 'history'
 
 function Data() {
     return {
+        sessionSecret: "",
         users: [],
         years: []
     }
 }
 
 function Storage() {
-    let state = {
-        data: undefined
-    }
+    let data = undefined
 
     function initialize() {
         readOrCreateData()
@@ -30,8 +29,8 @@ function Storage() {
 
     function createInitialData() {
         console.log(dataPath + " is missing, creating initial empty data.")
-        state.data = Data()
-        fs.writeFileSync(dataPath, JSON.stringify(state.data), {flag: 'wx', encoding: 'UTF-8'})
+        data = Data()
+        fs.writeFileSync(dataPath, JSON.stringify(data), {flag: 'wx', encoding: 'UTF-8'})
     }
 
     function backupAndReadExistingData() {
@@ -40,14 +39,14 @@ function Storage() {
         if (!fs.existsSync(historyDirectory)) {
             fs.mkdirSync(historyDirectory)
         }
-        state.data = JSON.parse(fs.readFileSync(dataPath, 'UTF-8'))
+        data = JSON.parse(fs.readFileSync(dataPath, 'UTF-8'))
         fs.copyFileSync(dataPath, destinationPath, fs.constants.COPYFILE_EXCL)
     }
 
     initialize()
 
     const userForId = new Map()
-    for (const user of state.data.users) {
+    for (const user of data.users) {
         if (userForId.has(user.id)) {
             throw RangeError("Duplicate user ID: " + user.id)
         }
@@ -59,7 +58,7 @@ function Storage() {
         // TODO create a copy of data before writing, only update if successful
         writeFileAtomic(dataPath, JSON.stringify(newData))
             .then(_ => {
-                state.data = newData
+                data = newData
                 console.log("Changes successfully written")
                 if (postAction) {
                     postAction()
@@ -73,15 +72,15 @@ function Storage() {
 
     function createCopyOfData() {
         // TODO find a smarter way to create a copy
-        return JSON.parse(JSON.stringify(state.data));
+        return JSON.parse(JSON.stringify(data));
     }
 
     return {
-        state: state,
-        userForId,
+        get data() { return data },
+        get userForId() { return userForId },
         add(year, month, day, context, id, request, postAction) {
             const dayIndex = day - 1
-            let currentEntry = state.data.years[year][month][dayIndex][context]
+            let currentEntry = data.years[year][month][dayIndex][context]
             if (currentEntry !== undefined) {
                 throw RangeError("Attempting to add while ID present - current entru: " + JSON.stringify(currentEntry) +
                     ", request: " + request)
@@ -96,7 +95,7 @@ function Storage() {
         },
         remove(year, month, day, context, id, request, postAction) {
             const dayIndex = day - 1
-            let currentId = state.data.years[year][month][dayIndex][context].id
+            let currentId = data.years[year][month][dayIndex][context].id
             if (currentId !== id) {
                 throw RangeError("Attempting to remove non-matching ID - current: " + currentId +
                     ", request: " + request)
