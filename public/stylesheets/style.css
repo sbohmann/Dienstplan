@@ -1,6 +1,13 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #336699;
+  color: #ffdd33;
+}
+
+#monats-dienstplan td {
+  background: white;
+  color: black;
 }
 
 a {
@@ -18,16 +25,12 @@ th {
   margin-right: auto;
 }
 
-#monats-dienstplan {
-  table-layout: fixed;
-}
-
 #week-day-column {
   width: 30px;
 }
 
 #day-column {
-  width: 100px;
+  width: 25px;
 }
 
 .name-column {
@@ -38,19 +41,20 @@ th {
   color: transparent;
 }
 
-.add-button:hover {
+table#monats-dienstplan td.add-button:hover {
   color: black;
   background-color: #ddffdd;
   cursor: pointer;
 }
 
-.remove-button:hover {
+table#monats-dienstplan td.remove-button:hover {
   color: #cc6666;
   background-color: #ffdddd;
   cursor: pointer;
 }
 
 table#monats-dienstplan {
+  table-layout: fixed;
   border-collapse: collapse;
 }
 
@@ -64,7 +68,7 @@ table#monats-dienstplan td {
 }
 
 table#monats-dienstplan td.new-week {
-  background-color: darkblue;
-  height: 3px;
+  background-color: transparent;
+  height: 6px;
   padding: 0;
 }

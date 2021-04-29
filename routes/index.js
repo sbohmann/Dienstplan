@@ -26,14 +26,13 @@ for (let date = joda.LocalDate.of(year, month, 1);
      date.month().value() === month;
      date = date.plusDays(1)) {
     const dayOfWeek = date.dayOfWeek()
-    let sunday = (dayOfWeek === joda.DayOfWeek.SUNDAY)
-    if (date.dayOfMonth() > 1 && sunday) {
+    let monday = (dayOfWeek === joda.DayOfWeek.MONDAY)
+    if (date.dayOfMonth() > 1 && monday) {
         rows.push({week_change: true})
     }
     let row = {
         day_of_month: date.dayOfMonth(),
-        weekday: weekdayName[dayOfWeek.ordinal()],
-        sunday
+        weekday: weekdayName[dayOfWeek.ordinal()]
     }
     rows.push(row)
 }
