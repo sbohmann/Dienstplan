@@ -22,35 +22,17 @@ block content
                     tr
                         td=row.weekday
                         td!=row.day_of_month + '.'
-                        if row.primary_id
-                            td(
-                                id='primary_' + row.day_of_month
-                                title=row.primary_id
-                            )
-                        else
-                            td(
-                                id='primary_' + row.day_of_month
-                                title=row.primary_id
-                            )
-                        if row.reserve_id
-                            td(
-                                id='reserve_' + row.day_of_month
-                                title=row.reserve_id
-                            )
-                        else
-                            td(
-                                id='reserve_' + row.day_of_month
-                                title=row.reserve_id
-                            )
-                        if row.second_reserve_id
-                            td(
-                                id='secondReserve_' + row.day_of_month
-                                title=row.secondary_reserve_id
-                            )
-                        else
-                            td(
-                                id='secondReserve_' + row.day_of_month
-                                title=row.secondary_reserve_id
-                            )
+                        td(
+                            id='primary_' + row.day_of_month
+                            title=row.primary_id
+                        )
+                        td(
+                            id='reserve_' + row.day_of_month
+                            title=row.reserve_id
+                        )
+                        td(
+                            id='secondReserve_' + row.day_of_month
+                            title=row.secondary_reserve_id
+                        )
     div(id='selectionDialog')
         button(id='selectUserButton')="Select"
