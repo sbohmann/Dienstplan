@@ -84,3 +84,7 @@ table#monats-dienstplan td.new-week {
   padding: 0;
   margin: 0;
 }
+
+#selectionDialog.active {
+  visibility: visible;
+}

@@ -1,12 +1,16 @@
+let selectionDialog
+let selectUserButton
+
 window.onload = () => {
+    selectionDialog = document.getElementById('selectionDialog')
+    selectUserButton = document.getElementById('selectUserButton')
+    selectUserButton.onclick = () => selectionDialog.classList.remove('active')
     fillTableContent()
 }
 
 let year
 let month
 let userId
-
-const selectionDialog = document.getElementById('selection-dialog')
 
 function add(day, id, context) {
     // alert("add " + context + " user " + id + " for day " + day)
@@ -64,24 +68,27 @@ function fill(data, dayOfMonth, context) {
     const id = context + '_' + dayOfMonth
     let cell = document.getElementById(id)
     if (data) {
-        cell.classList.remove("add-button")
-        cell.classList.add("remove-button")
+        cell.classList.remove('add-button')
+        cell.classList.add('remove-button')
         cell.onclick = () => {
             remove(dayOfMonth, data.id, context)
         }
         cell.textContent = data.name
     } else {
-        cell.classList.remove("remove-button")
-        cell.classList.add("add-button")
-        cell.onclick = () => add(dayOfMonth, userId, context)
+        cell.classList.remove('remove-button')
+        cell.classList.add('add-button')
+        cell.onclick = () => {
+            selectionDialog.classList.add('active')
+            add(dayOfMonth, userId, context)
+        }
         cell.textContent = ""
     }
 }
 
 function showSelectionDialog() {
-
+    selectionDialog.classList.add('active')
 }
 
 function hideSelectionDialog() {
-
+    selectionDialog.classList.remove('active')
 }
