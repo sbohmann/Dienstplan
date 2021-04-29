@@ -6,6 +6,8 @@ let year
 let month
 let userId
 
+const selectionDialog = document.getElementById('selection-dialog')
+
 function add(day, id, context) {
     // alert("add " + context + " user " + id + " for day " + day)
     const request = new XMLHttpRequest()
@@ -74,4 +76,12 @@ function fill(data, dayOfMonth, context) {
         cell.onclick = () => add(dayOfMonth, userId, context)
         cell.textContent = ""
     }
+}
+
+function showSelectionDialog() {
+
+}
+
+function hideSelectionDialog() {
+
 }

@@ -72,3 +72,15 @@ table#monats-dienstplan td.new-week {
   height: 6px;
   padding: 0;
 }
+
+#selectionDialog {
+  visibility: hidden;
+  height: 100vh;
+  width: 100vw;
+  background: green;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 0;
+  margin: 0;
+}
