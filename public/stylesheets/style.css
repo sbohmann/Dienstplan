@@ -77,7 +77,9 @@ table#monats-dienstplan td.new-week {
   visibility: hidden;
   height: 100vh;
   width: 100vw;
-  background: green;
+  background: #ccccccee;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(10px);
   position: fixed;
   top: 0;
   left: 0;
@@ -87,4 +89,29 @@ table#monats-dienstplan td.new-week {
 
 #selectionDialog.active {
   visibility: visible;
+}
+
+#selectionDialogContent {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+#selectionButtons {
+  position: relative;
+  width: 100px;
+  top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+}
+
+.selectUserButton {
+  width: 100%;
+  margin: 0;
+  font-size: larger;
 }
