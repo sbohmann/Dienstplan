@@ -5,6 +5,12 @@ const storage = require('../storage/storage.js')
 const year = 2021
 const month = 8
 
+const users = storage.data.users
+    .map(user => ({
+        id: user.id,
+        name: user.name
+    }))
+
 router.get('/', function (req, res, next) {
     let userId = req.session.userId
     if (!userId) {
@@ -14,6 +20,7 @@ router.get('/', function (req, res, next) {
     }
     let days = storage.data.years[year][month]
     const monthData = {
+        users,
         year,
         month,
         userId,

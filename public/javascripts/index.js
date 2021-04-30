@@ -1,19 +1,28 @@
 let selectionDialog
-let selectUserButton
+let cancelUserSelectionButton
 
 window.onload = () => {
     selectionDialog = document.getElementById('selectionDialog')
-    selectUserButton = document.getElementById('selectUserButton')
-    selectUserButton.onclick = () => selectionDialog.classList.remove('active')
-    fillTableContent()
+    cancelUserSelectionButton = document.getElementById('cancelUserSelectionButton')
+    cancelUserSelectionButton.onclick = hideSelectionDialog
+    fillTableContent(() => {
+        let selectionButtons = document.getElementById('selectionButtons')
+        for (let user of users) {
+            const addUserButton = document.createElement('button')
+            addUserButton.id = 'addUserButton-' + user.id
+            addUserButton.classList.add('selectUserButton')
+            addUserButton.textContent = user.name + " (" + user.id + ")"
+            selectionButtons.appendChild(addUserButton)
+        }
+    })
 }
 
+let users
 let year
 let month
 let userId
 
 function add(day, id, context) {
-    // alert("add " + context + " user " + id + " for day " + day)
     const request = new XMLHttpRequest()
     request.open('POST', '/data/add', true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -29,7 +38,6 @@ function add(day, id, context) {
 }
 
 function remove(day, id, context) {
-    // alert("remove " + context + " user " + id + " for day " + day)
     const request = new XMLHttpRequest()
     request.open('POST', '/data/remove', true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -44,11 +52,12 @@ function remove(day, id, context) {
     request.send(JSON.stringify(data))
 }
 
-function fillTableContent() {
+function fillTableContent(postAction) {
     const request = new XMLHttpRequest()
     request.open('GET', '/data', true)
     request.onload = () => {
         const data = JSON.parse(request.responseText)
+        users = data.users
         year = data.year
         month = data.month
         userId = data.userId
@@ -59,6 +68,9 @@ function fillTableContent() {
             fill(day.primary, dayOfMonth, "primary")
             fill(day.reserve, dayOfMonth, "reserve")
             fill(day.secondReserve, dayOfMonth, "secondReserve")
+        }
+        if (postAction) {
+            postAction()
         }
     }
     request.send()
@@ -78,8 +90,14 @@ function fill(data, dayOfMonth, context) {
         cell.classList.remove('remove-button')
         cell.classList.add('add-button')
         cell.onclick = () => {
-            selectionDialog.classList.add('active')
-            add(dayOfMonth, userId, context)
+            for (let user of users) {
+                const addUserButton = document.getElementById('addUserButton-' + user.id)
+                addUserButton.onclick = () => {
+                    add(dayOfMonth, user.id, context)
+                    hideSelectionDialog()
+                }
+            }
+            showSelectionDialog()
         }
         cell.textContent = ""
     }
