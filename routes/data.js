@@ -55,6 +55,7 @@ router.post('/add', function (request, response, next) {
             JSON.stringify(request.body),
             () => response.send())
     } else {
+        console.log("Attempt by non-admin user " + request.session.userId + " to add user " + request.body.id)
         response.send();
     }
 })
@@ -71,6 +72,7 @@ router.post('/remove', function (request, response, next) {
             JSON.stringify(request.body),
             () => response.send())
     } else {
+        console.log("Attempt by non-admin user " + request.session.userId + " to remove user " + request.body.id)
         response.send();
     }
 })
