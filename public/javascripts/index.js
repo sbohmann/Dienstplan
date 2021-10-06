@@ -83,9 +83,13 @@ function fill(data, dayOfMonth, context) {
     let cell = document.getElementById(id)
     if (data) {
         cell.classList.remove('add-button')
-        cell.classList.add('remove-button')
-        cell.onclick = () => {
-            remove(dayOfMonth, data.id, context)
+        if (userIsAdmin || data.id === userId) {
+            cell.classList.add('remove-button')
+            cell.onclick = () => {
+                remove(dayOfMonth, data.id, context)
+            }
+        } else {
+            cell.classList.remove('remove-button')
         }
         cell.textContent = data.name
     } else {
