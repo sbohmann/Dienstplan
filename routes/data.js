@@ -32,33 +32,47 @@ router.get('/', function (req, res, next) {
     res.json(monthData)
 })
 
-router.post('/add', function (req, res, next) {
-    if (!req.session.userId) {
-        res.status(401)
-        res.send()
+function userIsAdminOrIdMatches(req) {
+    let userForSessionUserId = storage.userForId.get(req.session.userId)
+    let userIsAdmin = userForSessionUserId.admin
+    return userIsAdmin || req.body.id === req.session.userId
+}
+
+router.post('/add', function (request, response, next) {
+    if (!request.session.userId) {
+        response.status(401)
+        response.send()
         return
     }
     // TODO check against current user ID - rules still outstanding
-    storage.add(
-        year,
-        month,
-        req.body.day,
-        req.body.context,
-        req.body.id,
-        JSON.stringify(req.body),
-        () => res.send())
+    if (userIsAdminOrIdMatches(request)) {
+        storage.add(
+            year,
+            month,
+            request.body.day,
+            request.body.context,
+            request.body.id,
+            JSON.stringify(request.body),
+            () => response.send())
+    } else {
+        response.send();
+    }
 })
 
-router.post('/remove', function (req, res, next) {
+router.post('/remove', function (request, response, next) {
     // TODO check against current user ID - rules still outstanding
-    storage.remove(
-        year,
-        month,
-        req.body.day,
-        req.body.context,
-        req.body.id,
-        JSON.stringify(req.body),
-        () => res.send())
+    if (userIsAdminOrIdMatches(request)) {
+        storage.remove(
+            year,
+            month,
+            request.body.day,
+            request.body.context,
+            request.body.id,
+            JSON.stringify(request.body),
+            () => response.send())
+    } else {
+        response.send();
+    }
 })
 
 module.exports = router
