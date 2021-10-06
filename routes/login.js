@@ -4,7 +4,9 @@ const storage = require('../storage/storage')
 const bcrypt = require('bcrypt')
 
 router.get('/', function (req, res, next) {
-    res.render('login')
+    res.render('login', {
+        title: "Login"
+    })
 })
 
 router.post('/', function (req, res, next) {
@@ -15,6 +17,7 @@ router.post('/', function (req, res, next) {
         res.set('Location', '/')
         res.send()
     } else {
+        console.log("Login failed for user [" + req.body.user + "]")
         res.status(302)
         res.set('Location', '/login')
         res.send()
@@ -24,9 +27,11 @@ router.post('/', function (req, res, next) {
 function checkLogin(userId, password) {
     let user = storage.userForId.get(userId)
     if (!user) {
+        console.log("Unknown user [" + userId + "]")
         return false
     }
     if (!user.salt || !user.hash) {
+        console.log("No password configured for user [" + userId + "]")
         return false
     }
     let calculatedHash = bcrypt.hashSync(password, user.salt)

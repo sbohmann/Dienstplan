@@ -19,11 +19,14 @@ router.get('/', function (req, res, next) {
         return
     }
     let days = storage.data.years[year][month]
+    let userForId = storage.userForId.get(userId)
+    let userIsAdmin = !!userForId.admin
     const monthData = {
         users,
         year,
         month,
         userId,
+        userIsAdmin,
         days
     }
     res.json(monthData)

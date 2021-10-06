@@ -2,8 +2,14 @@ const bcrypt = require('bcrypt')
 const crypto = require('crypto')
 const storage = require('../storage/storage')
 
+let overwrite = false
+
+function passwordMissing(user) {
+    return !user.salt || !user.hash
+}
+
 for (let user of storage.data.users) {
-    if (!user.salt || !user.hash) {
+    if (passwordMissing(user) || overwrite) {
         const salt = bcrypt.genSaltSync()
         const password = Array.from(crypto.randomBytes(6))
             .map(value => {

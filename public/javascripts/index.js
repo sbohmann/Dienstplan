@@ -21,6 +21,7 @@ let users
 let year
 let month
 let userId
+let userIsAdmin
 
 function add(day, id, context) {
     const request = new XMLHttpRequest()
@@ -61,6 +62,7 @@ function fillTableContent(postAction) {
         year = data.year
         month = data.month
         userId = data.userId
+        userIsAdmin = data.userIsAdmin
         const days = data.days
         for (let dayIndex = 0; dayIndex < days.length; ++dayIndex) {
             const dayOfMonth = dayIndex + 1
@@ -90,14 +92,18 @@ function fill(data, dayOfMonth, context) {
         cell.classList.remove('remove-button')
         cell.classList.add('add-button')
         cell.onclick = () => {
-            for (let user of users) {
-                const addUserButton = document.getElementById('addUserButton-' + user.id)
-                addUserButton.onclick = () => {
-                    add(dayOfMonth, user.id, context)
-                    hideSelectionDialog()
+            if (userIsAdmin) {
+                for (let user of users) {
+                    const addUserButton = document.getElementById('addUserButton-' + user.id)
+                    addUserButton.onclick = () => {
+                        add(dayOfMonth, user.id, context)
+                        hideSelectionDialog()
+                    }
                 }
+                showSelectionDialog()
+            } else {
+                add(dayOfMonth, userId, context)
             }
-            showSelectionDialog()
         }
         cell.textContent = ""
     }

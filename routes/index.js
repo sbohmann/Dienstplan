@@ -45,12 +45,13 @@ router.get('/', function (req, res, next) {
         res.send()
         return
     }
+    let userForId = storage.userForId.get(userId)
     res.render('index', {
         title: monthName[month - 1] + " " + year,
         month: monthName[month - 1],
         rows,
         user_id: userId,
-        user_name: storage.userForId.get(userId).name
+        user_name: userForId.name + (userForId.admin ? " (Administrator)" : "")
     })
 })
 
