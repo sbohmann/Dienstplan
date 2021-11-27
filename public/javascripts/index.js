@@ -72,7 +72,6 @@ function fillTableContent(finishTableSetup) {
             fill(day.secondReserve, dayOfMonth, "secondReserve")
         }
         if (finishTableSetup) {
-            console.log(finishTableSetup)
             finishTableSetup()
         }
     }
