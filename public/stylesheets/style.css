@@ -1,8 +1,8 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #335577;
-  color: #ffdd33;
+  background: #ffeedd;
+  color: #333366;
 }
 
 #monats-dienstplan td {
@@ -11,7 +11,7 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #993333;
 }
 
 th {
