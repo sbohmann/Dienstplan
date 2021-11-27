@@ -34,7 +34,7 @@ function add(day, id, context) {
         context,
         id
     }
-    request.onload = fillTableContent
+    request.onload = () => fillTableContent()
     request.send(JSON.stringify(data))
 }
 
@@ -49,7 +49,7 @@ function remove(day, id, context) {
         context,
         id
     }
-    request.onload = fillTableContent
+    request.onload = () => fillTableContent()
     request.send(JSON.stringify(data))
 }
 
