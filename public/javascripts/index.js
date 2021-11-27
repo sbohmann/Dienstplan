@@ -72,6 +72,7 @@ function fillTableContent(postAction) {
             fill(day.secondReserve, dayOfMonth, "secondReserve")
         }
         if (postAction) {
+            console.log(postAction)
             postAction()
         }
     }
