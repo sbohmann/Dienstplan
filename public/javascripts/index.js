@@ -53,7 +53,7 @@ function remove(day, id, context) {
     request.send(JSON.stringify(data))
 }
 
-function fillTableContent(postAction) {
+function fillTableContent(finishTableSetup) {
     const request = new XMLHttpRequest()
     request.open('GET', '/data', true)
     request.onload = () => {
@@ -71,9 +71,9 @@ function fillTableContent(postAction) {
             fill(day.reserve, dayOfMonth, "reserve")
             fill(day.secondReserve, dayOfMonth, "secondReserve")
         }
-        if (postAction) {
-            console.log(postAction)
-            postAction()
+        if (finishTableSetup) {
+            console.log(finishTableSetup)
+            finishTableSetup()
         }
     }
     request.send()
