@@ -17,7 +17,6 @@ for (let user of storage.data.users) {
                 const high = value >> 4
                 let first = String.fromCharCode(97 + low)
                 let second = String.fromCharCode(107 + high)
-                const part = first + second
                 return first + second
             })
             .join("")
