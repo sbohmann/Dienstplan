@@ -2,6 +2,7 @@ let selectionDialog
 let confirmationDialog
 let confirmBookingButton
 let cancelUserSelectionButton
+let bookingConfirmationText
 
 window.onload = () => {
     selectionDialog = document.getElementById('selectionDialog')
@@ -10,6 +11,7 @@ window.onload = () => {
     confirmationDialog = document.getElementById('confirmationDialog')
     document.getElementById('cancelBooking').onclick = hideConfirmationDialog
     confirmBookingButton = document.getElementById('confirmBooking')
+    bookingConfirmationText = document.getElementById('bookingConfirmationText')
     fillTableContent(() => {
         let selectionButtons = document.getElementById('selectionButtons')
         for (let user of users) {
@@ -95,6 +97,7 @@ function fill(data, dayOfMonth, context) {
                     hideConfirmationDialog()
                     remove(dayOfMonth, data.id, context)
                 }
+                bookingConfirmationText.textContent = "Entfernen"
                 showConfirmationDialog()
             }
         } else {
@@ -119,6 +122,7 @@ function fill(data, dayOfMonth, context) {
                     hideConfirmationDialog()
                     add(dayOfMonth, userId, context)
                 }
+                bookingConfirmationText.textContent = "Buchen"
                 showConfirmationDialog()
             }
         }
