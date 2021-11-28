@@ -105,13 +105,16 @@ function fill(data, dayOfMonth, context) {
                 for (let user of users) {
                     const addUserButton = document.getElementById('addUserButton-' + user.id)
                     addUserButton.onclick = () => {
-                        add(dayOfMonth, user.id, context)
                         hideSelectionDialog()
+                        add(dayOfMonth, user.id, context)
                     }
                 }
                 showSelectionDialog()
             } else {
-                confirmBookingButton.onclick = () => add(dayOfMonth, userId, context)
+                confirmBookingButton.onclick = () => {
+                    hideConfirmationDialog()
+                    add(dayOfMonth, userId, context)
+                }
                 showConfirmationDialog()
             }
         }
