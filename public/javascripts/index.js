@@ -24,6 +24,7 @@ window.onload = () => {
     })
 }
 
+let monthData
 let users
 let year
 let month
@@ -65,20 +66,20 @@ function fillTableContent(finishTableSetup) {
     const request = new XMLHttpRequest()
     request.open('GET', '/data', true)
     request.onload = () => {
-        const data = JSON.parse(request.responseText)
-        users = data.users
-        year = data.year
-        month = data.month
-        userId = data.userId
-        userName = data.userName
-        userIsAdmin = data.userIsAdmin
-        const days = data.days
+        monthData = JSON.parse(request.responseText)
+        users = monthData.users
+        year = monthData.year
+        month = monthData.month
+        userId = monthData.userId
+        userName = monthData.userName
+        userIsAdmin = monthData.userIsAdmin
+        const days = monthData.days
         for (let dayIndex = 0; dayIndex < days.length; ++dayIndex) {
             const dayOfMonth = dayIndex + 1
             const day = days[dayIndex]
-            fill(day.primary, dayOfMonth, "primary")
-            fill(day.reserve, dayOfMonth, "reserve")
-            fill(day.secondReserve, dayOfMonth, "secondReserve")
+            fill(day.primary, dayOfMonth, "primary", true)
+            fill(day.reserve, dayOfMonth, "reserve", false)
+            fill(day.secondReserve, dayOfMonth, "secondReserve", false)
         }
         if (finishTableSetup) {
             finishTableSetup()
@@ -87,25 +88,25 @@ function fillTableContent(finishTableSetup) {
     request.send()
 }
 
-function fill(data, dayOfMonth, context) {
+function fill(dayBookings, dayOfMonth, context, primary) {
     const id = context + '_' + dayOfMonth
     let cell = document.getElementById(id)
-    if (data) {
+    if (dayBookings) {
         cell.classList.remove('add-button')
-        if (userIsAdmin || data.id === userId) {
+        if (userIsAdmin || dayBookings.id === userId) {
             cell.classList.add('remove-button')
             cell.onclick = () => {
                 confirmBookingButton.onclick = () => {
                     hideConfirmationDialog()
-                    remove(dayOfMonth, data.id, context)
+                    remove(dayOfMonth, dayBookings.id, context)
                 }
-                bookingConfirmationText.textContent = "Entfernen " + data.name + " " + date(dayOfMonth)
+                bookingConfirmationText.textContent = "Entfernen " + dayBookings.name + " " + date(dayOfMonth)
                 showConfirmationDialog()
             }
         } else {
             cell.classList.remove('remove-button')
         }
-        cell.textContent = data.name
+        cell.textContent = dayBookings.name
     } else {
         cell.classList.remove('remove-button')
         cell.classList.add('add-button')
@@ -120,16 +121,32 @@ function fill(data, dayOfMonth, context) {
                 }
                 showSelectionDialog()
             } else {
-                confirmBookingButton.onclick = () => {
-                    hideConfirmationDialog()
-                    add(dayOfMonth, userId, context)
+                if (bookingPermissible(primary)) {
+                    confirmBookingButton.onclick = () => {
+                        hideConfirmationDialog()
+                        add(dayOfMonth, userId, context)
+                    }
+                    bookingConfirmationText.textContent = "Buchen " + userName + " " + date(dayOfMonth)
+                    showConfirmationDialog()
+                } else {
+                    alert(primary ?
+                        "Maximal zwei Termine pro Monat" :
+                        "Maximal drei Ersatztermine pro Monat")
                 }
-                bookingConfirmationText.textContent = "Buchen " + userName + " " + date(dayOfMonth)
-                showConfirmationDialog()
             }
         }
         cell.textContent = ""
     }
+}
+
+function bookingPermissible(primary) {
+    if (primary) {
+        let bookings = 0
+        for (let day of monthData.days) {
+            console.log(day)
+        }
+    }
+    return true
 }
 
 function showSelectionDialog() {
