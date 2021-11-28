@@ -107,6 +107,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
             cell.classList.remove('remove-button')
         }
         if (dayBookings.modifiedByAdmin) {
+            console.log(dayBookings)
             cell.classList.add('administrator-modification')
         } else {
             cell.classList.remove('administrator-modification')

@@ -96,6 +96,7 @@ function Storage() {
             }
             const newData = createCopyOfData()
             let user = userForId.get(id)
+            console.log(user)
             newData.years[year][month][dayIndex][context] =
                 {
                     id: id,

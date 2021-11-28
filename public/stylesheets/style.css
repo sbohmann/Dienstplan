@@ -121,6 +121,7 @@ p.active {
   font-weight: bold;
 }
 
-.administrator-modification {
+.day_cell.administrator-modification {
   color: #dd9999;
+  font-weight: bold;
 }
