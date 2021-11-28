@@ -36,7 +36,7 @@ function add(day, id, context, modifiedByAdmin) {
     const request = new XMLHttpRequest()
     request.open('POST', '/data/add', true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    console.log('modifiedByAdmin')
+    console.log('jsindex')
     console.log(modifiedByAdmin)
     const data = {
         year,
@@ -109,7 +109,6 @@ function fill(dayBookings, dayOfMonth, context, primary) {
         } else {
             cell.classList.remove('remove-button')
         }
-        console.log(dayBookings)
         if (dayBookings.modifiedByAdmin) {
             cell.classList.add('administrator-modification')
         } else {

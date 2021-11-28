@@ -88,6 +88,7 @@ function Storage() {
         get userForId() { return userForId },
         get userIdForUserName() { return userIdForUserName },
         add(year, month, day, context, id, modifiedByAdmin, request, postAction) {
+            console.log('storage.js')
             console.log(modifiedByAdmin)
             const dayIndex = day - 1
             let currentEntry = data.years[year][month][dayIndex][context]
@@ -97,7 +98,6 @@ function Storage() {
             }
             const newData = createCopyOfData()
             let user = userForId.get(id)
-            console.log(user)
             newData.years[year][month][dayIndex][context] =
                 {
                     id: id,
