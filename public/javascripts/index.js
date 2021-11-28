@@ -1,5 +1,6 @@
 let selectionDialog
 let confirmationDialog
+let confirmBookingButton
 let cancelUserSelectionButton
 
 window.onload = () => {
@@ -8,6 +9,7 @@ window.onload = () => {
     cancelUserSelectionButton.onclick = hideSelectionDialog
     confirmationDialog = document.getElementById('confirmationDialog')
     document.getElementById('cancelBooking').onclick = hideConfirmationDialog
+    confirmBookingButton = document.getElementById('confirmBooking')
     fillTableContent(() => {
         let selectionButtons = document.getElementById('selectionButtons')
         for (let user of users) {
@@ -109,7 +111,8 @@ function fill(data, dayOfMonth, context) {
                 }
                 showSelectionDialog()
             } else {
-                showConfirmationDialog(() => add(dayOfMonth, userId, context))
+                confirmBookingButton.onclick = () => add(dayOfMonth, userId, context)
+                showConfirmationDialog()
             }
         }
         cell.textContent = ""
