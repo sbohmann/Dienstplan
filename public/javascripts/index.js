@@ -91,7 +91,11 @@ function fill(data, dayOfMonth, context) {
         if (userIsAdmin || data.id === userId) {
             cell.classList.add('remove-button')
             cell.onclick = () => {
-                remove(dayOfMonth, data.id, context)
+                confirmBookingButton.onclick = () => {
+                    hideConfirmationDialog()
+                    remove(dayOfMonth, data.id, context)
+                }
+                showConfirmationDialog()
             }
         } else {
             cell.classList.remove('remove-button')
