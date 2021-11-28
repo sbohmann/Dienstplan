@@ -47,7 +47,7 @@ router.post('/add', function (request, response, next) {
         return
     }
     console.log('data.js')
-    console.log(request.modifiedByAdmin)
+    console.log(request.body.modifiedByAdmin)
     // TODO check against current user ID - rules still outstanding
     if (userIsAdminOrIdMatches(request)) {
         storage.add(
@@ -56,7 +56,7 @@ router.post('/add', function (request, response, next) {
             request.body.day,
             request.body.context,
             request.body.id,
-            request.modifiedByAdmin,
+            request.body.modifiedByAdmin,
             JSON.stringify(request.body),
             () => response.send())
     } else {
