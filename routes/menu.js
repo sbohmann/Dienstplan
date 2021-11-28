@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+const storage = require('../storage/storage.js')
 
 router.get('/menu', function (req, res, next) {
     let userId = req.session.userId
