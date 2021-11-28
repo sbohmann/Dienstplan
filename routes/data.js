@@ -46,6 +46,8 @@ router.post('/add', function (request, response, next) {
         response.send()
         return
     }
+    console.log('data.js')
+    console.log(request.modifiedByAdmin)
     // TODO check against current user ID - rules still outstanding
     if (userIsAdminOrIdMatches(request)) {
         storage.add(
@@ -77,7 +79,7 @@ router.post('/remove', function (request, response, next) {
     } else {
         console.log("Attempt by non-admin user " + request.session.userId + " to remove user " + request.body.id)
         response.send();
-    }
+    }``
 })
 
 module.exports = router
