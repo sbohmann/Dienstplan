@@ -87,7 +87,7 @@ function Storage() {
         get data() { return data },
         get userForId() { return userForId },
         get userIdForUserName() { return userIdForUserName },
-        add(year, month, day, context, id, request, postAction) {
+        add(year, month, day, context, id, request, modifiedByAdmin, postAction) {
             const dayIndex = day - 1
             let currentEntry = data.years[year][month][dayIndex][context]
             if (currentEntry !== undefined) {
@@ -101,7 +101,7 @@ function Storage() {
                 {
                     id: id,
                     name: user.name,
-                    modifiedByAdmin: user.admin
+                    modifiedByAdmin: modifiedByAdmin
                 }
             writeChanges(newData, postAction)
         },

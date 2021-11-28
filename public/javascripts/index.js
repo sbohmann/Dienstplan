@@ -32,7 +32,7 @@ let userId
 let userIsAdmin
 let userName
 
-function add(day, id, context) {
+function add(day, id, context, modifiedByAdmin) {
     const request = new XMLHttpRequest()
     request.open('POST', '/data/add', true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -41,7 +41,8 @@ function add(day, id, context) {
         month,
         day,
         context,
-        id
+        id,
+        modifiedByAdmin
     }
     request.onload = () => fillTableContent()
     request.send(JSON.stringify(data))
@@ -107,7 +108,6 @@ function fill(dayBookings, dayOfMonth, context, primary) {
             cell.classList.remove('remove-button')
         }
         if (dayBookings.modifiedByAdmin) {
-            console.log(dayBookings)
             cell.classList.add('administrator-modification')
         } else {
             cell.classList.remove('administrator-modification')
@@ -122,7 +122,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
                     const addUserButton = document.getElementById('addUserButton-' + user.id)
                     addUserButton.onclick = () => {
                         hideSelectionDialog()
-                        add(dayOfMonth, user.id, context)
+                        add(dayOfMonth, user.id, context, true)
                     }
                 }
                 showSelectionDialog()

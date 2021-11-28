@@ -54,6 +54,7 @@ router.post('/add', function (request, response, next) {
             request.body.day,
             request.body.context,
             request.body.id,
+            request.modifiedByAdmin,
             JSON.stringify(request.body),
             () => response.send())
     } else {
