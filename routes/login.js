@@ -10,7 +10,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/', function (req, res, next) {
-    let userName = parseInt(req.body.user)
+    let userName = req.body.user
     if (checkLogin(userName, req.body.password)) {
         req.session.userId = userId
         res.status(302)
