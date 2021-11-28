@@ -143,7 +143,12 @@ function bookingPermissible(primary) {
     if (primary) {
         let bookings = 0
         for (let day of monthData.days) {
-            console.log(day)
+            if (day.primary && day.primary.id === userId) {
+                ++bookings
+            }
+        }
+        if (bookings >= 2) {
+            return false
         }
     }
     return true
