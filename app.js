@@ -8,6 +8,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const dataRouter = require('./routes/data')
 const loginRouter = require('./routes/login')
+const menuRouter = require('./routes/menu')
 
 const storage = require('./storage/storage')
 
@@ -30,6 +31,7 @@ app.use(session({
 app.use('/', indexRouter)
 app.use('/data', dataRouter)
 app.use('/login', loginRouter)
+app.use('/menu', menuRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
