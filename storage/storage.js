@@ -95,10 +95,12 @@ function Storage() {
                     ", request: " + request)
             }
             const newData = createCopyOfData()
+            let user = userForId.get(id)
             newData.years[year][month][dayIndex][context] =
                 {
                     id: id,
-                    name: userForId.get(id).name
+                    name: user.name,
+                    modifiedByAdmin: user.admin
                 }
             writeChanges(newData, postAction)
         },

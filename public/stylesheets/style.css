@@ -120,3 +120,7 @@ p.active {
   color: #f53;
   font-weight: bold;
 }
+
+.administrator-modification {
+  color: #dd9999;
+}
