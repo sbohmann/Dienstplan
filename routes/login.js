@@ -11,8 +11,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     let userName = req.body.user
-    if (checkLogin(userName, req.body.password)) {
-        req.session.userId = userId
+    if (checkLogin(userName, req)) {
         res.status(302)
         res.set('Location', '/')
         res.send()
@@ -24,7 +23,7 @@ router.post('/', function (req, res, next) {
     }
 })
 
-function checkLogin(userName, password) {
+function checkLogin(userName, req) {
     let userId = storage.userIdForUserName.get(userName)
     if (userId === undefined) {
         console.log("Unknown user name [" + userName + "]")
@@ -39,8 +38,12 @@ function checkLogin(userName, password) {
         console.log("No password configured for user [" + userId + "]")
         return false
     }
-    let calculatedHash = bcrypt.hashSync(password, user.salt)
-    return calculatedHash === user.hash
+    let calculatedHash = bcrypt.hashSync(req.body.password, user.salt)
+    if (calculatedHash === user.hash) {
+        req.session.userId = userId
+        return true
+    }
+    return false
 }
 
 module.exports = router
