@@ -124,7 +124,7 @@ function fill(data, dayOfMonth, context) {
                     hideConfirmationDialog()
                     add(dayOfMonth, userId, context)
                 }
-                bookingConfirmationText.textContent = "Buchen " + user.name
+                bookingConfirmationText.textContent = "Buchen " + userName
                 showConfirmationDialog()
             }
         }
