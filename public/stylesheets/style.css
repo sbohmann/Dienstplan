@@ -73,7 +73,7 @@ table#monats-dienstplan td.new-week {
   padding: 0;
 }
 
-#selectionDialog {
+.dialog {
   visibility: hidden;
   height: 100vh;
   width: 100vw;
@@ -87,7 +87,7 @@ table#monats-dienstplan td.new-week {
   margin: 0;
 }
 
-#selectionDialog.active {
+.dialog.active {
   visibility: visible;
 }
 

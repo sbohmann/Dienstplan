@@ -35,7 +35,10 @@ block content
                             id='secondReserve_' + row.day_of_month
                             title=row.secondary_reserve_id
                         )
-    div(id='selectionDialog')
+    div(id='selectionDialog' class='dialog')
         div(id='selectionDialogContent')
             div(id='selectionButtons')
                 button(id='cancelUserSelectionButton' class='selectUserButton')="Zurück"
+    div(id='confirmationDialog' class='dialog')
+        button(id='cancelBooking' class='selectUserButton')="Zurück"
+        button(id='confirm' class='selectUserButton')="Ja"

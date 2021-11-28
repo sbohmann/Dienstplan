@@ -1,8 +1,10 @@
 let selectionDialog
+let confirmationDialog
 let cancelUserSelectionButton
 
 window.onload = () => {
     selectionDialog = document.getElementById('selectionDialog')
+    confirmationDialog = document.getElementById('confirmationDialog')
     cancelUserSelectionButton = document.getElementById('cancelUserSelectionButton')
     cancelUserSelectionButton.onclick = hideSelectionDialog
     fillTableContent(() => {
@@ -106,7 +108,7 @@ function fill(data, dayOfMonth, context) {
                 }
                 showSelectionDialog()
             } else {
-                add(dayOfMonth, userId, context)
+                showConfirmationDialog(() => add(dayOfMonth, userId, context))
             }
         }
         cell.textContent = ""
@@ -119,4 +121,12 @@ function showSelectionDialog() {
 
 function hideSelectionDialog() {
     selectionDialog.classList.remove('active')
+}
+
+function showConfirmationDialog() {
+    confirmationDialog.classList.add('active')
+}
+
+function hideConfirmationDialog() {
+    confirmationDialog.classList.remove('active')
 }
