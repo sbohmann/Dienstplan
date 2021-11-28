@@ -36,6 +36,8 @@ function add(day, id, context, modifiedByAdmin) {
     const request = new XMLHttpRequest()
     request.open('POST', '/data/add', true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    console.log('modifiedByAdmin')
+    console.log(modifiedByAdmin)
     const data = {
         year,
         month,
