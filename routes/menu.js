@@ -14,3 +14,5 @@ router.get('/menu', function (req, res, next) {
         admin: user.admin || false
     })
 })
+
+module.exports = router
