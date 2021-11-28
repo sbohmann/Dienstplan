@@ -4,9 +4,10 @@ let cancelUserSelectionButton
 
 window.onload = () => {
     selectionDialog = document.getElementById('selectionDialog')
-    confirmationDialog = document.getElementById('confirmationDialog')
     cancelUserSelectionButton = document.getElementById('cancelUserSelectionButton')
     cancelUserSelectionButton.onclick = hideSelectionDialog
+    confirmationDialog = document.getElementById('confirmationDialog')
+    document.getElementById('cancelBooking').onclick = hideConfirmationDialog
     fillTableContent(() => {
         let selectionButtons = document.getElementById('selectionButtons')
         for (let user of users) {
