@@ -29,6 +29,7 @@ let year
 let month
 let userId
 let userIsAdmin
+let userName
 
 function add(day, id, context) {
     const request = new XMLHttpRequest()
@@ -69,6 +70,7 @@ function fillTableContent(finishTableSetup) {
         year = data.year
         month = data.month
         userId = data.userId
+        userName = data.userName
         userIsAdmin = data.userIsAdmin
         const days = data.days
         for (let dayIndex = 0; dayIndex < days.length; ++dayIndex) {
@@ -122,7 +124,7 @@ function fill(data, dayOfMonth, context) {
                     hideConfirmationDialog()
                     add(dayOfMonth, userId, context)
                 }
-                bookingConfirmationText.textContent = "Buchen " + data.name
+                bookingConfirmationText.textContent = "Buchen " + user.name
                 showConfirmationDialog()
             }
         }

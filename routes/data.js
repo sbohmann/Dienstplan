@@ -13,6 +13,7 @@ const users = storage.data.users
 
 router.get('/', function (req, res, next) {
     let userId = req.session.userId
+    let userName = storage.userForId.get(userId).name
     if (!userId) {
         res.status(401)
         res.send()
@@ -26,6 +27,7 @@ router.get('/', function (req, res, next) {
         year,
         month,
         userId,
+        userName,
         userIsAdmin,
         days
     }
