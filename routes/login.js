@@ -10,8 +10,8 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/', function (req, res, next) {
-    let userId = parseInt(req.body.user)
-    if (checkLogin(userId, req.body.password)) {
+    let userName = parseInt(req.body.user)
+    if (checkLogin(userName, req.body.password)) {
         req.session.userId = userId
         res.status(302)
         res.set('Location', '/')
@@ -24,13 +24,18 @@ router.post('/', function (req, res, next) {
     }
 })
 
-function checkLogin(userId, password) {
-    let user = storage.userForId.get(userId)
-    if (!user) {
-        console.log("Unknown user [" + userId + "]")
+function checkLogin(userName, password) {
+    let userId = storage.userIdForUserName.get(userName)
+    if (userId === undefined) {
+        console.log("Unknown user name [" + userName + "]")
         return false
     }
-    if (!user.salt || !user.hash) {
+    let user = storage.userForId.get(userId)
+    if (user === undefined) {
+        console.log("Unknown user ID [" + userId + "]")
+        return false
+    }
+    if (user.salt === undefined || user.hash === undefined) {
         console.log("No password configured for user [" + userId + "]")
         return false
     }

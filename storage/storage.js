@@ -53,6 +53,14 @@ function Storage() {
         userForId.set(user.id, user)
     }
 
+    const userIdForUserName = new Map()
+    for (const user of data.users) {
+        if (userIdForUserName.has(user.name)) {
+            throw RangeError("Duplicate user name: " + user.id)
+        }
+        userForId.set(user.name, user.id)
+    }
+
     function writeChanges(newData, postAction) {
         // TODO report back in case of both success and error - a pending and error state in the UI are required
         // TODO create a copy of data before writing, only update if successful
@@ -78,6 +86,7 @@ function Storage() {
     return {
         get data() { return data },
         get userForId() { return userForId },
+        get userIdForUserName() { return userIdForUserName },
         add(year, month, day, context, id, request, postAction) {
             const dayIndex = day - 1
             let currentEntry = data.years[year][month][dayIndex][context]
