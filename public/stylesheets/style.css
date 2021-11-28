@@ -123,5 +123,6 @@ p.active {
 
 .day_cell.administrator-modification {
   color: #dd9999;
+  background-color: yellow;
   font-weight: bold;
 }
