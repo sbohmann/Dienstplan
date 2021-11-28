@@ -99,7 +99,7 @@ function fill(data, dayOfMonth, context) {
                     hideConfirmationDialog()
                     remove(dayOfMonth, data.id, context)
                 }
-                bookingConfirmationText.textContent = "Entfernen " + data.name
+                bookingConfirmationText.textContent = "Entfernen " + data.name + " " + date(dayOfMonth)
                 showConfirmationDialog()
             }
         } else {
@@ -124,7 +124,7 @@ function fill(data, dayOfMonth, context) {
                     hideConfirmationDialog()
                     add(dayOfMonth, userId, context)
                 }
-                bookingConfirmationText.textContent = "Buchen " + userName
+                bookingConfirmationText.textContent = "Buchen " + userName + " " + date(dayOfMonth)
                 showConfirmationDialog()
             }
         }
@@ -146,4 +146,12 @@ function showConfirmationDialog() {
 
 function hideConfirmationDialog() {
     confirmationDialog.classList.remove('active')
+}
+
+function date(dayOfMonth) {
+    return year + "-" + twoDigits(month) + "-" + twoDigits(dayOfMonth)
+}
+
+function twoDigits(n) {
+    return n < 10 ? "0" + n : n
 }
