@@ -58,7 +58,7 @@ function Storage() {
         if (userIdForUserName.has(user.name)) {
             throw RangeError("Duplicate user name: " + user.id)
         }
-        userForId.set(user.name, user.id)
+        userIdForUserName.set(user.name, user.id)
     }
 
     function writeChanges(newData, postAction) {
