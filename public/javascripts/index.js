@@ -158,21 +158,6 @@ function bookingPermissible(primary) {
         if (bookings >= 2) {
             return false
         }
-    } else {
-        let bookings = 0
-        for (let day of monthData.days) {
-            if (day.reserve && day.reserve.id === userId) {
-                ++bookings
-            }
-        }
-        for (let day of monthData.days) {
-            if (day.secondReserve && day.secondReserve.id === userId) {
-                ++bookings
-            }
-        }
-        if (bookings >= 3) {
-            return false
-        }
     }
     return true
 }
