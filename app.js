@@ -9,6 +9,7 @@ const indexRouter = require('./routes/index')
 const dataRouter = require('./routes/data')
 const loginRouter = require('./routes/login')
 const menuRouter = require('./routes/menu')
+const passwordRouter = require('./routes/password')
 
 const storage = require('./storage/storage')
 
@@ -32,6 +33,7 @@ app.use('/', indexRouter)
 app.use('/data', dataRouter)
 app.use('/login', loginRouter)
 app.use('/menu', menuRouter)
+app.use('/password', passwordRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

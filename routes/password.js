@@ -45,5 +45,5 @@ router.get('/', function (req, res, next) {
 //     }
 //     return false
 // }
-//
-// module.exports = router
+
+module.exports = router
