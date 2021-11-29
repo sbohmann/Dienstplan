@@ -4,6 +4,13 @@ const storage = require('../storage/storage')
 const bcrypt = require('bcrypt')
 
 router.get('/', function (req, res, next) {
+    let userId = req.session.userId
+    if (!userId) {
+        res.status(302)
+        res.set('Location', '/login')
+        res.send()
+        return
+    }
     res.render('password', {
         title: "Passwort ändern"
     })
