@@ -16,19 +16,18 @@ router.get('/', function (req, res, next) {
     })
 })
 
-// router.post('/', function (req, res, next) {
-//     let userName = req.body.user
-//     if (checkLogin(userName, req)) {
-//         res.status(302)
-//         res.set('Location', '/')
-//         res.send()
-//     } else {
-//         console.log("Login failed for user [" + req.body.user + "]")
-//         res.status(302)
-//         res.set('Location', '/login')
-//         res.send()
-//     }
-// })
+router.post('/', function (req, res, next) {
+    if (changePassword(userName, req)) {
+        res.status(302)
+        res.set('Location', '/')
+        res.send()
+    } else {
+        console.log("Login failed for user [" + req.body.user + "]")
+        res.status(302)
+        res.set('Location', '/login')
+        res.send()
+    }
+})
 //
 // function checkLogin(userName, req) {
 //     let userId = storage.userIdForUserName.get(userName)

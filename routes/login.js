@@ -10,8 +10,7 @@ router.get('/', function (req, res, next) {
 })
 
 router.post('/', function (req, res, next) {
-    let userName = req.body.user
-    if (checkLogin(userName, req)) {
+    if (checkLogin(req)) {
         res.status(302)
         res.set('Location', '/')
         res.send()
@@ -23,7 +22,8 @@ router.post('/', function (req, res, next) {
     }
 })
 
-function checkLogin(userName, req) {
+function checkLogin(req) {
+    let userName = req.body.user
     let userId = storage.userIdForUserName.get(userName)
     if (userId === undefined) {
         console.log("Unknown user name [" + userName + "]")
