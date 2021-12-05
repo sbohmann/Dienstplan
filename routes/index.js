@@ -39,7 +39,7 @@ for (let date = joda.LocalDate.of(year, month, 1);
 
 router.get('/', function (req, res, next) {
     let userId = req.session.userId
-    if (!userId) {
+    if (userId === undefined) {
         res.status(302)
         res.set('Location', '/login')
         res.send()

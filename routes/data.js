@@ -14,7 +14,7 @@ const users = storage.data.users
 router.get('/', function (req, res, next) {
     let userId = req.session.userId
     let userName = storage.userForId.get(userId).name
-    if (!userId) {
+    if (userId === undefined) {
         res.status(401)
         res.send()
         return
