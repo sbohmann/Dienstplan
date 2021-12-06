@@ -69,7 +69,7 @@ router.post('/', function (request, result, next) {
             throw new Error("Benutzer-ID unbekannt")
         }
         if (user.salt === undefined || user.hash === undefined) {
-            console.log("No password configured for user [" + userId + "]")
+            console.log("No password configured for user [" + userId + "]", user)
             throw new Error("Kein Passwort hinterlegt")
         }
         let calculatedHash = bcrypt.hashSync(request.body.password, user.salt)
