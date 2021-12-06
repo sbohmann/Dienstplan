@@ -1,4 +1,5 @@
 const fs = require('fs')
+const bcrypt = require('bcrypt')
 const writeFileAtomic = require('write-file-atomic')
 
 let dataPath = 'data.json'
@@ -119,6 +120,14 @@ function Storage() {
         },
         writeData(postAction) {
             writeChanges(data, postAction)
+        },
+        setPassword(userId, newPassword) {
+            let user = userForId.get(userId)
+            let newSalt = bcrypt.genSaltSync()
+            const newHash = bcrypt.hashSync(newPassword, newSalt)
+            // TODO store new salt and hash
+            user.salt = newSalt
+            user.hash = newHash
         }
     }
 }

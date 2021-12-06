@@ -23,7 +23,7 @@ for (let user of storage.data.users) {
         const hash = bcrypt.hashSync(password, salt)
         console.log("user ID: " + user.id)
         console.log("user name: " + user.name)
-        console.log("salt: " + salt + "")
+        console.log("salt: " + salt)
         console.log("password: " + password)
         console.log("hash: " + hash)
         user.salt = salt

@@ -66,16 +66,18 @@ router.post('/', function (request, result, next) {
         let user = storage.userForId.get(userId)
         if (user === undefined) {
             console.log("Unknown user ID [" + userId + "]")
-            throw new Error("Benutzer-ID unbekannt")
+            throw new Error("Benutzer unbekannt")
         }
         if (user.salt === undefined || user.hash === undefined) {
             console.log("No password configured for user [" + userId + "]", user)
             throw new Error("Kein Passwort hinterlegt")
         }
-        let calculatedHash = bcrypt.hashSync(request.body.current, user.salt)
+        let newPassword = request.body.current
+        let calculatedHash = bcrypt.hashSync(newPassword, user.salt)
         if (calculatedHash !== user.hash) {
             throw new Error("Aktuelles Passwort falsch")
         }
+        storage.setPassword(userId, newPassword)
     }
 
     reply()
