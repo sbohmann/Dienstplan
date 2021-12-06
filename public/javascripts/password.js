@@ -83,7 +83,7 @@ function newPassword() {
 }
 
 function changePassword() {
-    if (!inputComplete()) {
+    if (!inputComplete) {
         return
     }
     fetch('password', {method: 'POST', body: passwordChangeRequest()})
