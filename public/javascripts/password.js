@@ -47,7 +47,7 @@ function setInputStatus() {
         inputCorrect = false
         newPasswordTooWeak = true
     }
-    inputCorrect = inputComplete && isInputCorrect()
+    inputCorrect = inputComplete && newPasswordsMatch()
     passwordMismatch = newPasswordMismatch
     passwordTooWeak = newPasswordTooWeak
 }
