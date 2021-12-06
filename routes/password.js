@@ -41,7 +41,7 @@ router.post('/', function (request, result, next) {
         try {
             changePassword(request)
         } catch (error) {
-            console.log("Password change failed for user [" + request.body.user + "]: " + error.message)
+            console.log("Password change failed for user [" + request.body.user + "]:", error)
             result.status(401)
             result.send(error.message)
         }

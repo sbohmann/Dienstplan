@@ -107,7 +107,7 @@ function changePassword() {
         })
 }
 
-function passwordChangeRequest() {
+function passwordChangeRequest(userId) {
     return JSON.stringify({
         current: currentPasswordInput.value,
         new: newPasswordInput.value,
