@@ -14,7 +14,7 @@ function setupControls() {
     currentPasswordInput = getAndWireInput('current')
     newPasswordInput = getAndWireInput('new')
     repeatedPasswordInput = getAndWireInput('repetition')
-    changePasswordButton = getAndWireInput('changePassword')
+    changePasswordButton = document.getElementById('changePassword')
     setButtonStatus()
 }
 
