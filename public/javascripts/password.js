@@ -48,11 +48,11 @@ function setInputStatus() {
     }
     inputCorrect = inputComplete && newPasswordsMatch()
     if (passwordErrorMessage === undefined) {
-        // passwordErrorMessageView.textContent = passwordErrorMessage
-        // passwordErrorMessageView.removeAttribute('hidden')
+        passwordErrorMessageView.textContent = undefined
+        passwordErrorMessageView.setAttribute('hidden')
     } else {
-        // passwordErrorMessageView.textContent = "blabla"
-        // passwordErrorMessageView.setAttribute('hidden')
+        passwordErrorMessageView.textContent = passwordErrorMessage
+        passwordErrorMessageView.removeAttribute('hidden')
     }
 }
 
