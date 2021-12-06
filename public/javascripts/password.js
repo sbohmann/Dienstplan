@@ -51,7 +51,7 @@ function setInputStatus() {
         passwordErrorMessageView.textContent = passwordErrorMessage
         // passwordErrorMessageView.removeAttribute('hidden')
     } else {
-        passwordErrorMessageView.textContent = undefined
+        passwordErrorMessageView.textContent = "blabla"
         // passwordErrorMessageView.setAttribute('hidden')
     }
 }
