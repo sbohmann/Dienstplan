@@ -101,8 +101,10 @@ function changePassword() {
                 alert("Passwort erfolgreich geändert")
                 window.location.href = '/'
             } else {
-                passwordErrorMessageView.textContent = response.text()
-                passwordErrorMessageView.removeAttribute('hidden')
+                response.text().then(text => {
+                    passwordErrorMessageView.textContent = text
+                    passwordErrorMessageView.removeAttribute('hidden')
+                })
             }
         })
 }
