@@ -75,7 +75,7 @@ router.post('/', function (request, result, next) {
         let newPassword = request.body.new
         // TODO remove
         console.log("setting salt and hash for new password", newPassword, request.body)
-        let calculatedHash = bcrypt.hashSync(request.current, user.salt)
+        let calculatedHash = bcrypt.hashSync(request.body.current, user.salt)
         if (calculatedHash !== user.hash) {
             throw new Error("Aktuelles Passwort falsch")
         }
