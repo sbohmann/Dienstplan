@@ -130,6 +130,7 @@ function Storage() {
             user.hash = newHash
             // TODO remove
             console.log("modified user", user)
+            writeChanges(data)
         }
     }
 }
