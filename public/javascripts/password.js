@@ -90,6 +90,7 @@ function changePassword() {
         {
             method: 'POST',
             headers: {
+                'Accepted': 'text/plain',
                 'Content-Type': 'application/json'
             },
             body: passwordChangeRequest()
