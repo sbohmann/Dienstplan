@@ -128,6 +128,8 @@ function Storage() {
             // TODO store new salt and hash
             user.salt = newSalt
             user.hash = newHash
+            // TODO remove
+            console.log(user)
         }
     }
 }

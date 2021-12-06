@@ -46,6 +46,8 @@ router.get('/', function (req, res, next) {
         return
     }
     let userForId = storage.userForId.get(userId)
+    // TODO remove
+    console.log(userForId)
     res.render('index', {
         title: monthName[month - 1] + " " + year,
         month: monthName[month - 1],
