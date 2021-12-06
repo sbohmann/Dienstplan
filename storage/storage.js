@@ -129,7 +129,7 @@ function Storage() {
             user.salt = newSalt
             user.hash = newHash
             // TODO remove
-            console.log(user)
+            console.log("modified user", user)
         }
     }
 }
