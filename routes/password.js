@@ -56,36 +56,26 @@ router.post('/', function (request, result, next) {
             throw new Error("No password configured for user [" + userId + "]")
         }
         console.log(request.body)
-        // let calculatedHash = bcrypt.hashSync(request.body.password, user.salt)
-        // if (calculatedHash === user.hash) {
-        //     request.session.userId = userId
-        // }
-        // result.status(200)
-        // result.send()
+        checkCurrentPassword(request)
+        // console.log("Password change failed for user [" + request.body.user + "]: " + error.message)
+        result.status(200)
+        result.send()
     }
 
     function checkCurrentPassword(request) {
-        let userName = req.body.user
-        let userId = storage.userIdForUserName.get(userName)
-        if (userId === undefined) {
-            console.log("Unknown user name [" + userName + "]")
-            return false
-        }
         let user = storage.userForId.get(userId)
         if (user === undefined) {
             console.log("Unknown user ID [" + userId + "]")
-            return false
+            throw new Error("Benutzer-ID unbekannt")
         }
         if (user.salt === undefined || user.hash === undefined) {
             console.log("No password configured for user [" + userId + "]")
-            return false
+            throw new Error("Kein Passwort hinterlegt")
         }
-        let calculatedHash = bcrypt.hashSync(req.body.password, user.salt)
-        if (calculatedHash === user.hash) {
-            req.session.userId = userId
-            return true
+        let calculatedHash = bcrypt.hashSync(request.body.password, user.salt)
+        if (calculatedHash !== user.hash) {
+            throw new Error("Aktuelles Passwort falsch")
         }
-        return false
     }
 
     reply()

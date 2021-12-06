@@ -96,6 +96,13 @@ function changePassword() {
         })
         .then(response => {
             console.log(response)
+            if (response.ok) {
+                alert("Passwort erfolgreich geändert")
+                window.location.href = '/'
+            } else {
+                passwordErrorMessageView.textContent = response.body
+                passwordErrorMessageView.removeAttribute('hidden')
+            }
         })
 }
 
