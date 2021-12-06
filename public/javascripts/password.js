@@ -31,7 +31,7 @@ function getAndWireInput(id) {
 
 function setButtonStatus() {
     setInputStatus()
-    changePasswordButton.disabled = !inputComplete() || !inputCorrect()
+    changePasswordButton.disabled = !inputComplete || !inputCorrect
 }
 
 function setInputStatus() {
