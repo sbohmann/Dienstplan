@@ -26,7 +26,7 @@ function getAndWireInput(id) {
 }
 
 function setButtonStatus() {
-    changePasswordButton.enabled = changePasswordButtonEnabled()
+    changePasswordButton.disabled = !changePasswordButtonEnabled()
 }
 
 function changePasswordButtonEnabled() {
