@@ -101,7 +101,7 @@ function changePassword() {
                 alert("Passwort erfolgreich geändert")
                 window.location.href = '/'
             } else {
-                passwordErrorMessageView.textContent = response.body
+                passwordErrorMessageView.textContent = response.text()
                 passwordErrorMessageView.removeAttribute('hidden')
             }
         })
@@ -110,7 +110,6 @@ function changePassword() {
 function passwordChangeRequest(userId) {
     return JSON.stringify({
         current: currentPasswordInput.value,
-        new: newPasswordInput.value,
-        repetition: repeatedPasswordInput.value
+        new: newPasswordInput.value
     })
 }
