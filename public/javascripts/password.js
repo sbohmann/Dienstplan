@@ -93,9 +93,9 @@ function changePassword() {
 }
 
 function passwordChangeRequest() {
-    return {
+    return JSON.stringify({
         current: currentPasswordInput.value,
         new: newPasswordInput.value,
         repetition: repeatedPasswordInput.value
-    }
+    })
 }
