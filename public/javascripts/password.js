@@ -2,12 +2,11 @@ let currentPasswordInput
 let newPasswordInput
 let repeatedPasswordInput
 let changePasswordButton
+let passwordErrorMessageView
 
 let inputElements = []
 let inputComplete = false
 let inputCorrect = false
-let passwordMismatch = false
-let passwordTooWeak = false
 
 window.onload = () => {
     setupControls()
@@ -19,12 +18,13 @@ function setupControls() {
     newPasswordInput = getAndWireInput('new')
     repeatedPasswordInput = getAndWireInput('repetition')
     changePasswordButton = document.getElementById('changePassword')
+    passwordErrorMessageView = document.getElementById('passwordErrorMessage')
     setButtonStatus()
 }
 
 function getAndWireInput(id) {
     let element = document.getElementById(id)
-    element.onchange = setButtonStatus
+    element.oninput = setButtonStatus
     inputElements.push(element)
     return element
 }
@@ -36,20 +36,24 @@ function setButtonStatus() {
 
 function setInputStatus() {
     inputComplete = isInputComplete()
-    let newPasswordMismatch = false
-    let newPasswordTooWeak = false
+    let passwordErrorMessage
     if (!inputComplete) {
         inputCorrect = false
     } else if (!newPasswordsMatch()) {
         inputCorrect = false
-        newPasswordMismatch = true
+        passwordErrorMessage = "Eingaben für neues Paswort stimmen nicht überein"
     } else if (newPasswordSufficientlyStrong()) {
         inputCorrect = false
-        newPasswordTooWeak = true
+        passwordErrorMessage = "Neues Passwort weniger als 12 Zeichen lang"
     }
     inputCorrect = inputComplete && newPasswordsMatch()
-    passwordMismatch = newPasswordMismatch
-    passwordTooWeak = newPasswordTooWeak
+    if (passwordErrorMessage === undefined) {
+        passwordErrorMessageView.textContent = passwordErrorMessage
+        passwordErrorMessageView.removeAttribute('hidden')
+    } else {
+        passwordErrorMessageView.textContent = undefined
+        passwordErrorMessageView.setAttribute('hidden')
+    }
 }
 
 function isInputComplete() {
@@ -62,16 +66,20 @@ function isInputComplete() {
 }
 
 function newPasswordsMatch() {
-    let password = newPasswordInput.value
-    if (repeatedPasswordInput.value !== newPasswordInput.value) {
-        throw new RangeError("Unexpected password mismatch")
-    }
-    // TODO determine appropriate heuristics
-    return password.length >= 12
+    let newPassword = newPasswordInput.value
+    return repeatedPasswordInput.value === newPassword
 }
 
 function newPasswordSufficientlyStrong() {
+    return newPassword().length >= 12
+}
 
+function newPassword() {
+    let result = newPasswordInput.value
+    if (repeatedPasswordInput.value !== result) {
+        throw new RangeError("Unexpected password mismatch")
+    }
+    return result
 }
 
 function changePassword() {
