@@ -4,6 +4,10 @@ let repeatedPasswordInput
 let changePasswordButton
 
 let inputElements = []
+let inputComplete = false
+let inputCorrect = false
+let passwordMismatch = false
+let passwordTooWeak = false
 
 window.onload = () => {
     setupControls()
@@ -26,10 +30,29 @@ function getAndWireInput(id) {
 }
 
 function setButtonStatus() {
-    changePasswordButton.disabled = !changePasswordButtonEnabled()
+    setInputStatus()
+    changePasswordButton.disabled = !inputComplete() || !inputCorrect()
 }
 
-function changePasswordButtonEnabled() {
+function setInputStatus() {
+    inputComplete = isInputComplete()
+    let newPasswordMismatch = false
+    let newPasswordTooWeak = false
+    if (!inputComplete) {
+        inputCorrect = false
+    } else if (!newPasswordsMatch()) {
+        inputCorrect = false
+        newPasswordMismatch = true
+    } else if (newPasswordSufficientlyStrong()) {
+        inputCorrect = false
+        newPasswordTooWeak = true
+    }
+    inputCorrect = inputComplete && isInputCorrect()
+    passwordMismatch = newPasswordMismatch
+    passwordTooWeak = newPasswordTooWeak
+}
+
+function isInputComplete() {
     for (let element of inputElements) {
         if (element.value.trim().length === 0) {
             return false
@@ -38,7 +61,23 @@ function changePasswordButtonEnabled() {
     return true
 }
 
+function newPasswordsMatch() {
+    let password = newPasswordInput.value
+    if (repeatedPasswordInput.value !== newPasswordInput.value) {
+        throw new RangeError("Unexpected password mismatch")
+    }
+    // TODO determine appropriate heuristics
+    return password.length >= 12
+}
+
+function newPasswordSufficientlyStrong() {
+
+}
+
 function changePassword() {
+    if (!inputComplete()) {
+        return
+    }
     fetch('password', {method: 'POST', body: passwordChangeRequest()})
         .then(response => {
             console.log(response)
