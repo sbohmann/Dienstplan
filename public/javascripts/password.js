@@ -42,7 +42,7 @@ function setInputStatus() {
     } else if (!newPasswordsMatch()) {
         inputCorrect = false
         passwordErrorMessage = "Eingaben für neues Paswort stimmen nicht überein"
-    } else if (newPasswordSufficientlyStrong()) {
+    } else if (!newPasswordSufficientlyStrong()) {
         inputCorrect = false
         passwordErrorMessage = "Neues Passwort weniger als 12 Zeichen lang"
     }
