@@ -4,7 +4,18 @@ let confirmBookingButton
 let cancelUserSelectionButton
 let bookingConfirmationText
 
+let monthData
+let users
+let year
+let month
+let userId
+let userIsAdmin
+let userName
+
 window.onload = () => {
+    let match  = window.location.pathname.match(/\/(\d+)\/(\d+)/)
+    year = Number(match[1])
+    month = Number(match[2])
     selectionDialog = document.getElementById('selectionDialog')
     cancelUserSelectionButton = document.getElementById('cancelUserSelectionButton')
     cancelUserSelectionButton.onclick = hideSelectionDialog
@@ -24,17 +35,9 @@ window.onload = () => {
     })
 }
 
-let monthData
-let users
-let year
-let month
-let userId
-let userIsAdmin
-let userName
-
 function add(day, id, context, modifiedByAdmin) {
     const request = new XMLHttpRequest()
-    request.open('POST', '/data/add', true)
+    request.open('POST', '/data/add/' + year + '/' + month, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     console.log('jsindex')
     console.log(modifiedByAdmin)
@@ -52,7 +55,7 @@ function add(day, id, context, modifiedByAdmin) {
 
 function remove(day, id, context) {
     const request = new XMLHttpRequest()
-    request.open('POST', '/data/remove', true)
+    request.open('POST', '/data/remove/' + year + '/' + month, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     const data = {
         year,
@@ -67,12 +70,13 @@ function remove(day, id, context) {
 
 function fillTableContent(finishTableSetup) {
     const request = new XMLHttpRequest()
-    request.open('GET', '/data', true)
+    request.open('GET', '/data/' + year + '/' + month, true)
     request.onload = () => {
         monthData = JSON.parse(request.responseText)
         users = monthData.users
-        year = monthData.year
-        month = monthData.month
+        // TODO replace assignment with checks for year and month
+        // year = monthData.year
+        // month = monthData.month
         userId = monthData.userId
         userName = monthData.userName
         userIsAdmin = monthData.userIsAdmin

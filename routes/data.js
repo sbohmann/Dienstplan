@@ -1,9 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const storage = require('../storage/storage.js')
-
-const year = 2021
-const month = 8
+const joda = require('@js-joda/core')
 
 const users = storage.data.users
     .map(user => ({
@@ -11,7 +9,7 @@ const users = storage.data.users
         name: user.name
     }))
 
-router.get('/', function (req, res, next) {
+router.get('/:year/:month', function (req, res) {
     let userId = req.session.userId
     let userName = storage.userForId.get(userId).name
     if (userId === undefined) {
@@ -19,6 +17,15 @@ router.get('/', function (req, res, next) {
         res.send()
         return
     }
+    let year = Number(req.params.year)
+    let month = Number(req.params.month)
+    if (!validYear(year) || !validMonth(month)) {
+        console.log("Illegal year/month [" + year + "] / [" + month + "]")
+        res.status(500)
+        res.send()
+        return
+    }
+    createMonthIfMissing(year, month)
     let days = storage.data.years[year][month]
     let userForId = storage.userForId.get(userId)
     let userIsAdmin = !!userForId.admin
@@ -34,16 +41,46 @@ router.get('/', function (req, res, next) {
     res.json(monthData)
 })
 
+function createMonthIfMissing(year, month) {
+    if (storage.data.years[year] === undefined) {
+        storage.data.years[year] = {}
+    }
+    if (storage.data.years[year][month] === undefined) {
+        storage.data.years[year][month] = []
+        for (let day = joda.LocalDate.of(year, month, 1);
+             day.monthValue() === month;
+             day = day.plusDays(1)) {
+            storage.data.years[year][month].push({})
+        }
+    }
+}
+
+function validYear(year) {
+    return Number.isInteger(year) && year >= 1900
+}
+
+function validMonth(month) {
+    return Number.isInteger(month) && month >= 1 && month <= 12
+}
+
 function userIsAdminOrIdMatches(req) {
     let userForSessionUserId = storage.userForId.get(req.session.userId)
     let userIsAdmin = userForSessionUserId.admin
     return userIsAdmin || req.body.id === req.session.userId
 }
 
-router.post('/add', function (request, response, next) {
+router.post('/add/:year/:month', function (request, response) {
     if (!request.session.userId) {
         response.status(401)
         response.send()
+        return
+    }
+    let year = Number(request.params.year)
+    let month = Number(request.params.month)
+    if (!validYear(year) || !validMonth(month)) {
+        console.log("Illegal year/month [" + year + "] / [" + month + "]")
+        res.status(500)
+        res.send()
         return
     }
     console.log('data.js')
@@ -65,7 +102,15 @@ router.post('/add', function (request, response, next) {
     }
 })
 
-router.post('/remove', function (request, response, next) {
+router.post('/remove/:year/:month', function (request, response) {
+    let year = Number(request.params.year)
+    let month = Number(request.params.month)
+    if (!validYear(year) || !validMonth(month)) {
+        console.log("Illegal year/month [" + year + "] / [" + month + "]")
+        res.status(500)
+        res.send()
+        return
+    }
     // TODO check against current user ID - rules still outstanding
     if (userIsAdminOrIdMatches(request)) {
         storage.remove(
