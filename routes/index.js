@@ -57,7 +57,11 @@ router.get('/:year/:month', function (request, response, next) {
         month: monthName[month.month - 1],
         rows,
         user_id: userId,
-        user_name: userForId.name + (userForId.admin ? " (Administrator)" : "")
+        user_name: userForId.name + (userForId.admin ? " (Administrator)" : ""),
+        previousYearLink: monthLink(month, true, -1),
+        previousMonthLink: monthLink(month, false, -1),
+        nextMonthLink: monthLink(month, false, 1),
+        nextYearLink: monthLink(month, true, 1)
     })
 })
 
@@ -86,6 +90,12 @@ function buildRows(month) {
         result.push(row)
     }
     return result
+}
+
+function monthLink(month, isYear, delta) {
+    let currentMonthStart = joda.LocalDate.of(month.year, month.month, 1)
+    let linkMonthStart = isYear ? currentMonthStart.plusYears(delta) : currentMonthStart.plusMonths(delta)
+    return '/' + linkMonthStart.year() + '/' + linkMonthStart.monthValue()
 }
 
 module.exports = router

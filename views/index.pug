@@ -6,6 +6,17 @@ block scripts
 block content
     div(id='content')
         h1=title
+        span
+            a(href=previousYearLink) <<
+        | -------
+        span
+            a(href=previousMonthLink) <
+        | -------
+        span
+            a(href=nextMonthLink) >
+        | -------
+        span
+            a(href=nextYearLink) >>
         h2=user_name
         h2=user_is_admin
         a(href='/menu') Verwaltung
