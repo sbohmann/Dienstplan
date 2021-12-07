@@ -159,6 +159,20 @@ function bookingPermissible(primary) {
             return false
         }
     }
+    // else {
+    //     let bookings = 0
+    //     for (let day of monthData.days) {
+    //         if (day.reserve && day.reserve.id === userId) {
+    //             ++bookings
+    //         }
+    //         if (day.secondary && day.secondary.id === userId) {
+    //             ++bookings
+    //         }
+    //     }
+    //     if (bookings >= 3) {
+    //         return false
+    //     }
+    // }
     return true
 }
 

@@ -1,7 +1,7 @@
 extends layout
 
 block scripts
-    script(src="javascripts/index.js")
+    script(src="/javascripts/index.js")
 
 block content
     div(id='content')
@@ -27,17 +27,14 @@ block content
                         td(
                             id='primary_' + row.day_of_month
                             class='day_cell'
-                            title=row.primary_id
                         )
                         td(
                             id='reserve_' + row.day_of_month
                             class='day_cell'
-                            title=row.reserve_id
                         )
                         td(
                             id='secondReserve_' + row.day_of_month
                             class='day_cell'
-                            title=row.secondary_reserve_id
                         )
     div(id='selectionDialog' class='dialog')
         div(id='selectionDialogContent')

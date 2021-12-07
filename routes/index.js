@@ -2,12 +2,10 @@ const express = require('express')
 const router = express.Router()
 const joda = require('@js-joda/core')
 const storage = require('../storage/storage.js')
+const createError = require('http-errors')
 
-const year = 2021
-const month = 8
-
-let weekdayName = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-let monthName = [
+const weekdayName = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
+const monthName = [
     "Januar",
     "Februar",
     "März",
@@ -21,40 +19,73 @@ let monthName = [
     "November",
     "Dezember"]
 
-let rows = []
-for (let date = joda.LocalDate.of(year, month, 1);
-     date.month().value() === month;
-     date = date.plusDays(1)) {
-    const dayOfWeek = date.dayOfWeek()
-    let monday = (dayOfWeek === joda.DayOfWeek.MONDAY)
-    if (date.dayOfMonth() > 1 && monday) {
-        rows.push({week_change: true})
-    }
-    let row = {
-        day_of_month: date.dayOfMonth(),
-        weekday: weekdayName[dayOfWeek.ordinal()]
-    }
-    rows.push(row)
-}
-
-router.get('/', function (req, res, next) {
-    let userId = req.session.userId
+router.get('/', function (request, response) {
+    let userId = request.session.userId
     if (userId === undefined) {
-        res.status(302)
-        res.set('Location', '/login')
-        res.send()
+        response.status(302)
+        response.set('Location', '/login')
+        response.send()
+    } else {
+        let today = joda.LocalDate.now()
+        let year = Number(today.year())
+        let month = Number(today.monthValue())
+        response.status(302)
+        response.set('Location', '/' + year + '/' + month)
+        response.send()
+    }
+})
+
+router.get('/:year/:month', function (request, response, next) {
+    let userId = request.session.userId
+    if (userId === undefined) {
+        response.status(302)
+        response.set('Location', '/login')
+        response.send()
         return
     }
+    let month = {}
+    month.year = Number(request.params.year)
+    month.month = Number(request.params.month)
+    if (!validYear(month.year) || !validMonth(month.month)) {
+        return next(createError(404))
+    }
     let userForId = storage.userForId.get(userId)
-    // TODO remove
     console.log(userForId)
-    res.render('index', {
-        title: monthName[month - 1] + " " + year,
-        month: monthName[month - 1],
+    let rows = buildRows(month)
+    response.render('index', {
+        title: monthName[month.month - 1] + " " + month.year,
+        month: monthName[month.month - 1],
         rows,
         user_id: userId,
         user_name: userForId.name + (userForId.admin ? " (Administrator)" : "")
     })
 })
+
+function validYear(year) {
+    return Number.isInteger(year) && year >= 1900
+}
+
+function validMonth(month) {
+    return Number.isInteger(month) && month >= 1 && month <= 12
+}
+
+function buildRows(month) {
+    let result = []
+    for (let date = joda.LocalDate.of(month.year, month.month, 1);
+         date.monthValue() === month.month;
+         date = date.plusDays(1)) {
+        const dayOfWeek = date.dayOfWeek()
+        let monday = (dayOfWeek === joda.DayOfWeek.MONDAY)
+        if (date.dayOfMonth() > 1 && monday) {
+            result.push({week_change: true})
+        }
+        let row = {
+            day_of_month: date.dayOfMonth(),
+            weekday: weekdayName[dayOfWeek.ordinal()]
+        }
+        result.push(row)
+    }
+    return result
+}
 
 module.exports = router
