@@ -1,6 +1,7 @@
 let selectionDialog
 let confirmationDialog
 let confirmBookingButton
+let userSelectionTextText
 let bookingConfirmationText
 
 let monthData
@@ -17,12 +18,13 @@ window.onload = () => {
     month = Number(match[2])
     selectionDialog = document.getElementById('selectionDialog')
     selectionDialog.onclick = hideSelectionDialog
+    userSelectionTextText = document.getElementById('userSelectionTextText')
     document.getElementById('cancelUserSelectionButton').onclick = hideSelectionDialog
     confirmationDialog = document.getElementById('confirmationDialog')
     confirmationDialog.onclick = hideConfirmationDialog
+    bookingConfirmationText = document.getElementById('bookingConfirmationText')
     document.getElementById('cancelBooking').onclick = hideConfirmationDialog
     confirmBookingButton = document.getElementById('confirmBooking')
-    bookingConfirmationText = document.getElementById('bookingConfirmationText')
     fillTableContent(() => {
         let selectionButtons = document.getElementById('selectionButtons')
         for (let user of users) {
@@ -131,6 +133,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
                         add(dayOfMonth, user.id, context, true)
                     }
                 }
+                userSelectionTextText.textContent = "Benutzerauswahl " + date(dayOfMonth)
                 showSelectionDialog()
             } else {
                 if (bookingPermissible(primary)) {
