@@ -4,6 +4,25 @@ body {
   color: #333366;
 }
 
+#title {
+  vertical-align: bottom;
+}
+
+#title h1 {
+  display: inline;
+}
+
+div#title a {
+  position: absolute;
+  right: 0;
+  margin-left: auto;
+}
+
+div#title a img {
+  margin: 0 10px 0 0;
+  padding: 0;
+}
+
 a {
   color: #993333;
 }
@@ -128,6 +147,7 @@ p.active {
 }
 
 #date-navigation {
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
 }

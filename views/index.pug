@@ -5,7 +5,10 @@ block scripts
 
 block content
     div(id='content')
-        h1=title
+        div#title
+            h1=title
+            a(href="/menu")
+                img(src="/images/gear-icon.png" width=32 height=32)
         div(id='date-navigation')
             span
                 a(href=previousYearLink) <<
