@@ -1,7 +1,6 @@
 let selectionDialog
 let confirmationDialog
 let confirmBookingButton
-let cancelUserSelectionButton
 let bookingConfirmationText
 
 let monthData
@@ -17,9 +16,10 @@ window.onload = () => {
     year = Number(match[1])
     month = Number(match[2])
     selectionDialog = document.getElementById('selectionDialog')
-    cancelUserSelectionButton = document.getElementById('cancelUserSelectionButton')
-    cancelUserSelectionButton.onclick = hideSelectionDialog
+    selectionDialog.onclick = hideSelectionDialog
+    document.getElementById('cancelUserSelectionButton').onclick = hideSelectionDialog
     confirmationDialog = document.getElementById('confirmationDialog')
+    confirmationDialog.onclick = hideConfirmationDialog
     document.getElementById('cancelBooking').onclick = hideConfirmationDialog
     confirmBookingButton = document.getElementById('confirmBooking')
     bookingConfirmationText = document.getElementById('bookingConfirmationText')

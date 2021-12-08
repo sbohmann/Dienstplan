@@ -110,7 +110,7 @@ table#monats-dienstplan td.new-week {
   visibility: visible;
 }
 
-#selectionDialogContent {
+.dialogContent {
   position: absolute;
   margin: 0;
   padding: 0;
@@ -120,7 +120,7 @@ table#monats-dienstplan td.new-week {
   bottom: 0;
 }
 
-#selectionButtons {
+.dialogButtons {
   position: relative;
   width: 360px;
   top: 100px;
