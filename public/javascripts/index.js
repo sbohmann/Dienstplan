@@ -30,7 +30,7 @@ window.onload = () => {
         for (let user of users) {
             const addUserButton = document.createElement('button')
             addUserButton.id = 'addUserButton-' + user.id
-            addUserButton.classList.add('selectUserButton')
+            addUserButton.classList.add('dialogButton')
             addUserButton.textContent = user.name + " (" + user.id + ")"
             selectionButtons.appendChild(addUserButton)
         }
