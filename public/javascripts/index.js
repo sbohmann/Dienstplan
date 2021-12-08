@@ -151,7 +151,10 @@ function fill(dayBookings, dayOfMonth, context, primary) {
                         add(dayOfMonth, user.id, context, true)
                     }
                 }
-                userSelectionText.textContent = "Benutzerauswahl " + date(dayOfMonth)
+                setMultilineTextContent(userSelectionText, [
+                    "Benutzerauswahl",
+                    date(dayOfMonth)
+                ])
                 showSelectionDialog()
             } else {
                 if (bookingPermissible(primary)) {
