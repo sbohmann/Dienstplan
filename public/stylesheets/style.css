@@ -38,6 +38,9 @@ th {
 }
 
 #settings {
+  width: 360px;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 14pt;
 }
 
