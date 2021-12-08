@@ -18,7 +18,7 @@ window.onload = () => {
     month = Number(match[2])
     selectionDialog = document.getElementById('selectionDialog')
     selectionDialog.onclick = hideSelectionDialog
-    userSelectionText.getElementById('userSelectionText')
+    userSelectionText = document.getElementById('userSelectionText')
     document.getElementById('cancelUserSelectionButton').onclick = hideSelectionDialog
     confirmationDialog = document.getElementById('confirmationDialog')
     confirmationDialog.onclick = hideConfirmationDialog
