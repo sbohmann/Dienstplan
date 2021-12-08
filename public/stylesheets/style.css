@@ -8,10 +8,6 @@ body.fixed {
   overflow:hidden;
 }
 
-#title {
-  vertical-align: bottom;
-}
-
 #title h1 {
   display: inline;
 }
@@ -101,6 +97,7 @@ table#monats-dienstplan td.new-week {
   background-color: transparent;
   height: 6px;
   padding: 0;
+  border: none;
 }
 
 .dialog {
