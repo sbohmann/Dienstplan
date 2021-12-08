@@ -31,11 +31,14 @@ th {
 }
 
 #content {
-  font-size: 14pt;
   position: relative;
   display: table;
   margin-left: auto;
   margin-right: auto;
+}
+
+#settings {
+  font-size: 14pt;
 }
 
 #week-day-column {
