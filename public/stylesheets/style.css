@@ -124,3 +124,15 @@ p.active {
   color: #993333;
   font-weight: bolder;
 }
+
+#date-navigation {
+  display: flex;
+  justify-content: space-between;
+}
+
+#date-navigation a {
+  margin: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  text-decoration: none;
+}
