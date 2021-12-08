@@ -143,6 +143,7 @@ table#monats-dienstplan td.new-week {
   font-size: larger;
   border: 1px solid #333333;
   background-color: #eeeeee;
+  color: black;
 }
 
 p.active {
