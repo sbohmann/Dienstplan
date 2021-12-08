@@ -96,7 +96,7 @@ table#monats-dienstplan td.new-week {
   visibility: hidden;
   height: 100vh;
   width: 100vw;
-  background: #dddddd33;
+  background: #55444433;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(10px);
   position: fixed;
