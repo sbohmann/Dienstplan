@@ -224,17 +224,21 @@ function bookingPermissible(primary) {
 
 function showSelectionDialog() {
     selectionDialog.classList.add('active')
+    document.body.classList.add('fixed')
 }
 
 function hideSelectionDialog() {
+    document.body.classList.remove('fixed')
     selectionDialog.classList.remove('active')
 }
 
 function showConfirmationDialog() {
     confirmationDialog.classList.add('active')
+    document.body.classList.add('fixed')
 }
 
 function hideConfirmationDialog() {
+    document.body.classList.remove('fixed')
     confirmationDialog.classList.remove('active')
 }
 

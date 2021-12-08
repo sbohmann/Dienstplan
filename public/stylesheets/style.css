@@ -4,6 +4,10 @@ body {
   color: #333366;
 }
 
+body.fixed {
+  overflow:hidden;
+}
+
 #title {
   vertical-align: bottom;
 }
