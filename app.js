@@ -8,6 +8,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const dataRouter = require('./routes/data')
 const loginRouter = require('./routes/login')
+const logoutRouter = require('./routes/logout')
 const menuRouter = require('./routes/menu')
 const passwordRouter = require('./routes/password')
 
@@ -32,6 +33,7 @@ app.use(session({
 app.use('/', indexRouter)
 app.use('/data', dataRouter)
 app.use('/login', loginRouter)
+app.use('/logout', logoutRouter)
 app.use('/menu', menuRouter)
 app.use('/password', passwordRouter)
 
@@ -41,7 +43,7 @@ app.use(function(req, res, next) {
 })
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function(err, req, res) {
   console.error(err)
   console.error(err.stack)
 

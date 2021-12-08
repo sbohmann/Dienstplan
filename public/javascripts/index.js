@@ -51,7 +51,13 @@ function add(day, id, context, modifiedByAdmin) {
         id,
         modifiedByAdmin
     }
-    request.onload = () => fillTableContent()
+    request.onload = () => {
+        if (!requestSuccessful(request)) {
+            alert("Failed to add booking. Probably not logged in. Please reload page.")
+            return
+        }
+        fillTableContent()
+    }
     request.send(JSON.stringify(data))
 }
 
@@ -66,7 +72,13 @@ function remove(day, id, context) {
         context,
         id
     }
-    request.onload = () => fillTableContent()
+    request.onload = () => {
+        if (!requestSuccessful(request)) {
+            alert("Failed to remove booking. Probably not logged in. Please reload page.")
+            return
+        }
+        fillTableContent()
+    }
     request.send(JSON.stringify(data))
 }
 
@@ -74,6 +86,10 @@ function fillTableContent(finishTableSetup) {
     const request = new XMLHttpRequest()
     request.open('GET', '/data/' + year + '/' + month, true)
     request.onload = () => {
+        if (!requestSuccessful(request)) {
+            alert("Failed to fetch data. Probably not logged in. Please reload page.")
+            return
+        }
         monthData = JSON.parse(request.responseText)
         users = monthData.users
         // TODO replace assignment with checks for year and month
@@ -205,4 +221,8 @@ function date(dayOfMonth) {
 
 function twoDigits(n) {
     return n < 10 ? "0" + n : n
+}
+
+function requestSuccessful(request) {
+    return request.status >= 200 && request.status < 300
 }

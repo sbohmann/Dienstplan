@@ -3,6 +3,8 @@ extends layout
 block content
     div(id='content')
         h1 Verwaltung
+        form(action="/logout" method="POST")
+            button(type="submit") Logout
         p: a(href='password') Passwort ändern
         if admin
             p Benutzer anlegen

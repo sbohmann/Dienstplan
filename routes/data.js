@@ -11,12 +11,12 @@ const users = storage.data.users
 
 router.get('/:year/:month', function (req, res) {
     let userId = req.session.userId
-    let userName = storage.userForId.get(userId).name
     if (userId === undefined) {
         res.status(401)
         res.send()
         return
     }
+    let userName = storage.userForId.get(userId).name
     let year = Number(req.params.year)
     let month = Number(req.params.month)
     if (!validYear(year) || !validMonth(month)) {
