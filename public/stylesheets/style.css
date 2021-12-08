@@ -4,10 +4,6 @@ body {
   color: #333366;
 }
 
-#monats-dienstplan td {
-  background: white;
-}
-
 a {
   color: #993333;
 }
@@ -54,6 +50,13 @@ table#monats-dienstplan td.remove-button:hover {
 table#monats-dienstplan {
   table-layout: fixed;
   border-collapse: collapse;
+}
+
+table#monats-dienstplan td {
+  height: 30px;
+  padding: 5px;
+  background: white;
+  border: 1px solid #aabbcc;
 }
 
 table#monats-dienstplan td {
