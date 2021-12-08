@@ -3,9 +3,6 @@ extends layout
 block content
     div(id='content')
         h1 Verwaltung
-        p Administrator:
-            if admin
-                |  Ja
-            else
-                |  Nein
+        if admin
+            p Administrator
         p: a(href='password') Passwort ändern
