@@ -11,6 +11,7 @@ const loginRouter = require('./routes/login')
 const logoutRouter = require('./routes/logout')
 const menuRouter = require('./routes/menu')
 const passwordRouter = require('./routes/password')
+const pdfRouter = require('./routes/pdf')
 
 const storage = require('./storage/storage')
 
@@ -36,6 +37,7 @@ app.use('/login', loginRouter)
 app.use('/logout', logoutRouter)
 app.use('/menu', menuRouter)
 app.use('/password', passwordRouter)
+app.use('/pdf', pdfRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

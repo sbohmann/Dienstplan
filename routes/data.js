@@ -9,20 +9,20 @@ const users = storage.data.users
         name: user.name
     }))
 
-router.get('/:year/:month', function (req, res) {
-    let userId = req.session.userId
+router.get('/:year/:month', function (request, response) {
+    let userId = request.session.userId
     if (userId === undefined) {
-        res.status(401)
-        res.send()
+        response.status(401)
+        response.send()
         return
     }
     let userName = storage.userForId.get(userId).name
-    let year = Number(req.params.year)
-    let month = Number(req.params.month)
+    let year = Number(request.params.year)
+    let month = Number(request.params.month)
     if (!validYear(year) || !validMonth(month)) {
         console.log("Illegal year/month [" + year + "] / [" + month + "]")
-        res.status(500)
-        res.send()
+        response.status(500)
+        response.send()
         return
     }
     createMonthIfMissing(year, month)
@@ -38,7 +38,7 @@ router.get('/:year/:month', function (req, res) {
         userIsAdmin,
         days
     }
-    res.json(monthData)
+    response.json(monthData)
 })
 
 function createMonthIfMissing(year, month) {
