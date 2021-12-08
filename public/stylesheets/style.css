@@ -146,6 +146,7 @@ table#monats-dienstplan td.new-week {
   top: 100px;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 20px;
   padding: 0;
 }
 
