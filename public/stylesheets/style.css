@@ -140,7 +140,7 @@ table#monats-dienstplan td.new-week {
 .dialogButton {
   width: 100%;
   margin: 2px 0;
-  font-size: larger;
+  font-size: 20px;
   border: 1px solid #333333;
   background-color: #eeeeee;
   color: black;
