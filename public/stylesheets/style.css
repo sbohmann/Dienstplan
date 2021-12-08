@@ -120,12 +120,13 @@ table#monats-dienstplan td.new-week {
 .dialogContent {
   position: absolute;
   margin: 0;
-  padding: 0;
+  padding: 0 0 20px 0;
   left: 0;
   right: 0;
   top: 0;
   bottom: 0;
   text-align: center;
+  overflow: scroll;
 }
 
 .dialogTitle {

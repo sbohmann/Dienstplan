@@ -34,6 +34,12 @@ window.onload = () => {
             addUserButton.textContent = user.name + " (" + user.id + ")"
             selectionButtons.appendChild(addUserButton)
         }
+        for (let user of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) {
+            const addUserButton = document.createElement('button')
+            addUserButton.classList.add('dialogButton')
+            addUserButton.textContent = user
+            selectionButtons.appendChild(addUserButton)
+        }
     })
 }
 
@@ -41,8 +47,6 @@ function add(day, id, context, modifiedByAdmin) {
     const request = new XMLHttpRequest()
     request.open('POST', '/data/add/' + year + '/' + month, true)
     request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    console.log('jsindex')
-    console.log(modifiedByAdmin)
     const data = {
         year,
         month,
