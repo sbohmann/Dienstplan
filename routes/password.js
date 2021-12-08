@@ -3,20 +3,20 @@ const router = express.Router()
 const storage = require('../storage/storage')
 const bcrypt = require('bcrypt')
 
-router.get('/', function (req, res, next) {
-    let userId = req.session.userId
+router.get('/', function (request, response) {
+    let userId = request.session.userId
     if (userId === undefined) {
-        res.status(302)
-        res.set('Location', '/login')
-        res.send()
+        response.status(302)
+        response.set('Location', '/login')
+        response.send()
         return
     }
-    res.render('password', {
+    response.render('password', {
         title: "Passwort ändern"
     })
 })
 
-router.post('/', function (request, result, next) {
+router.post('/', function (request, response) {
     let userId
     let user
 
@@ -29,9 +29,9 @@ router.post('/', function (request, result, next) {
     function checkUserId() {
         userId = request.session.userId
         if (userId === undefined) {
-            result.status(302)
-            result.set('Location', '/login')
-            result.send()
+            response.status(302)
+            response.set('Location', '/login')
+            response.send()
             return false
         }
         return true
@@ -42,8 +42,8 @@ router.post('/', function (request, result, next) {
             changePassword(request)
         } catch (error) {
             console.log("Password change failed for user [" + request.body.user + "]:", error)
-            result.status(401)
-            result.send(error.message)
+            response.status(401)
+            response.send(error.message)
         }
     }
 
@@ -58,8 +58,8 @@ router.post('/', function (request, result, next) {
         console.log(request.body)
         checkCurrentPassword(request)
         // console.log("Password change failed for user [" + request.body.user + "]: " + error.message)
-        result.status(200)
-        result.send()
+        response.status(200)
+        response.send()
     }
 
     function checkCurrentPassword(request) {

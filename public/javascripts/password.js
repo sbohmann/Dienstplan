@@ -19,19 +19,14 @@ function setupControls() {
     repeatedPasswordInput = getAndWireInput('repetition')
     changePasswordButton = document.getElementById('changePassword')
     passwordErrorMessageView = document.getElementById('passwordErrorMessage')
-    setButtonStatus()
+    setInputStatus()
 }
 
 function getAndWireInput(id) {
     let element = document.getElementById(id)
-    element.oninput = setButtonStatus
+    element.oninput = setInputStatus
     inputElements.push(element)
     return element
-}
-
-function setButtonStatus() {
-    setInputStatus()
-    changePasswordButton.disabled = !inputComplete || !inputCorrect
 }
 
 function setInputStatus() {
@@ -45,8 +40,9 @@ function setInputStatus() {
     } else if (!newPasswordSufficientlyStrong()) {
         inputCorrect = false
         passwordErrorMessage = "Neues Passwort weniger als 12 Zeichen lang"
+    } else {
+        inputCorrect = true
     }
-    inputCorrect = inputComplete && newPasswordsMatch()
     if (passwordErrorMessage === undefined) {
         passwordErrorMessageView.textContent = undefined
         passwordErrorMessageView.setAttribute('hidden', '')
@@ -54,6 +50,7 @@ function setInputStatus() {
         passwordErrorMessageView.textContent = passwordErrorMessage
         passwordErrorMessageView.removeAttribute('hidden')
     }
+    changePasswordButton.disabled = !inputCorrect
 }
 
 function isInputComplete() {
@@ -109,7 +106,7 @@ function changePassword() {
         })
 }
 
-function passwordChangeRequest(userId) {
+function passwordChangeRequest() {
     return JSON.stringify({
         current: currentPasswordInput.value,
         new: newPasswordInput.value
