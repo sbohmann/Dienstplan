@@ -182,9 +182,9 @@ function setMultilineTextContent(element, lines) {
     let first = true
     for (let line of lines) {
         if (!first) {
-            bookingConfirmationText.appendChild(document.createElement('br'))
+            element.appendChild(document.createElement('br'))
         }
-        bookingConfirmationText.appendChild(document.createTextNode(line))
+        element.appendChild(document.createTextNode(line))
         first = false
     }
 }
