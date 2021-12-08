@@ -125,7 +125,9 @@ function fill(dayBookings, dayOfMonth, context, primary) {
                     hideConfirmationDialog()
                     remove(dayOfMonth, dayBookings.id, context)
                 }
-                bookingConfirmationText.textContent = "Entfernen " + dayBookings.name + " " + date(dayOfMonth)
+                setMultilineTextContent(bookingConfirmationText, [
+                    "Entfernen " + dayBookings.name,
+                    date(dayOfMonth)])
                 showConfirmationDialog()
             }
         } else {
@@ -157,7 +159,9 @@ function fill(dayBookings, dayOfMonth, context, primary) {
                         hideConfirmationDialog()
                         add(dayOfMonth, userId, context)
                     }
-                    bookingConfirmationText.textContent = "Buchen " + userName + " " + date(dayOfMonth)
+                    setMultilineTextContent(bookingConfirmationText, [
+                        "Buchen " + userName,
+                        date(dayOfMonth)])
                     showConfirmationDialog()
                 } else {
                     alert(primary ?
@@ -167,6 +171,24 @@ function fill(dayBookings, dayOfMonth, context, primary) {
             }
         }
         cell.textContent = ""
+    }
+}
+
+function setMultilineTextContent(element, lines) {
+    removeContent(element)
+    let first = true
+    for (let line of lines) {
+        if (!first) {
+            bookingConfirmationText.appendChild(document.createElement('br'))
+        }
+        bookingConfirmationText.appendChild(document.createTextNode(line))
+        first = false
+    }
+}
+
+function removeContent(element) {
+    while (element.lastChild) {
+        element.removeChild(element.lastChild)
     }
 }
 
