@@ -6,13 +6,6 @@ const dateNames = require('./dateNames')
 const joda = require('@js-joda/core')
 
 router.get('/:year/:month', function (request, response) {
-    let userId = request.session.userId
-    if (userId === undefined) {
-        response.status(302)
-        response.set('Location', '/login')
-        response.send()
-        return
-    }
     let year = Number(request.params.year)
     let month = Number(request.params.month)
     if (!validYear(year) || !validMonth(month)) {

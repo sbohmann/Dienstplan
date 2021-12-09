@@ -6,29 +6,16 @@ const createError = require('http-errors')
 const dateNames = require('./dateNames')
 
 router.get('/', function (request, response) {
-    let userId = request.session.userId
-    if (userId === undefined) {
-        response.status(302)
-        response.set('Location', '/login')
-        response.send()
-    } else {
-        let today = joda.LocalDate.now()
-        let year = Number(today.year())
-        let month = Number(today.monthValue())
-        response.status(302)
-        response.set('Location', '/' + year + '/' + month)
-        response.send()
-    }
+    let today = joda.LocalDate.now()
+    let year = Number(today.year())
+    let month = Number(today.monthValue())
+    response.status(302)
+    response.set('Location', '/' + year + '/' + month)
+    response.send()
 })
 
 router.get('/:year/:month', function (request, response, next) {
     let userId = request.session.userId
-    if (userId === undefined) {
-        response.status(302)
-        response.set('Location', '/login')
-        response.send()
-        return
-    }
     let month = {}
     month.year = Number(request.params.year)
     month.month = Number(request.params.month)

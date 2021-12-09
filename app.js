@@ -31,9 +31,20 @@ app.use(session({
   name: 'sessionId'
 }))
 
+app.use('/login', loginRouter)
+
+app.use(function(request, response, next) {
+  let userId = request.session.userId
+  if (userId === undefined) {
+    response.status(302)
+    response.set('Location', '/login')
+    response.send()
+  }
+  next()
+})
+
 app.use('/', indexRouter)
 app.use('/data', dataRouter)
-app.use('/login', loginRouter)
 app.use('/logout', logoutRouter)
 app.use('/menu', menuRouter)
 app.use('/password', passwordRouter)
