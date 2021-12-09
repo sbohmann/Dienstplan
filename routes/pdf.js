@@ -58,6 +58,7 @@ router.get('/:year/:month', function (request, response) {
         let day = days[index]
         document.text(date.dayOfMonth() + ".", 100, y)
         document.text(dateNames.weekDay[dayOfWeek.ordinal()], 120, y)
+        // TODO limit text output to bounds inside the table cells
         if (day.primary !== undefined) {
             document.text(day.primary.name, 150, y)
         }
