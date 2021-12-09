@@ -26,6 +26,17 @@ a {
   color: #993333;
 }
 
+#subtitle h2 {
+  display: inline;
+}
+
+#subtitle a {
+  font-size: 1.5em;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+}
+
 th {
   text-align: initial;
 }
@@ -168,6 +179,7 @@ p.active {
 
 #date-navigation {
   margin-top: 10px;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
 }

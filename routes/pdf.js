@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const PDFDocument = require('pdfkit');
 const storage = require('../storage/storage.js')
+const dateNames = require('./dateNames')
+const joda = require('@js-joda/core')
 
 router.get('/:year/:month', function (request, response) {
     let userId = request.session.userId
@@ -20,8 +22,42 @@ router.get('/:year/:month', function (request, response) {
         return
     }
     let days = storage.data.years[year][month]
-
-    response.send('PDF :D ' + year + '-' + month + JSON.stringify(days))
+    response.setHeader('Content-Type', 'application/pdf');
+    let document = new PDFDocument({size: 'A4'})
+    document.image('pdf/c9_oeamtc.png', 10, 10, {scale: 0.5})
+    document.image('pdf/kav.png', 480, 10, {scale: 0.65})
+    document.font('Helvetica')
+    let y = 130
+    document.fontSize(24)
+    document.text("Ärzte-Dienstplan C9", 100, y)
+    y += 30
+    document.text(dateNames.month[month - 1] + " " + year, 100, y)
+    y += 40
+    document.fontSize(12)
+    for (let date = joda.LocalDate.of(year, month, 1), index = 0;
+         date.monthValue() === month;
+         date = date.plusDays(1), ++index) {
+        const dayOfWeek = date.dayOfWeek()
+        let monday = (dayOfWeek === joda.DayOfWeek.MONDAY)
+        if (date.dayOfMonth() > 1 && monday) {
+            y += 10
+        }
+        let day = days[index]
+        document.text(date.dayOfMonth() + ".", 100, y)
+        document.text(dateNames.weekDay[dayOfWeek.ordinal()], 120, y)
+        if (day.primary !== undefined) {
+            document.text(day.primary.name, 150, y)
+        }
+        if (day.reserve !== undefined) {
+            document.text(day.reserve.name, 250, y)
+        }
+        if (day.secondReserve !== undefined) {
+            document.text(day.secondReserve.name, 350, y)
+        }
+        y += 15
+    }
+    document.pipe(response)
+    document.end()
 })
 
 function validYear(year) {

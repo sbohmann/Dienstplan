@@ -18,8 +18,9 @@ block content
                 a(href=nextMonthLink) >
             span
                 a(href=nextYearLink) >>
-        h2=user_name
-        h2=user_is_admin
+        div#subtitle
+            h2=user_name
+            a(href='/pdf/' + month.year + '/' + month.month) PDF
         table(id='monats-dienstplan')
             tr
                 th(id='week-day-column')
@@ -57,4 +58,4 @@ block content
             p(id='bookingConfirmationText' class='dialogTitle')
             div(class='dialogButtons')
                 button(id='cancelBooking' class='dialogButton')="Zurück"
-                button(id='confirmBooking' class='dialogButton')="Ja"
+                button(id='confirmBooking' class='selectUserButton')="Ja"

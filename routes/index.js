@@ -3,21 +3,7 @@ const router = express.Router()
 const joda = require('@js-joda/core')
 const storage = require('../storage/storage.js')
 const createError = require('http-errors')
-
-const weekdayName = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"]
-const monthName = [
-    "Januar",
-    "Februar",
-    "März",
-    "April",
-    "Mai",
-    "Juni",
-    "Juli",
-    "August",
-    "September",
-    "Oktober",
-    "November",
-    "Dezember"]
+const dateNames = require('./dateNames')
 
 router.get('/', function (request, response) {
     let userId = request.session.userId
@@ -53,8 +39,8 @@ router.get('/:year/:month', function (request, response, next) {
     console.log(userForId)
     let rows = buildRows(month)
     response.render('index', {
-        title: monthName[month.month - 1] + " " + month.year,
-        month: monthName[month.month - 1],
+        title: dateNames.month[month.month - 1] + " " + month.year,
+        month,
         rows,
         user_id: userId,
         user_name: userForId.name + (userForId.admin ? " (Administrator)" : ""),
@@ -85,7 +71,7 @@ function buildRows(month) {
         }
         let row = {
             day_of_month: date.dayOfMonth(),
-            weekday: weekdayName[dayOfWeek.ordinal()]
+            weekday: dateNames.weekDay[dayOfWeek.ordinal()]
         }
         result.push(row)
     }
