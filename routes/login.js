@@ -3,6 +3,8 @@ const router = express.Router()
 const storage = require('../storage/storage')
 const bcrypt = require('bcrypt')
 
+let delayForUserName = new Map()
+
 router.get('/', function (req, res) {
     res.render('login', {
         title: "Login"
@@ -11,19 +13,29 @@ router.get('/', function (req, res) {
 
 router.post('/', function (req, res) {
     let userName = req.body.user
+    if (!Number.isInteger(delayForUserName.get(userName))) {
+        delayForUserName.set(userName, 0)
+    }
     let success = (userId) => {
+        delayForUserName.set(userName, 0)
         req.session.userId = userId
         res.status(302)
         res.set('Location', '/')
         res.send()
     }
     let failure = () => {
+        delayForUserName.set(userName, delayForUserName.get(userName) + 1)
         console.log("Login failed for user [" + userName + "]")
         res.status(302)
         res.set('Location', '/login')
         res.send()
     }
-    login(userName, req.body.password, success, failure)
+    setTimeout(login,
+        1000 * delayForUserName.get(userName),
+        userName,
+        req.body.password,
+        success,
+        failure)
 })
 
 function login(userName, password, success, failure) {
