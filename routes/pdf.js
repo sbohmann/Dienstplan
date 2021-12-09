@@ -36,23 +36,24 @@ router.get('/:year/:month', function (request, response) {
     top = y
     document.fontSize(10)
     document.moveTo(95, y - 5).lineTo(445,y - 5).stroke()
+    let first = true
     for (let date = joda.LocalDate.of(year, month, 1), index = 0;
          date.monthValue() === month;
          date = date.plusDays(1), ++index) {
         const dayOfWeek = date.dayOfWeek()
         let monday = (dayOfWeek === joda.DayOfWeek.MONDAY)
         if (date.dayOfMonth() > 1 && monday) {
-            if (y > top) {
+            if (!first) {
                 document.moveTo(95, top - 5).lineTo(95,y - 5).stroke()
                 document.moveTo(115, top - 5).lineTo(115,y - 5).stroke()
                 document.moveTo(145, top - 5).lineTo(145,y - 5).stroke()
                 document.moveTo(245, top - 5).lineTo(245,y - 5).stroke()
                 document.moveTo(345, top - 5).lineTo(345,y - 5).stroke()
                 document.moveTo(445, top - 5).lineTo(445,y - 5).stroke()
+                y += 10
+                top = y
+                document.moveTo(95, y - 5).lineTo(445, y - 5).stroke()
             }
-            y += 10
-            top = y
-            document.moveTo(95, y - 5).lineTo(445,y - 5).stroke()
         }
         let day = days[index]
         document.text(date.dayOfMonth() + ".", 100, y)
@@ -68,8 +69,9 @@ router.get('/:year/:month', function (request, response) {
         }
         y += 15
         document.moveTo(95, y - 5).lineTo(445,y - 5).stroke()
+        first = false
     }
-    if (y > top) {
+    if (!first) {
         document.moveTo(95, top - 5).lineTo(95,y - 5).stroke()
         document.moveTo(115, top - 5).lineTo(115,y - 5).stroke()
         document.moveTo(145, top - 5).lineTo(145,y - 5).stroke()
