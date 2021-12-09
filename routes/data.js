@@ -11,11 +11,6 @@ const users = storage.data.users
 
 router.get('/:year/:month', function (request, response) {
     let userId = request.session.userId
-    if (userId === undefined) {
-        response.status(401)
-        response.send()
-        return
-    }
     let userName = storage.userForId.get(userId).name
     let year = Number(request.params.year)
     let month = Number(request.params.month)
@@ -70,11 +65,6 @@ function userIsAdminOrIdMatches(req) {
 }
 
 router.post('/add/:year/:month', function (request, response) {
-    if (!request.session.userId) {
-        response.status(401)
-        response.send()
-        return
-    }
     let year = Number(request.params.year)
     let month = Number(request.params.month)
     if (!validYear(year) || !validMonth(month)) {
