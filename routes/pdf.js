@@ -29,7 +29,7 @@ router.get('/:year/:month', function (request, response) {
     top = y
     document.fontSize(10)
     document.strokeColor('#aabbcc')
-    document.moveTo(95, y - 4).lineTo(445,y - 4).stroke()
+    document.moveTo(95, y - 4).lineTo(495,y - 4).stroke()
     let first = true
     for (let date = joda.LocalDate.of(year, month, 1), index = 0;
          date.monthValue() === month;
@@ -39,17 +39,15 @@ router.get('/:year/:month', function (request, response) {
         if (date.dayOfMonth() > 1 && monday) {
             if (!first) {
                 document.strokeColor('#aabbcc')
-                document.moveTo(95, top - 4).lineTo(95,y - 4).stroke()
-                document.moveTo(115, top - 4).lineTo(115,y - 4).stroke()
-                document.moveTo(145, top - 4).lineTo(145,y - 4).stroke()
-                document.moveTo(245, top - 4).lineTo(245,y - 4).stroke()
-                document.moveTo(345, top - 4).lineTo(345,y - 4).stroke()
-                document.moveTo(445, top - 4).lineTo(445,y - 4).stroke()
-                document.fillColor('#aabbcc')
-                document.rect(94.5, y - 4, 351, 10).fill()
-                y += 10
+                document.moveTo(95, top - 4).lineTo(95,y - 1).stroke()
+                document.moveTo(115, top - 4).lineTo(115,y - 1).stroke()
+                document.moveTo(145, top - 4).lineTo(145,y - 1).stroke()
+                document.moveTo(495, top - 4).lineTo(495,y - 1).stroke()
+                document.fillColor('#6699cc')
+                document.rect(95, y - 3.5, 400, 2).fill()
+                y += 3
                 top = y
-                document.moveTo(95, y - 4).lineTo(445, y - 4).stroke()
+                document.moveTo(95, y - 4).lineTo(495, y - 4).stroke()
             }
         }
         let day = days[index]
@@ -60,15 +58,9 @@ router.get('/:year/:month', function (request, response) {
         if (day.primary !== undefined) {
             document.text(day.primary.name, 150, y)
         }
-        if (day.reserve !== undefined) {
-            document.text(day.reserve.name, 250, y)
-        }
-        if (day.secondReserve !== undefined) {
-            document.text(day.secondReserve.name, 350, y)
-        }
         y += 15
         document.strokeColor('#aabbcc')
-        document.moveTo(95, y - 4).lineTo(445,y - 4).stroke()
+        document.moveTo(95, y - 4).lineTo(495,y - 4).stroke()
         first = false
     }
     if (!first) {
@@ -76,9 +68,7 @@ router.get('/:year/:month', function (request, response) {
         document.moveTo(95, top - 4).lineTo(95,y - 4).stroke()
         document.moveTo(115, top - 4).lineTo(115,y - 4).stroke()
         document.moveTo(145, top - 4).lineTo(145,y - 4).stroke()
-        document.moveTo(245, top - 4).lineTo(245,y - 4).stroke()
-        document.moveTo(345, top - 4).lineTo(345,y - 4).stroke()
-        document.moveTo(445, top - 4).lineTo(445,y - 4).stroke()
+        document.moveTo(495, top - 4).lineTo(495,y - 4).stroke()
     }
     document.pipe(response)
     document.end()
