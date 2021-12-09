@@ -35,7 +35,7 @@ router.get('/:year/:month', function (request, response) {
     y += 40
     top = y
     document.fontSize(10)
-    document.moveTo(95, y - 3).lineTo(445,y - 3).stroke()
+    document.moveTo(95, y - 4).lineTo(445,y - 4).stroke()
     let first = true
     for (let date = joda.LocalDate.of(year, month, 1), index = 0;
          date.monthValue() === month;
@@ -44,15 +44,15 @@ router.get('/:year/:month', function (request, response) {
         let monday = (dayOfWeek === joda.DayOfWeek.MONDAY)
         if (date.dayOfMonth() > 1 && monday) {
             if (!first) {
-                document.moveTo(95, top - 3).lineTo(95,y - 3).stroke()
-                document.moveTo(115, top - 3).lineTo(115,y - 3).stroke()
-                document.moveTo(145, top - 3).lineTo(145,y - 3).stroke()
-                document.moveTo(245, top - 3).lineTo(245,y - 3).stroke()
-                document.moveTo(345, top - 3).lineTo(345,y - 3).stroke()
-                document.moveTo(445, top - 3).lineTo(445,y - 3).stroke()
+                document.moveTo(95, top - 4).lineTo(95,y - 4).stroke()
+                document.moveTo(115, top - 4).lineTo(115,y - 4).stroke()
+                document.moveTo(145, top - 4).lineTo(145,y - 4).stroke()
+                document.moveTo(245, top - 4).lineTo(245,y - 4).stroke()
+                document.moveTo(345, top - 4).lineTo(345,y - 4).stroke()
+                document.moveTo(445, top - 4).lineTo(445,y - 4).stroke()
                 y += 10
                 top = y
-                document.moveTo(95, y - 3).lineTo(445, y - 3).stroke()
+                document.moveTo(95, y - 4).lineTo(445, y - 4).stroke()
             }
         }
         let day = days[index]
@@ -68,16 +68,16 @@ router.get('/:year/:month', function (request, response) {
             document.text(day.secondReserve.name, 350, y)
         }
         y += 15
-        document.moveTo(95, y - 3).lineTo(445,y - 3).stroke()
+        document.moveTo(95, y - 4).lineTo(445,y - 4).stroke()
         first = false
     }
     if (!first) {
-        document.moveTo(95, top - 3).lineTo(95,y - 3).stroke()
-        document.moveTo(115, top - 3).lineTo(115,y - 3).stroke()
-        document.moveTo(145, top - 3).lineTo(145,y - 3).stroke()
-        document.moveTo(245, top - 3).lineTo(245,y - 3).stroke()
-        document.moveTo(345, top - 3).lineTo(345,y - 3).stroke()
-        document.moveTo(445, top - 3).lineTo(445,y - 3).stroke()
+        document.moveTo(95, top - 4).lineTo(95,y - 4).stroke()
+        document.moveTo(115, top - 4).lineTo(115,y - 4).stroke()
+        document.moveTo(145, top - 4).lineTo(145,y - 4).stroke()
+        document.moveTo(245, top - 4).lineTo(245,y - 4).stroke()
+        document.moveTo(345, top - 4).lineTo(345,y - 4).stroke()
+        document.moveTo(445, top - 4).lineTo(445,y - 4).stroke()
     }
     document.pipe(response)
     document.end()
