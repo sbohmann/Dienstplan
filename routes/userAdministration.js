@@ -7,16 +7,12 @@ router.get('/', function (request, response) {
 })
 
 router.post('/', function (request, response) {
-    ifAdmin(request, response,  handleUserUpdate(request, response))
+    ifAdmin(request, response,  handleUserUpdateRequest(request, response))
 })
-
-function handleUserUpdate(request, response) {
-
-}
 
 function ifAdmin(request, response, action) {
     let user = storage.userForId.get(request.session.userId)
-    if (!user.admin) {
+    if (user.admin) {
         action(request, response)
     } else {
         if (request.method === 'GET') {
@@ -27,6 +23,25 @@ function ifAdmin(request, response, action) {
             response.status(401)
             response.send()
         }
+    }
+}
+
+function handleUserUpdateRequest(request, response) {
+    try {
+        performUserUpdate(request.body.action)
+    } catch (error) {
+        // TODO send error
+    }
+    response.send()
+}
+
+function performUserUpdate(action) {
+    switch (action.command) {
+        case 'passwordReset':
+            resetPassword(action.userId)
+            break
+        default:
+            throw RangeError('Unknown user administration command [' + action.command + "]")
     }
 }
 
