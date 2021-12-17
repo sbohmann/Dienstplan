@@ -7,7 +7,7 @@ router.get('/', function (request, response) {
 })
 
 router.post('/', function (request, response) {
-    ifAdmin(request, response,  handleUserUpdateRequest(request, response))
+    ifAdmin(request, response,  handleUpdateUserRequest(request, response))
 })
 
 function ifAdmin(request, response, action) {
@@ -26,23 +26,27 @@ function ifAdmin(request, response, action) {
     }
 }
 
-function handleUserUpdateRequest(request, response) {
+function handleUpdateUserRequest(request, response) {
     try {
-        performUserUpdate(request.body.action)
+        performUserUpdate(request.body.action, response)
     } catch (error) {
-        // TODO send error
+        response.status(401)
     }
     response.send()
 }
 
-function performUserUpdate(action) {
+function performUserUpdate(action, response) {
     switch (action.command) {
         case 'passwordReset':
-            resetPassword(action.userId)
+            resetPassword(action.userId, response)
             break
         default:
             throw RangeError('Unknown user administration command [' + action.command + "]")
     }
+}
+
+function resetPassword(userId, response) {
+    // TODO implement
 }
 
 module.exports = router
