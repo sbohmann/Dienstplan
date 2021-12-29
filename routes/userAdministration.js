@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
 const storage = require('../storage/storage')
+const userAdministrationActions = require('../public/javascripts/common/userAdministrationAction')
 
 router.get('/', function (request, response) {
-    ifAdmin(request, response, response.render('userAdministration'))
+    ifAdmin(request, response, () => response.render('userAdministration'))
 })
 
 router.post('/', function (request, response) {
-    ifAdmin(request, response,  handleUpdateUserRequest(request, response))
+    ifAdmin(request, response,  () => handleUpdateUserRequest(request, response))
 })
 
 function ifAdmin(request, response, action) {
@@ -37,7 +38,7 @@ function handleUpdateUserRequest(request, response) {
 
 function performUserUpdate(action, response) {
     switch (action.command) {
-        case 'passwordReset':
+        case userAdministrationActions.passwordReset:
             resetPassword(action.userId, response)
             break
         default:
