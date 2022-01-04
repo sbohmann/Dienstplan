@@ -43,7 +43,7 @@ router.get('/:year/:month', function (request, response) {
                 document.moveTo(115, top - 4).lineTo(115,y - 1).stroke()
                 document.moveTo(145, top - 4).lineTo(145,y - 1).stroke()
                 document.moveTo(495, top - 4).lineTo(495,y - 1).stroke()
-                document.fillColor('#6699cc')
+                document.fillColor('#aabbcc')
                 document.rect(95, y - 3.5, 400, 2).fill()
                 y += 3
                 top = y
