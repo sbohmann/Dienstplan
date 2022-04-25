@@ -1,0 +1,19 @@
+extends layout
+
+block scripts
+    script(src="/javascripts/password.js")
+
+block content
+    div(id='settings')
+        h1="Passwort ändern"
+        p: label Aktuelles Passwort
+            br
+            input(id="current" type="password" class="login-text-field")
+        p: label Neues Passwort
+            br
+            input(id="new" type="password" class="login-text-field")
+        p: label Neues Passwort (Wiederholung)
+            br
+            input(id="repetition" type="password" class="login-text-field")
+        p: button(id="changePassword" type="submit" class="change-password-button") Passwort ändern
+        p(id="passwordErrorMessage")
