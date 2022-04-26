@@ -9,5 +9,5 @@ window.onload = () => {
     listView = ListView(columns)
     document
         .getElementById('userListContainer')
-        .append(listView.view)
+        .appendChild(listView.view)
 }

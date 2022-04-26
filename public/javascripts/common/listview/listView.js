@@ -1,38 +1,42 @@
 function ListViewColumns(definition) {
-    let columnIds = []
-    let columnNames = new Map()
+    let result = new Map()
     for (let columnId in definition) {
-        columnIds.push(columnId)
-        columnNames.set(columnId, definition[columnId])
+        result.set(columnId, definition[columnId])
     }
-    return {
-        ids: columnIds,
-        names: columnNames
-    }
+    return result
 }
 
 function ListView(columns) {
     let view = document.createElement('table')
     let rows = []
 
-    function add(rowData) {
-        let rowView = document.createElement('tr')
-        for (let id of columns.ids) {
-            let columnView = document.createElement('td')
-            columnView.appendChild(document.createTextNode(rowData[id].toString()))
+    function addHeader() {
+        let header = document.createElement('th')
+        for (let [, value] of columns.entries()) {
+            let column = document.createElement('td')
+            column.appendChild(document.createTextNode(value))
+            header.appendChild(column)
         }
+        view.appendChild(header)
+    }
+
+    function add(rowData) {
+        let row = document.createElement('tr')
+        for (let id of columns.keys()) {
+            let column = document.createElement('td')
+            column.appendChild(document.createTextNode(rowData[id].toString()))
+            row.appendChild(column)
+        }
+        view.appendChild(row)
         rows.push({
             id: rowData.id,
-            view: rowView
+            view: row
         })
     }
+
+    addHeader()
 
     return {
         view
     }
 }
-
-ListViewColumns({
-    "id": "ID",
-    "name": "Name"
-})
