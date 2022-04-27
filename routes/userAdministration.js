@@ -1,14 +1,21 @@
 const express = require('express')
 const router = express.Router()
 const storage = require('../storage/storage')
-const userAdministrationActions = require('../public/javascripts/common/userAdministrationAction')
 
 router.get('/', function (request, response) {
     ifAdmin(request, response, () => response.render('userAdministration'))
 })
 
-router.post('/', function (request, response) {
+router.post('/add', function (request, response) {
+    ifAdmin(request, response,  () => handleAddUserRequest(request, response))
+})
+
+router.post('/update', function (request, response) {
     ifAdmin(request, response,  () => handleUpdateUserRequest(request, response))
+})
+
+router.post('/resetPassword', function (request, response) {
+    ifAdmin(request, response,  () => handleResetPasswordRequest(request, response))
 })
 
 function ifAdmin(request, response, action) {
@@ -27,27 +34,43 @@ function ifAdmin(request, response, action) {
     }
 }
 
-function handleUpdateUserRequest(request, response) {
+function handleAddUserRequest(request, response) {
     try {
-        performUserUpdate(request.body.action, response)
+        addUser(request.body, response)
     } catch (error) {
         response.status(401)
     }
     response.send()
 }
 
-function performUserUpdate(action, response) {
-    switch (action.command) {
-        case userAdministrationActions.passwordReset:
-            resetPassword(action.userId, response)
-            break
-        default:
-            throw RangeError('Unknown user administration command [' + action.command + "]")
-    }
+function addUser(userDetails, response) {
+    // TODO
 }
 
-function resetPassword(userId, response) {
-    // TODO implement
+function handleUpdateUserRequest(request, response) {
+    try {
+        updateUser(request.body, response)
+    } catch (error) {
+        response.status(401)
+    }
+    response.send()
+}
+
+function updateUser(user, response) {
+    // TODO
+}
+
+function handleResetPasswordRequest(request, response) {
+    try {
+        resetPassword(request.body.action, response)
+    } catch (error) {
+        response.status(401)
+    }
+    response.send()
+}
+
+function resetPassword(action, response) {
+    // TODO
 }
 
 module.exports = router
