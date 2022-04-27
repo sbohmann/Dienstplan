@@ -10,11 +10,11 @@ router.get('/', function (request, response) {
     let year = Number(today.year())
     let month = Number(today.monthValue())
     response.status(302)
-    response.set('Location', '/' + year + '/' + month)
+    response.set('Location', '/months/' + year + '/' + month)
     response.send()
 })
 
-router.get('/:year/:month', function (request, response, next) {
+router.get('/months/:year/:month', function (request, response, next) {
     let userId = request.session.userId
     let month = {}
     month.year = Number(request.params.year)
@@ -23,7 +23,6 @@ router.get('/:year/:month', function (request, response, next) {
         return next(createError(404))
     }
     let userForId = storage.userForId.get(userId)
-    console.log(userForId)
     let rows = buildRows(month)
     response.render('index', {
         title: dateNames.month[month.month - 1] + " " + month.year,

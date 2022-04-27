@@ -83,11 +83,11 @@ function changePassword() {
     if (!inputComplete) {
         return
     }
-    fetch('password',
+    fetch('/password',
         {
             method: 'POST',
             headers: {
-                'Accepted': 'text/plain',
+                'Accept': 'text/plain',
                 'Content-Type': 'application/json'
             },
             body: passwordChangeRequest()

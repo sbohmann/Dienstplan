@@ -37,6 +37,7 @@ function ListView(columns) {
     addHeader()
 
     return {
-        view
+        view,
+        add
     }
 }

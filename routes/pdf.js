@@ -5,7 +5,7 @@ const storage = require('../storage/storage.js')
 const dateNames = require('./dateNames')
 const joda = require('@js-joda/core')
 
-router.get('/:year/:month', function (request, response) {
+router.get('/months/:year/:month', function (request, response) {
     let year = Number(request.params.year)
     let month = Number(request.params.month)
     if (!validYear(year) || !validMonth(month)) {

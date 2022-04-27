@@ -82,7 +82,7 @@ function remove(day, id, context) {
 
 function fillTableContent(finishTableSetup) {
     const request = new XMLHttpRequest()
-    request.open('GET', '/data/' + year + '/' + month, true)
+    request.open('GET', '/data/months/' + year + '/' + month, true)
     request.onload = () => {
         if (!requestSuccessful(request)) {
             alert("Failed to fetch data. Probably not logged in. Please reload page.")

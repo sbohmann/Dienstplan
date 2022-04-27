@@ -6,6 +6,10 @@ router.get('/', function (request, response) {
     ifAdmin(request, response, () => response.render('userAdministration'))
 })
 
+router.get('/users', function (request, response) {
+    ifAdmin(request, response, () => getUsers(response))
+})
+
 router.post('/add', function (request, response) {
     ifAdmin(request, response,  () => handleAddUserRequest(request, response))
 })
@@ -32,6 +36,11 @@ function ifAdmin(request, response, action) {
             response.send()
         }
     }
+}
+
+function getUsers(response) {
+    response.contentType('application/json')
+    response.send(storage.data.users)
 }
 
 function handleAddUserRequest(request, response) {

@@ -3,13 +3,7 @@ const router = express.Router()
 const storage = require('../storage/storage.js')
 const joda = require('@js-joda/core')
 
-const users = storage.data.users
-    .map(user => ({
-        id: user.id,
-        name: user.name
-    }))
-
-router.get('/:year/:month', function (request, response) {
+router.get('/months/:year/:month', function (request, response) {
     let userId = request.session.userId
     let userName = storage.userForId.get(userId).name
     let year = Number(request.params.year)
@@ -25,7 +19,7 @@ router.get('/:year/:month', function (request, response) {
     let userForId = storage.userForId.get(userId)
     let userIsAdmin = !!userForId.admin
     const monthData = {
-        users,
+        users: monthViewUserData(),
         year,
         month,
         userId,
@@ -35,6 +29,14 @@ router.get('/:year/:month', function (request, response) {
     }
     response.json(monthData)
 })
+
+function monthViewUserData() {
+    return storage.data.users
+        .map(user => ({
+            id: user.id,
+            name: user.name
+        }))
+}
 
 function createMonthIfMissing(year, month) {
     if (storage.data.years[year] === undefined) {

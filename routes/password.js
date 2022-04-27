@@ -16,6 +16,10 @@ router.post('/', function (request, response) {
     function reply() {
         if (checkUserId()) {
             attemptPasswordChange()
+        } else {
+            console.log("Unknown user [" + request.body.user + "]:")
+            response.status(404)
+            response.send("Unknown user")
         }
     }
 

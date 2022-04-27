@@ -85,6 +85,7 @@ function Storage() {
     }
 
     return {
+        // TODO do not expose, as it is mutable
         get data() { return data },
         get userForId() { return userForId },
         get userIdForUserName() { return userIdForUserName },
