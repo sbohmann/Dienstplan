@@ -8,7 +8,8 @@ function ListViewColumns(definition) {
 
 function ListView(columns) {
     let view = document.createElement('table')
-    let rows = []
+    let rows = new Map()
+    let selection = undefined
 
     function addHeader() {
         let header = document.createElement('th')
@@ -28,10 +29,24 @@ function ListView(columns) {
             row.appendChild(column)
         }
         view.appendChild(row)
-        rows.push({
-            id: rowData.id,
-            view: row
-        })
+        view.onclick = () => {
+            let currentSelection = selection
+            selection = rows.get(rowData.id)
+            if (currentSelection !== selection) {
+                if (currentSelection !== undefined) {
+                    currentSelection.view.classList.remove('selectedRow')
+                }
+                if (selection !== undefined) {
+                    selection.view.classList.add('selectedRow')
+                }
+            }
+        }
+        if (rowData.id !== undefined && rowData.id !== null) {
+            rows.set(rowData.id, {
+                id: rowData.id,
+                view: row
+            })
+        }
     }
 
     addHeader()
