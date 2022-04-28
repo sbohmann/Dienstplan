@@ -12,15 +12,15 @@ router.get('/users', function (request, response) {
 })
 
 router.post('/add', function (request, response) {
-    ifAdmin(request, response,  () => handleAddUserRequest(request, response))
+    ifAdmin(request, response, () => handleAddUserRequest(request, response))
 })
 
 router.post('/update', function (request, response) {
-    ifAdmin(request, response,  () => handleUpdateUserRequest(request, response))
+    ifAdmin(request, response, () => handleUpdateUserRequest(request, response))
 })
 
 router.post('/resetPassword', function (request, response) {
-    ifAdmin(request, response,  () => handleResetPasswordRequest(request, response))
+    ifAdmin(request, response, () => handleResetPasswordRequest(request, response))
 })
 
 function ifAdmin(request, response, action) {
@@ -66,9 +66,13 @@ function addUser(user, response) {
     if (user.id === 0) {
         throw new Error("Attempt to add user ID 0")
     }
-    console.log("Would add user", user)
-    user.id = 99999
-    response.send(user)
+    storage.addUser(user)
+    let newPassword = generateRandomPassword()
+    storage.setPassword(user.id, newPassword)
+    response.send({
+        user,
+        newPassword
+    })
 }
 
 function handleUpdateUserRequest(request, response) {
@@ -87,8 +91,8 @@ function updateUser(user, response) {
             throw new Error("Attempt to remove user ID 0 admin privilege")
         }
     }
-    console.log("Would update user", user)
-    response.send(user)
+    storage.updateUser(user)
+    response.send({user})
 }
 
 function handleResetPasswordRequest(request, response) {

@@ -46,28 +46,37 @@ function Storage() {
 
     initialize()
 
-    const userForId = new Map()
-    for (const user of data.users) {
-        if (userForId.has(user.id)) {
-            throw RangeError("Duplicate user ID: " + user.id)
+    let userForId
+    let userIdForUserName
+
+    function buildMaps() {
+        userForId = new Map()
+        for (const user of data.users) {
+            if (userForId.has(user.id)) {
+                throw RangeError("Duplicate user ID: " + user.id)
+            }
+            userForId.set(user.id, user)
         }
-        userForId.set(user.id, user)
+
+        userIdForUserName = new Map()
+        for (const user of data.users) {
+            if (userIdForUserName.has(user.name)) {
+                throw RangeError("Duplicate user name: " + user.id)
+            }
+            userIdForUserName.set(user.name, user.id)
+        }
     }
 
-    const userIdForUserName = new Map()
-    for (const user of data.users) {
-        if (userIdForUserName.has(user.name)) {
-            throw RangeError("Duplicate user name: " + user.id)
-        }
-        userIdForUserName.set(user.name, user.id)
-    }
+    buildMaps()
 
     function writeChanges(newData, postAction) {
+        data = newData
+        buildMaps()
+
         // TODO report back in case of both success and error - a pending and error state in the UI are required
         // TODO create a copy of data before writing, only update if successful
         writeFileAtomic(dataPath, JSON.stringify(newData))
             .then(_ => {
-                data = newData
                 console.log("Changes successfully written")
                 if (postAction) {
                     postAction()
@@ -82,6 +91,14 @@ function Storage() {
     function createCopyOfData() {
         // TODO find a smarter way to create a copy
         return JSON.parse(JSON.stringify(data));
+    }
+
+    function nextAvailableId() {
+        for (let candidate = 1; candidate < (1 << 20); ++candidate) {
+            if (!userForId.has(candidate)) {
+                return candidate
+            }
+        }
     }
 
     return {
@@ -126,11 +143,20 @@ function Storage() {
             let user = userForId.get(userId)
             let newSalt = bcrypt.genSaltSync()
             const newHash = bcrypt.hashSync(newPassword, newSalt)
-            // TODO store new salt and hash
             user.salt = newSalt
             user.hash = newHash
-            // TODO remove
-            console.log("modified user", user)
+            writeChanges(data)
+        },
+        addUser(user) {
+            user.id = nextAvailableId()
+            const newData = createCopyOfData()
+            newData.users.push(user)
+            writeChanges(newData)
+            userForId.set(user.id, user)
+        },
+        updateUser(user) {
+            let original = userForId.get(user.id)
+            Object.assign(original, user)
             writeChanges(data)
         }
     }

@@ -109,7 +109,13 @@ function saveUser(userId) {
         })
         .then(response => {
             if (response.ok) {
-                response.json().then(result => handleResult(result, adding))
+                response.json().then(result => {
+                    handleResult(result.user, adding)
+                    if (result.newPassword !== undefined) {
+                        alert("Provisorisches Passwort für Benutzer " + result.user.id + ":\n" +
+                            result.newPassword)
+                    }
+                })
             } else {
                 console.log("Failed to save user - status:", response.status)
                 alert("Speichern des Benutzers fehlgeschlagen")
