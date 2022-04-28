@@ -47,7 +47,7 @@ function minimalUserData(user) {
     return {
         id: user.id,
         name: user.name,
-        admin: user.admin
+        admin: !!user.admin
     }
 }
 
