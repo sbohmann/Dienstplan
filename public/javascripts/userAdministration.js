@@ -19,7 +19,6 @@ window.onload = () => {
             }
         })
         .then(response => {
-            console.log(response)
             if (response.ok) {
                 response.json().then(users => {
                     userForId = new Map()
@@ -39,29 +38,75 @@ window.onload = () => {
         .appendChild(listView.view)
 
     editUserDialog = document.getElementById('editUserDialog')
-    editUserDialog.onclick = hideEditUserDialog
     editUserNameInput = document.getElementById('editUserNameInput')
     editUserAdministratorInput = document.getElementById('editUserAdministratorInput')
 }
 
 function init() {
+    let addUserButton = document.getElementById('addUserButton')
     let editUserButton = document.getElementById('editUserButton')
     let editUserDialogTitle = document.getElementById('editUserDialogTitle')
+    let saveUserButton = document.getElementById('saveUserButton')
+    let cancelEditUserButton = document.getElementById('cancelEditUserButton')
+    addUserButton.onclick = () => {
+        setMultilineTextContent(editUserDialogTitle, "Neuer Benutzer")
+        editUserNameInput.value = ""
+        editUserAdministratorInput.checked = false
+        editUserAdministratorInput.disabled = false
+        showEditUserDialog()
+        saveUserButton.onclick = () => saveUser(undefined)
+    }
     editUserButton.onclick = () => {
         let userId = listView.selectedId
         if (userId !== undefined) {
             setMultilineTextContent(editUserDialogTitle, "Benutzer " + userId)
             let user = userForId.get(userId);
             editUserNameInput.value = user.name
-            editUserAdministratorInput.value = user.admin
+            editUserAdministratorInput.checked = user.admin
+            editUserAdministratorInput.disabled = (user.id === 0)
             showEditUserDialog()
+            saveUserButton.onclick = () => saveUser(user.id)
         }
     }
+    cancelEditUserButton.onclick = hideEditUserDialog
 }
 
 function showEditUserDialog() {
     editUserDialog.classList.add('active')
     document.body.classList.add('fixed')
+}
+
+function saveUser(userId) {
+    let userName = editUserNameInput.value.trim()
+    if (userName.length === 0) {
+        alert("Name ist leer")
+        return
+    }
+    hideEditUserDialog()
+    let user = {
+        id: userId,
+        name: userName,
+        admin: editUserAdministratorInput.checked
+    }
+    let adding = userId === undefined;
+    let action = adding ? 'add' : 'update'
+    fetch('/userAdministration/' + action,
+        {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            if (response.ok) {
+                response.json().then(adding ? listView.add : listView.set)
+            } else {
+                console.log('Failed to save user - status:', response.status)
+                alert("Speichern des Benutzers fehlgeschlagen")
+            }
+        })
 }
 
 function hideEditUserDialog() {

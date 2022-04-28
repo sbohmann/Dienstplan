@@ -7,7 +7,7 @@ function ListViewColumns(definition) {
 }
 
 function ListView(columns) {
-    let view = document.createElement('table')
+    let tableView = document.createElement('table')
     let rows = new Map()
     let selection = undefined
 
@@ -18,18 +18,27 @@ function ListView(columns) {
             column.appendChild(document.createTextNode(value))
             header.appendChild(column)
         }
-        view.appendChild(header)
+        tableView.appendChild(header)
     }
 
     function add(rowData) {
-        let row = document.createElement('tr')
+        if (rowData.id !== undefined && rowData.id !== null) {
+            if (rows.get(rowData.id) !== undefined) {
+                throw Error("Attempt to add duplicate ID " + rowData.id)
+            }
+        }
+        let rowView = document.createElement('tr')
         for (let id of columns.keys()) {
             let column = document.createElement('td')
             column.appendChild(document.createTextNode(rowData[id].toString()))
-            row.appendChild(column)
+            rowView.appendChild(column)
         }
-        view.appendChild(row)
-        view.onclick = () => {
+        tableView.appendChild(rowView)
+        rows.set(rowData.id, {
+            id: rowData.id,
+            view: rowView
+        })
+        rowView.onclick = () => {
             let currentSelection = selection
             selection = rows.get(rowData.id)
             if (currentSelection !== selection) {
@@ -41,19 +50,34 @@ function ListView(columns) {
                 }
             }
         }
-        if (rowData.id !== undefined && rowData.id !== null) {
-            rows.set(rowData.id, {
-                id: rowData.id,
-                view: row
-            })
+    }
+
+    function set(rowData) {
+        if (rowData.id === undefined || rowData.id === null) {
+            throw Error("Attempt to set row value without ID")
         }
+        let row = rows.get(rowData.id);
+        if (row === undefined) {
+            throw Error("Attempt to set row value with unknown ID " + rowData.id)
+        }
+        removeContent(row.view)
+        for (let id of columns.keys()) {
+            let column = document.createElement('td')
+            column.appendChild(document.createTextNode(rowData[id].toString()))
+            row.view.appendChild(column)
+        }
+        rows.set(rowData.id, {
+            id: row.id,
+            view: row.view
+        })
     }
 
     addHeader()
 
     return {
-        view,
+        view: tableView,
         add,
+        set,
         get selectedId() {
             return selection ? selection.id : undefined
         }
