@@ -83,21 +83,26 @@ table#monats-dienstplan td.remove-button:hover {
   cursor: pointer;
 }
 
-table#monats-dienstplan {
+table {
   table-layout: fixed;
   border-collapse: collapse;
 }
 
-table#monats-dienstplan td {
+table td {
   height: 30px;
   padding: 5px;
   background: white;
   border: 1px solid #aabbcc;
 }
 
-table#monats-dienstplan td {
+table td {
   height: 30px;
   padding: 5px;
+}
+
+tr.selectedRow td {
+  color: #ddffdd;
+  background: #333366;
 }
 
 .sunday {
@@ -195,9 +200,4 @@ p.active {
   font-size: 20px;
   font-weight: bold;
   text-decoration: none;
-}
-
-.selectedRow {
-  color: #ddffdd;
-  background: #333366;
 }

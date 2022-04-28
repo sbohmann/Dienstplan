@@ -12,9 +12,9 @@ function ListView(columns) {
     let selection = undefined
 
     function addHeader() {
-        let header = document.createElement('th')
+        let header = document.createElement('tr')
         for (let [, value] of columns.entries()) {
-            let column = document.createElement('td')
+            let column = document.createElement('th')
             column.appendChild(document.createTextNode(value))
             header.appendChild(column)
         }
