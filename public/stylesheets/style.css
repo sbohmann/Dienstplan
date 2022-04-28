@@ -130,6 +130,7 @@ table#monats-dienstplan td.new-week {
 }
 
 .dialogContent {
+  font-size: 14pt;
   position: absolute;
   margin: 0;
   padding: 0;

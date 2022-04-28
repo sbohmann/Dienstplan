@@ -2,6 +2,7 @@ extends layout
 
 block scripts
     script(src="/javascripts/common/listview/listView.js")
+    script(src="/javascripts/textContent.js")
     script(src="/javascripts/userAdministration.js")
 
 block content
@@ -11,3 +12,16 @@ block content
         button(id='addUserButton' class='dialogButton')="Neuer Benutzer"
         div#userListContainer
         p(id="errorMessage")
+    div(id='editUserDialog' class='dialog')
+        div(class='dialogContent')
+            p(id='editUserDialogTitle' class='dialogTitle')
+            div(class='dialogButtons')
+                p
+                    label Name
+                        br
+                        input(type='text' id='editUserNameInput')
+                p
+                    label Administrator
+                        input(type='checkbox' id='editUserAdministratorInput')
+                button(id='saveUserButton' class='dialogButton')="Speichern"
+                button(id='cancelEditUserButton' class='dialogButton')="Zurück"

@@ -53,6 +53,9 @@ function ListView(columns) {
 
     return {
         view,
-        add
+        add,
+        get selectedId() {
+            return selection ? selection.id : undefined
+        }
     }
 }

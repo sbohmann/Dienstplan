@@ -1,7 +1,7 @@
 let selectionDialog
 let confirmationDialog
 let confirmBookingButton
-let userSelectionText
+let editUserTitle
 let bookingConfirmationText
 
 let monthData
@@ -18,7 +18,7 @@ window.onload = () => {
     month = Number(match[2])
     selectionDialog = document.getElementById('selectionDialog')
     selectionDialog.onclick = hideSelectionDialog
-    userSelectionText = document.getElementById('userSelectionText')
+    editUserTitle = document.getElementById('userSelectionText')
     document.getElementById('cancelUserSelectionButton').onclick = hideSelectionDialog
     confirmationDialog = document.getElementById('confirmationDialog')
     confirmationDialog.onclick = hideConfirmationDialog
@@ -149,7 +149,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
                         add(dayOfMonth, user.id, context, true)
                     }
                 }
-                setMultilineTextContent(userSelectionText, [
+                setMultilineTextContent(editUserTitle, [
                     "Benutzerauswahl",
                     date(dayOfMonth)
                 ])
@@ -172,24 +172,6 @@ function fill(dayBookings, dayOfMonth, context, primary) {
             }
         }
         cell.textContent = ""
-    }
-}
-
-function setMultilineTextContent(element, lines) {
-    removeContent(element)
-    let first = true
-    for (let line of lines) {
-        if (!first) {
-            element.appendChild(document.createElement('br'))
-        }
-        element.appendChild(document.createTextNode(line))
-        first = false
-    }
-}
-
-function removeContent(element) {
-    while (element.lastChild) {
-        element.removeChild(element.lastChild)
     }
 }
 
