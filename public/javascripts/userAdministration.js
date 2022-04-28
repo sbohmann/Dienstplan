@@ -46,6 +46,7 @@ window.onload = () => {
 function init() {
     let addUserButton = document.getElementById('addUserButton')
     let editUserButton = document.getElementById('editUserButton')
+    let resetPasswordButton = document.getElementById('resetPasswordButton')
     let editUserDialogTitle = document.getElementById('editUserDialogTitle')
     let saveUserButton = document.getElementById('saveUserButton')
     let cancelEditUserButton = document.getElementById('cancelEditUserButton')
@@ -67,6 +68,12 @@ function init() {
             editUserAdministratorInput.disabled = (user.id === 0)
             showEditUserDialog()
             saveUserButton.onclick = () => saveUser(user.id)
+        }
+    }
+    resetPasswordButton.onclick = () => {
+        let userId = listView.selectedId
+        if (userId !== undefined) {
+            resetPassword(userId)
         }
     }
     cancelEditUserButton.onclick = hideEditUserDialog
@@ -104,7 +111,7 @@ function saveUser(userId) {
             if (response.ok) {
                 response.json().then(result => handleResult(result, adding))
             } else {
-                console.log('Failed to save user - status:', response.status)
+                console.log("Failed to save user - status:", response.status)
                 alert("Speichern des Benutzers fehlgeschlagen")
             }
         })
@@ -122,4 +129,28 @@ function handleResult(user, adding) {
 function hideEditUserDialog() {
     document.body.classList.remove('fixed')
     editUserDialog.classList.remove('active')
+}
+
+function resetPassword(userId) {
+    fetch('/userAdministration/resetPassword',
+        {
+            method: 'POST',
+            headers: {
+                'Accept': "application/json",
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({userId})
+        })
+        .then(response => {
+            if (response.ok) {
+                response.json().then(passwordResetResponse => {
+                    alert("Password für Benutzer " + userId + " erfolgreich zurückgesetzt.\n" +
+                        "Provisorisches Passwort:\n" +
+                        passwordResetResponse.newPassword)
+                })
+            } else {
+                console.log("Failed to reset password for user " + userId + " - status:", response.status)
+                alert("Passwort-Reset für Benutzer " + userId + " fehlgeschlagen")
+            }
+        })
 }

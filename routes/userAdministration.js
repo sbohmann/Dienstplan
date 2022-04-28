@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const storage = require('../storage/storage')
+const crypto = require('crypto')
 
 router.get('/', function (request, response) {
     ifAdmin(request, response, () => response.render('userAdministration'))
@@ -55,6 +56,7 @@ function handleAddUserRequest(request, response) {
     try {
         addUser(request.body, response)
     } catch (error) {
+        console.log(error)
         response.status(401)
     }
     response.send()
@@ -73,6 +75,7 @@ function handleUpdateUserRequest(request, response) {
     try {
         updateUser(request.body, response)
     } catch (error) {
+        console.log(error)
         response.status(401)
     }
     response.send()
@@ -90,15 +93,30 @@ function updateUser(user, response) {
 
 function handleResetPasswordRequest(request, response) {
     try {
-        resetPassword(request.body, response)
+        resetPassword(Number(request.body.userId), response)
     } catch (error) {
+        console.log(error)
         response.status(401)
     }
     response.send()
 }
 
-function resetPassword(change, response) {
-    console.log("Would perform password change", change)
+function resetPassword(userId, response) {
+    let newPassword = generateRandomPassword()
+    storage.setPassword(userId, newPassword)
+    response.send({newPassword})
+}
+
+function generateRandomPassword() {
+    return Array.from(crypto.randomBytes(6))
+        .map(value => {
+            const low = value & 0xf
+            const high = value >> 4
+            let first = String.fromCharCode(97 + low)
+            let second = String.fromCharCode(107 + high)
+            return first + second
+        })
+        .join('')
 }
 
 module.exports = router
