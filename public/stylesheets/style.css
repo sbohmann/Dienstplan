@@ -98,6 +98,7 @@ table td {
 table td {
   height: 30px;
   padding: 5px;
+  overflow: hidden;
 }
 
 tr.selectedRow td {
@@ -200,4 +201,8 @@ p.active {
   font-size: 20px;
   font-weight: bold;
   text-decoration: none;
+}
+
+#userTable {
+  width: 100%;
 }

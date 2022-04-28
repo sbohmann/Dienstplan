@@ -8,7 +8,7 @@ window.onload = () => {
     let columns = ListViewColumns({
         "id": "ID",
         "name": "Name",
-        "admin": "Administrator"
+        "admin": "Admin"
     })
     listView = ListView(columns)
     fetch('/userAdministration/users',
@@ -33,6 +33,7 @@ window.onload = () => {
             }
         })
 
+    listView.view.id = 'userTable'
     document
         .getElementById('userListContainer')
         .appendChild(listView.view)
@@ -101,12 +102,21 @@ function saveUser(userId) {
         })
         .then(response => {
             if (response.ok) {
-                response.json().then(adding ? listView.add : listView.set)
+                response.json().then(result => handleResult(result, adding))
             } else {
                 console.log('Failed to save user - status:', response.status)
                 alert("Speichern des Benutzers fehlgeschlagen")
             }
         })
+}
+
+function handleResult(user, adding) {
+    if (adding) {
+        listView.add(user)
+    } else {
+        listView.set(user)
+    }
+    userForId.set(user.id, user)
 }
 
 function hideEditUserDialog() {
