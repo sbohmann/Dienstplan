@@ -67,7 +67,7 @@ function buildRows(month) {
 function monthLink(month, isYear, delta) {
     let currentMonthStart = joda.LocalDate.of(month.year, month.month, 1)
     let linkMonthStart = isYear ? currentMonthStart.plusYears(delta) : currentMonthStart.plusMonths(delta)
-    return '/' + linkMonthStart.year() + '/' + linkMonthStart.monthValue()
+    return '/months/' + linkMonthStart.year() + '/' + linkMonthStart.monthValue()
 }
 
 module.exports = router
