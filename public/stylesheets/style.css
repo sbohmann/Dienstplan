@@ -177,11 +177,6 @@ table#monats-dienstplan td.new-week {
   color: black;
 }
 
-input[type='checkbox'] {
-  width:30px;
-  height:30px;
-}
-
 p.active {
   color: #f53;
   font-weight: bold;
