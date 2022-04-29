@@ -159,6 +159,10 @@ function Storage() {
             writeChanges(data)
         },
         addUser(user) {
+            let existingIdForUserName = userIdForUserName.get(user.name)
+            if (existingIdForUserName !== undefined) {
+                throw new StorageError("failed to add user", StorageError.USER_NAME_ALREADY_IN_USE)
+            }
             user.id = nextAvailableId()
             const newData = createCopyOfData()
             newData.users.push(user)

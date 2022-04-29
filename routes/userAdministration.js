@@ -57,7 +57,13 @@ function handleAddUserRequest(request, response) {
         addUser(request.body, response)
     } catch (error) {
         console.log(error)
-        response.status(500)
+        if (error instanceof storage.StorageError && error.key === storage.StorageError.USER_NAME_ALREADY_IN_USE) {
+            response.status(409)
+            response.send()
+        } else {
+            response.status(500)
+            response.send()
+        }
     }
     response.send()
 }
