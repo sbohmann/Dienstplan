@@ -57,7 +57,7 @@ function handleAddUserRequest(request, response) {
         addUser(request.body, response)
     } catch (error) {
         console.log(error)
-        response.status(401)
+        response.status(500)
     }
     response.send()
 }
@@ -78,11 +78,17 @@ function addUser(user, response) {
 function handleUpdateUserRequest(request, response) {
     try {
         updateUser(request.body, response)
+        response.send()
     } catch (error) {
         console.log(error)
-        response.status(401)
+        if (error instanceof storage.StorageError && error.key === storage.StorageError.USER_NAME_ALREADY_IN_USE) {
+            response.status(409)
+            response.send()
+        } else {
+            response.status(500)
+            response.send()
+        }
     }
-    response.send()
 }
 
 function updateUser(user, response) {
@@ -100,7 +106,7 @@ function handleResetPasswordRequest(request, response) {
         resetPassword(Number(request.body.userId), response)
     } catch (error) {
         console.log(error)
-        response.status(401)
+        response.status(500)
     }
     response.send()
 }

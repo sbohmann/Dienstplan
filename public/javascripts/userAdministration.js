@@ -116,6 +116,8 @@ function saveUser(userId) {
                             result.newPassword)
                     }
                 })
+            } else if (response.status === 409) {
+                alert("Name bereits in Verwendung [" + user.name + "]")
             } else {
                 console.log("Failed to save user - status:", response.status)
                 alert("Speichern des Benutzers fehlgeschlagen")

@@ -13,6 +13,17 @@ function Data() {
     }
 }
 
+class StorageError extends Error {
+    static USER_NAME_ALREADY_IN_USE = {}
+
+    key
+
+    constructor(message, key) {
+        super(message)
+        this.key = key
+    }
+}
+
 function Storage() {
     let data = undefined
 
@@ -155,10 +166,15 @@ function Storage() {
             userForId.set(user.id, user)
         },
         updateUser(user) {
+            let existingIdForUserName = userIdForUserName.get(user.name)
+            if (existingIdForUserName !== undefined && existingIdForUserName !== user.id) {
+                throw new StorageError("failed to update user", StorageError.USER_NAME_ALREADY_IN_USE)
+            }
             let original = userForId.get(user.id)
             Object.assign(original, user)
             writeChanges(data)
-        }
+        },
+        StorageError
     }
 }
 
