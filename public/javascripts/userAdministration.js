@@ -23,7 +23,7 @@ window.onload = () => {
                 response.json().then(users => {
                     userForId = new Map()
                     for (let user of users) {
-                        listView.add(user)
+                        listView.add(userViewModel(user))
                         userForId.set(user.id, user)
                     }
                     init();
@@ -125,9 +125,9 @@ function saveUser(userId) {
 
 function handleResult(user, adding) {
     if (adding) {
-        listView.add(user)
+        listView.add(userViewModel(user))
     } else {
-        listView.set(user)
+        listView.set(userViewModel(user))
     }
     userForId.set(user.id, user)
 }
@@ -159,4 +159,11 @@ function resetPassword(userId) {
                 alert("Passwort-Reset für Benutzer " + userId + " fehlgeschlagen")
             }
         })
+}
+
+function userViewModel(user) {
+    let result = {}
+    Object.assign(result, user)
+    result.admin = result.admin ? "Ja" : ""
+    return result
 }

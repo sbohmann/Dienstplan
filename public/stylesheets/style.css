@@ -84,8 +84,11 @@ table#monats-dienstplan td.remove-button:hover {
 }
 
 table {
-  table-layout: fixed;
   border-collapse: collapse;
+}
+
+table#monats-dienstplan {
+  table-layout: fixed;
 }
 
 table td {
