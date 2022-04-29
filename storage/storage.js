@@ -14,7 +14,8 @@ function Data() {
 }
 
 class StorageError extends Error {
-    static USER_NAME_ALREADY_IN_USE = {}
+    static USER_NAME_ALREADY_IN_USE = {error: "User name already in use"}
+    static USER_NAME_TOO_LONG = {error: "User name too long"}
 
     key
 
@@ -159,6 +160,9 @@ function Storage() {
             writeChanges(data)
         },
         addUser(user) {
+            if (user.name.length > 128) {
+                throw new StorageError("failed to add user", StorageError.USER_NAME_TOO_LONG)
+            }
             let existingIdForUserName = userIdForUserName.get(user.name)
             if (existingIdForUserName !== undefined) {
                 throw new StorageError("failed to add user", StorageError.USER_NAME_ALREADY_IN_USE)
@@ -170,6 +174,9 @@ function Storage() {
             userForId.set(user.id, user)
         },
         updateUser(user) {
+            if (user.name.length > 128) {
+                throw new StorageError("failed to add user", StorageError.USER_NAME_TOO_LONG)
+            }
             let existingIdForUserName = userIdForUserName.get(user.name)
             if (existingIdForUserName !== undefined && existingIdForUserName !== user.id) {
                 throw new StorageError("failed to update user", StorageError.USER_NAME_ALREADY_IN_USE)
