@@ -90,7 +90,6 @@ function saveUser(userId) {
         alert("Name ist leer")
         return
     }
-    hideEditUserDialog()
     let user = {
         id: userId,
         name: userName,
@@ -109,6 +108,7 @@ function saveUser(userId) {
         })
         .then(response => {
             if (response.ok) {
+                hideEditUserDialog()
                 response.json().then(result => {
                     handleResult(result.user, adding)
                     if (result.newPassword !== undefined) {
