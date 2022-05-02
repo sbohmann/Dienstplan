@@ -7,7 +7,10 @@ block scripts
 
 block content
     div(id='content')
-        h1="Benutzerverwaltung"
+        div#title
+            h1 Benutzerverwaltung
+            a(href="/")
+                img(src="/images/calendar-icon.png" width=32 height=32)
         button(id='editUserButton' class='dialog-button')="Bearbeiten"
         button(id='addUserButton' class='dialog-button')="Neuer Benutzer"
         button(id='resetPasswordButton' class='dialog-button')="Passwort-Reset"
