@@ -1,206 +1,228 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background: #ffeedd;
-  color: #333366;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    background: #ffeedd;
+    color: #333366;
 }
 
 body.fixed {
-  overflow:hidden;
+    overflow: hidden;
 }
 
 #title h1 {
-  display: inline;
+    display: inline;
 }
 
 div#title a {
-  position: absolute;
-  right: 0;
+    position: absolute;
+    right: 0;
 }
 
 div#title a img {
-  margin: 0 5px 0 0;
-  padding: 0;
+    margin: 0 5px 0 0;
+    padding: 0;
 }
 
 a {
-  color: #993333;
+    color: #993333;
 }
 
 #subtitle h2 {
-  display: inline;
+    display: inline;
 }
 
 #subtitle a {
-  font-size: 1.5em;
-  font-weight: bold;
-  position: absolute;
-  right: 0;
+    font-size: 1.5em;
+    font-weight: bold;
+    position: absolute;
+    right: 0;
 }
 
 th {
-  text-align: initial;
+    text-align: initial;
 }
 
 #content {
-  position: relative;
-  display: table;
-  margin-left: auto;
-  margin-right: auto;
+    position: relative;
+    display: table;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 #settings {
-  width: 360px;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 14pt;
+    width: 360px;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 14pt;
 }
 
 #week-day-column {
-  width: 30px;
+    width: 30px;
 }
 
 #day-column {
-  width: 25px;
+    width: 25px;
 }
 
 .name-column {
-  width: 150px;
+    width: 150px;
 }
 
 .add-button {
-  color: transparent;
+    color: transparent;
 }
 
 table#monats-dienstplan td.add-button:hover {
-  color: black;
-  background-color: #ddffdd;
-  cursor: pointer;
+    color: black;
+    background-color: #ddffdd;
+    cursor: pointer;
 }
 
 table#monats-dienstplan td.remove-button:hover {
-  color: #cc6666;
-  background-color: #ffdddd;
-  cursor: pointer;
+    color: #cc6666;
+    background-color: #ffdddd;
+    cursor: pointer;
 }
 
 table {
-  border-collapse: collapse;
+    border-collapse: collapse;
 }
 
 table#monats-dienstplan {
-  table-layout: fixed;
+    table-layout: fixed;
 }
 
 table td {
-  height: 30px;
-  padding: 5px;
-  background: white;
-  border: 1px solid #aabbcc;
+    height: 30px;
+    padding: 5px;
+    background: white;
+    border: 1px solid #aabbcc;
 }
 
 table td {
-  height: 30px;
-  padding: 5px;
-  overflow: hidden;
+    height: 30px;
+    padding: 5px;
+    overflow: hidden;
 }
 
 tr.selectedRow td {
-  color: #ddffdd;
-  background: #333366;
+    color: #ddffdd;
+    background: #333366;
 }
 
 .sunday {
-  background-color: yellow;
+    background-color: yellow;
 }
 
 table#monats-dienstplan td.new-week {
-  background-color: transparent;
-  height: 6px;
-  padding: 0;
-  border: none;
+    background-color: transparent;
+    height: 6px;
+    padding: 0;
+    border: none;
 }
 
 .dialog {
-  visibility: hidden;
-  height: 100vh;
-  width: 100vw;
-  background: #ffffff66;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(10px);
-  position: fixed;
-  top: 0;
-  left: 0;
-  padding: 0;
-  margin: 0;
+    visibility: hidden;
+    height: 100vh;
+    width: 100vw;
+    background: #ffffff66;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(10px);
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .dialog.active {
-  visibility: visible;
+    visibility: visible;
 }
 
 .dialogContent {
-  font-size: 14pt;
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  text-align: center;
-  overflow: scroll;
+    font-size: 14pt;
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    text-align: center;
+    overflow: scroll;
 }
 
 .dialogTitle {
-  font-size: 24px;
-  font-weight: bold;
-  position: relative;
-  top: 60px;
+    font-size: 24px;
+    font-weight: bold;
+    position: relative;
+    top: 60px;
 }
 
 .dialogButtons {
-  position: relative;
-  width: 360px;
-  top: 100px;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 0 0 20px 0;
+    position: relative;
+    width: 360px;
+    top: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 0 20px 0;
 }
 
 .dialogButton {
-  width: 100%;
-  margin: 2px 0;
-  font-size: 14pt;
-  font-weight: normal;
-  border: 1px solid #333333;
-  background-color: #eeeeee;
-  color: black;
+    width: 100%;
+    margin: 2px 0;
+    font-size: 14pt;
+    font-weight: normal;
+    border: 1px solid #333333;
+    background-color: #eeeeee;
+    color: black;
 }
 
 p.active {
-  color: #f53;
-  font-weight: bold;
+    color: #f53;
+    font-weight: bold;
 }
 
 .day_cell.administrator-modification {
-  color: #993333;
-  font-weight: bolder;
+    color: #993333;
+    font-weight: bolder;
 }
 
 #date-navigation {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  display: flex;
-  justify-content: space-between;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
 }
 
 #date-navigation a {
-  margin: 10px;
-  font-size: 20px;
-  font-weight: bold;
-  text-decoration: none;
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
 }
 
 #userTable {
-  width: 100%;
+    width: 100%;
+}
+
+.login-text-field {
+    width: 100%;
+    margin: 2px 0;
+    font-size: 14pt;
+    font-weight: normal;
+    border: 1px solid #333333;
+}
+
+.login-button {
+    width: 100%;
+    margin: 2px 0;
+    font-size: 14pt;
+    font-weight: normal;
+    border: 1px solid #333333;
+    background-color: #eeeeee;
+    color: black;
 }
