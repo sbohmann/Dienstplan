@@ -142,7 +142,7 @@ table#monats-dienstplan td.new-week {
     visibility: visible;
 }
 
-.dialogContent {
+.dialog-content {
     font-size: 14pt;
     position: absolute;
     margin: 0;
@@ -155,14 +155,14 @@ table#monats-dienstplan td.new-week {
     overflow: scroll;
 }
 
-.dialogTitle {
+.dialog-title {
     font-size: 24px;
     font-weight: bold;
     position: relative;
     top: 60px;
 }
 
-.dialogButtons {
+.dialog-buttons {
     position: relative;
     width: 360px;
     top: 100px;
@@ -171,7 +171,17 @@ table#monats-dienstplan td.new-week {
     padding: 0 0 20px 0;
 }
 
-.dialogButton {
+.dialog-button {
+    width: 100%;
+    margin: 2px 0;
+    font-size: 14pt;
+    font-weight: normal;
+    border: 1px solid #333333;
+    background-color: #eeeeee;
+    color: black;
+}
+
+.dialog-textfield {
     width: 100%;
     margin: 2px 0;
     font-size: 14pt;

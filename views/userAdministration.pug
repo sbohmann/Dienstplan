@@ -8,22 +8,22 @@ block scripts
 block content
     div(id='content')
         h1="Benutzerverwaltung"
-        button(id='editUserButton' class='dialogButton')="Bearbeiten"
-        button(id='addUserButton' class='dialogButton')="Neuer Benutzer"
-        button(id='resetPasswordButton' class='dialogButton')="Passwort-Reset"
+        button(id='editUserButton' class='dialog-button')="Bearbeiten"
+        button(id='addUserButton' class='dialog-button')="Neuer Benutzer"
+        button(id='resetPasswordButton' class='dialog-button')="Passwort-Reset"
         div#userListContainer
         p(id="errorMessage")
     div(id='editUserDialog' class='dialog')
-        div(class='dialogContent')
-            p(id='editUserDialogTitle' class='dialogTitle')
-            div(class='dialogButtons')
+        div(class='dialog-content')
+            p(id='editUserDialogTitle' class='dialog-title')
+            div(class='dialog-buttons')
                 p
                     label Name
                         br
-                        input(type='text' id='editUserNameInput')
+                        input(type='text' id='editUserNameInput' class='dialog-textfield')
                 p
                     label
                         input(type='checkbox' id='editUserAdministratorInput')
                         | Administrator
-                button(id='saveUserButton' class='dialogButton')="Speichern"
-                button(id='cancelEditUserButton' class='dialogButton')="Zurück"
+                button(id='saveUserButton' class='dialog-button')="Speichern"
+                button(id='cancelEditUserButton' class='dialog-button')="Zurück"
