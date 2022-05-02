@@ -187,8 +187,6 @@ table#monats-dienstplan td.new-week {
     font-size: 14pt;
     font-weight: normal;
     border: 1px solid #333333;
-    background-color: #eeeeee;
-    color: black;
 }
 
 p.active {
