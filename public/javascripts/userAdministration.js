@@ -120,7 +120,7 @@ function saveUser(userId) {
                 alert("Name bereits in Verwendung [" + user.name + "]")
             } else {
                 console.log("Failed to save user - status:", response.status)
-                alert("Speichern des Benutzers fehlgeschlagen")
+                response.text().then(text => alert("Speichern des Benutzers fehlgeschlagen\n" + text))
             }
         })
 }

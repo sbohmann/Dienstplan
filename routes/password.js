@@ -36,7 +36,7 @@ router.post('/', function (request, response) {
 
     function attemptPasswordChange() {
         try {
-            changePassword(request)
+            changePassword()
         } catch (error) {
             console.log("Password change failed for user [" + request.body.user + "]:", error)
             response.status(401)
@@ -44,7 +44,7 @@ router.post('/', function (request, response) {
         }
     }
 
-    function changePassword(request) {
+    function changePassword() {
         user = storage.userForId.get(userId)
         if (user === undefined) {
             throw new Error("No user found for ID [" + userId + "]")
@@ -70,8 +70,6 @@ router.post('/', function (request, response) {
             throw new Error("Kein Passwort hinterlegt")
         }
         let newPassword = request.body.new
-        // TODO remove
-        console.log("setting salt and hash for new password", newPassword, request.body)
         let calculatedHash = bcrypt.hashSync(request.body.current, user.salt)
         if (calculatedHash !== user.hash) {
             throw new Error("Aktuelles Passwort falsch")

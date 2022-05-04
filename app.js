@@ -62,11 +62,14 @@ app.use('/pdf', pdfRouter)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
+    console.log('The 404 not found fallback router defined in app.js was called')
     next(createError(404))
 })
 
 // error handler
 app.use(function (err, req, res) {
+    console.log('The error handler defined in app.js was called')
+
     console.error(err)
     console.error(err.stack)
 
