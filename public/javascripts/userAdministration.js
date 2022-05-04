@@ -116,11 +116,11 @@ function saveUser(userId) {
                             result.newPassword)
                     }
                 })
-            } else if (response.status === 409) {
-                alert("Name bereits in Verwendung [" + user.name + "]")
+            } else if (response.status === 400) {
+                response.text().then(text => alert("Speichern des Benutzers fehlgeschlagen\n" + text))
             } else {
                 console.log("Failed to save user - status:", response.status)
-                response.text().then(text => alert("Speichern des Benutzers fehlgeschlagen\n" + text))
+                alert("Speichern des Benutzers fehlgeschlagen")
             }
         })
 }

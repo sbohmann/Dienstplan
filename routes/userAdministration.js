@@ -56,14 +56,7 @@ function handleAddUserRequest(request, response) {
     try {
         addUser(request.body, response)
     } catch (error) {
-        console.log(error)
-        if (error instanceof storage.StorageError && error.key === storage.StorageError.USER_NAME_ALREADY_IN_USE) {
-            response.status(409)
-            response.send()
-        } else {
-            response.status(500)
-            response.send()
-        }
+        reportUserDataError(error, response)
     }
     response.send()
 }
@@ -86,14 +79,7 @@ function handleUpdateUserRequest(request, response) {
         updateUser(request.body, response)
         response.send()
     } catch (error) {
-        console.log(error)
-        if (error instanceof storage.StorageError && error.key === storage.StorageError.USER_NAME_ALREADY_IN_USE) {
-            response.status(409)
-            response.send()
-        } else {
-            response.status(500)
-            response.send()
-        }
+        reportUserDataError(error, response)
     }
 }
 
@@ -133,6 +119,20 @@ function generateRandomPassword() {
             return first + second
         })
         .join('')
+}
+
+function reportUserDataError(error, response) {
+    console.log(error)
+    if (error instanceof storage.StorageError && error.key === storage.StorageError.USER_NAME_ALREADY_IN_USE) {
+        response.status(400)
+        response.send("Benutzername bereits in Verwendung")
+    } else if (error instanceof storage.StorageError && error.key === storage.StorageError.ILLEGAL_USER_NAME) {
+        response.status(400)
+        response.send("Benutzername ist zu lang oder enthält nicht zulässige Zeichen")
+    } else {
+        response.status(500)
+        response.send()
+    }
 }
 
 module.exports = router
