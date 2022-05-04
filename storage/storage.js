@@ -160,7 +160,7 @@ function Storage() {
             writeChanges(data)
         },
         addUser(user) {
-            if (user.name.length > 128) {
+            if (!userNameValid(user)) {
                 throw new StorageError("failed to add user", StorageError.USER_NAME_TOO_LONG)
             }
             let existingIdForUserName = userIdForUserName.get(user.name)
@@ -174,7 +174,7 @@ function Storage() {
             userForId.set(user.id, user)
         },
         updateUser(user) {
-            if (user.name.length > 128) {
+            if (!userNameValid(user)) {
                 throw new StorageError("failed to add user", StorageError.USER_NAME_TOO_LONG)
             }
             let existingIdForUserName = userIdForUserName.get(user.name)
@@ -187,6 +187,18 @@ function Storage() {
         },
         StorageError
     }
+}
+
+function userNameValid(user) {
+    if (user.name.length > 128) {
+        return false
+    }
+    for (let c of user.name) {
+        if (c.codePointAt(0) < 0x20) {
+            return false
+        }
+    }
+    return true
 }
 
 module.exports = Storage()
