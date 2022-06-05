@@ -59,7 +59,7 @@ function buildRows(month) {
         let row = {
             day_of_month: date.dayOfMonth(),
             weekday: dateNames.weekDay[dayOfWeek.ordinal()],
-            sunday: dayOfWeek.ordinal() === 6
+            sunday: dayOfWeek === joda.DayOfWeek.SUNDAY
         }
         result.push(row)
     }
