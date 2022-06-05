@@ -53,13 +53,14 @@ function buildRows(month) {
          date = date.plusDays(1)) {
         const dayOfWeek = date.dayOfWeek()
         let monday = (dayOfWeek === joda.DayOfWeek.MONDAY)
+        let sunday = (dayOfWeek === joda.DayOfWeek.SUNDAY)
         if (date.dayOfMonth() > 1 && monday) {
             result.push({week_change: true})
         }
         let row = {
             day_of_month: date.dayOfMonth(),
             weekday: dateNames.weekDay[dayOfWeek.ordinal()],
-            sunday: dayOfWeek === joda.DayOfWeek.SUNDAY
+            sunday
         }
         result.push(row)
     }
