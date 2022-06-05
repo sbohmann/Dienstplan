@@ -116,6 +116,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
     let cell = document.getElementById(id)
     if (dayBookings) {
         cell.classList.remove('add-button')
+        cell.classList.add('booked')
         if (userIsAdmin || dayBookings.id === userId) {
             cell.classList.add('remove-button')
             cell.onclick = () => {

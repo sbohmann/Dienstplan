@@ -75,6 +75,10 @@ th {
     width: 150px;
 }
 
+.booked {
+    background: #ccccee;
+}
+
 .add-button {
     color: transparent;
 }
