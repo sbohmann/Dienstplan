@@ -118,8 +118,8 @@ tr.selectedRow td {
 }
 
 table#monats-dienstplan td.new-week {
-    background-color: transparent;
-    height: 6px;
+    background-color: blue;
+    height: 16px;
     padding: 0;
     border: none;
 }
