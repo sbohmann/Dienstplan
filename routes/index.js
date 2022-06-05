@@ -58,7 +58,8 @@ function buildRows(month) {
         }
         let row = {
             day_of_month: date.dayOfMonth(),
-            weekday: dateNames.weekDay[dayOfWeek.ordinal()]
+            weekday: dateNames.weekDay[dayOfWeek.ordinal()],
+            sunday: dayOfWeek.ordinal() === 0
         }
         result.push(row)
     }
