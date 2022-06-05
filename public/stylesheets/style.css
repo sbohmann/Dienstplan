@@ -59,7 +59,7 @@ th {
     font-size: 14pt;
 }
 
-#week-day-column {
+#week-day-column td {
     width: 90px;
     text-align: center;
 }
