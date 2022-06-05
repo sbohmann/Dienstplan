@@ -37,7 +37,7 @@ block content
                         td(colspan=5 class='new-week')
                 else
                     tr
-                        td=row.weekday
+                        td(class='week-day')=row.weekday
                         td!=row.day_of_month + '. ' + month_name
                         td(
                             id='primary_' + row.day_of_month
