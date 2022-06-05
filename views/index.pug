@@ -37,8 +37,12 @@ block content
                         td(colspan=5 class='new-week')
                 else
                     tr
-                        td(class='week-day')=row.weekday
-                        td!=row.day_of_month + '. ' + month_name
+                        if row.sunday
+                            td(class='week-day sunday')=row.weekday
+                            td(class='sunday')!=row.day_of_month + '. ' + month_name
+                        else
+                            td(class='week-day')=row.weekday
+                            td!=row.day_of_month + '. ' + month_name
                         td(
                             id='primary_' + row.day_of_month
                             class='day_cell'
