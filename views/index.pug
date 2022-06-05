@@ -38,7 +38,7 @@ block content
                 else
                     tr
                         td=row.weekday
-                        td!=row.day_of_month + '.' + month.month
+                        td!=row.day_of_month + '.' + month.month_name
                         td(
                             id='primary_' + row.day_of_month
                             class='day_cell'

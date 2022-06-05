@@ -27,6 +27,7 @@ router.get('/months/:year/:month', function (request, response, next) {
     response.render('index', {
         title: dateNames.month[month.month - 1] + " " + month.year,
         month,
+        month_name: dateNames.month[month.month - 1],
         rows,
         user_id: userId,
         user_name: userForId.name + (userForId.admin ? " (Administrator)" : ""),
