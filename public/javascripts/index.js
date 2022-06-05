@@ -137,7 +137,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
         } else {
             cell.classList.remove('administrator-modification')
         }
-        cell.textContent = dayBookings.name
+        cell.textContent = dayBookings.name.toUpperCase()
     } else {
         cell.classList.remove('remove-button')
         cell.classList.add('add-button')
