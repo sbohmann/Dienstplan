@@ -61,7 +61,7 @@ th {
 
 #week-day-column {
     width: 90px;
-    alignment: center;
+    text-align: center;
 }
 
 #day-column {
