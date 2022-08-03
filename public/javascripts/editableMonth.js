@@ -139,6 +139,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
         }
         cell.textContent = dayBookings.name.toUpperCase()
     } else {
+        cell.classList.remove('booked')
         cell.classList.remove('remove-button')
         cell.classList.add('add-button')
         cell.onclick = () => {
