@@ -4,11 +4,10 @@ const joda = require('@js-joda/core')
 const storage = require('../storage/storage.js')
 const createError = require('http-errors')
 const dateNames = require('./dateNames')
+const relevantMonth = require('./relevantMonth')
 
 router.get('/', function (request, response) {
-    let today = joda.LocalDate.now()
-    let year = Number(today.year())
-    let month = Number(today.monthValue())
+    let {year, month} = relevantMonth()
     response.status(302)
     response.set('Location', '/months/' + year + '/' + month)
     response.send()
@@ -34,7 +33,8 @@ router.get('/months/:year/:month', function (request, response, next) {
         previousYearLink: monthLink(month, true, -1),
         previousMonthLink: monthLink(month, false, -1),
         nextMonthLink: monthLink(month, false, 1),
-        nextYearLink: monthLink(month, true, 1)
+        nextYearLink: monthLink(month, true, 1),
+        editable: isEditable(month)
     })
 })
 
@@ -71,6 +71,13 @@ function monthLink(month, isYear, delta) {
     let currentMonthStart = joda.LocalDate.of(month.year, month.month, 1)
     let linkMonthStart = isYear ? currentMonthStart.plusYears(delta) : currentMonthStart.plusMonths(delta)
     return '/months/' + linkMonthStart.year() + '/' + linkMonthStart.monthValue()
+}
+
+function isEditable(month) {
+    let candidate = relevantMonth()
+    return month.year === candidate.year
+        && month.month === candidate.month
+        && candidate.editable
 }
 
 module.exports = router
