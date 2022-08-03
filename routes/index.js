@@ -35,7 +35,7 @@ router.get('/months/:year/:month', function (request, response, next) {
         previousMonthLink: monthLink(month, false, -1),
         nextMonthLink: monthLink(month, false, 1),
         nextYearLink: monthLink(month, true, 1),
-        editable: isEditable(month)
+        editable: userForId.admin || isEditable(month)
     })
 })
 

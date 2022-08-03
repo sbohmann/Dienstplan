@@ -2,9 +2,10 @@ extends layout
 
 block scripts
     script(src="/javascripts/dom.js")
-    script(src="/javascripts/index.js")
-    script.
-        const editable = #{editable}
+    if editable
+        script(src="/javascripts/editableMonth.js")
+    else
+        script(src="/javascripts/readonlyMonth.js")
 
 block content
     div(id='content')
