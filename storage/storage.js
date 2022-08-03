@@ -49,13 +49,17 @@ function Storage() {
     }
 
     function backupAndReadExistingData() {
+        backupData()
+        data = JSON.parse(fs.readFileSync(dataPath, 'UTF-8'))
+    }
+
+    function backupData() {
         // TODO use path.join
         const destinationPath = 'history/data_' + new Date().toISOString() + '.json'
         console.log(dataPath + " is present, copying to [" + destinationPath + "]")
         if (!fs.existsSync(historyDirectory)) {
             fs.mkdirSync(historyDirectory)
         }
-        data = JSON.parse(fs.readFileSync(dataPath, 'UTF-8'))
         fs.copyFileSync(dataPath, destinationPath, fs.constants.COPYFILE_EXCL)
     }
 
@@ -87,6 +91,8 @@ function Storage() {
     function writeChanges(newData, postAction) {
         data = newData
         buildMaps()
+
+        backupData()
 
         // TODO report back in case of both success and error - a pending and error state in the UI are required
         // TODO create a copy of data before writing, only update if successful
