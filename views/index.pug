@@ -3,6 +3,8 @@ extends layout
 block scripts
     script(src="/javascripts/dom.js")
     script(src="/javascripts/index.js")
+    script.
+        const editable = #{editable}
 
 block content
     div(id='content')
