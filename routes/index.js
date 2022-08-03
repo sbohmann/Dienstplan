@@ -4,7 +4,7 @@ const joda = require('@js-joda/core')
 const storage = require('../storage/storage.js')
 const createError = require('http-errors')
 const dateNames = require('./dateNames')
-const relevantMonth = require('./relevantMonth')
+const relevantMonth = require('../storage/relevantMonth')
 
 router.get('/', function (request, response) {
     let {year, month} = relevantMonth()

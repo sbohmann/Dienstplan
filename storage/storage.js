@@ -2,6 +2,8 @@ const fs = require('fs')
 const bcrypt = require('bcrypt')
 const writeFileAtomic = require('write-file-atomic')
 
+const relevantMonth = require('./relevantMonth')
+
 let dataPath = 'data.json'
 let historyDirectory = 'history'
 
@@ -113,14 +115,32 @@ function Storage() {
         }
     }
 
+    function checkEditabilityOfMonth(year, month, id) {
+        if (userForId.get(id).admin) {
+            return
+        }
+        const candidate = relevantMonth()
+        if (year === candidate.year
+            && month === candidate.month
+            && candidate.editable === true) {
+            return
+        }
+        throw new RangeError('Attempt by user ' + id + ' to edit year ' + year + ', month ' + month)
+    }
+
     return {
-        // TODO do not expose, as it is mutable
-        get data() { return data },
-        get userForId() { return userForId },
-        get userIdForUserName() { return userIdForUserName },
+        // TODO do not expose, as it is mutable, but a deep copy would cause a massive overhead
+        get data() {
+            return data
+        },
+        get userForId() {
+            return userForId
+        },
+        get userIdForUserName() {
+            return userIdForUserName
+        },
         add(year, month, day, context, id, modifiedByAdmin, request, postAction) {
-            console.log('storage.js')
-            console.log(modifiedByAdmin)
+            checkEditabilityOfMonth(year, month, id)
             const dayIndex = day - 1
             let currentEntry = data.years[year][month][dayIndex][context]
             if (currentEntry !== undefined) {
@@ -138,6 +158,7 @@ function Storage() {
             writeChanges(newData, postAction)
         },
         remove(year, month, day, context, id, request, postAction) {
+            checkEditabilityOfMonth(year, month, id)
             const dayIndex = day - 1
             let currentId = data.years[year][month][dayIndex][context].id
             if (currentId !== id) {
