@@ -18,7 +18,7 @@ router.get('/months/:year/:month', function (request, response) {
     response.setHeader('Content-Type', 'application/pdf');
     let document = new PDFDocument({size: 'A4'})
     document.image('pdf/c9_oeamtc.png', 10, 10, {scale: 0.5})
-    document.image('pdf/kav.png', 480, 10, {scale: 0.65})
+    document.image('pdf/wgv.png', 480, 10, {scale: 0.65})
     document.font('Helvetica')
     let y = 130
     document.fontSize(24)
