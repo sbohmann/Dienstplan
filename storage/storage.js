@@ -122,8 +122,8 @@ function Storage() {
         }
     }
 
-    function checkEditabilityOfMonth(year, month, id) {
-        if (userForId.get(id).admin) {
+    function checkEditabilityOfMonth(year, month, admin) {
+        if (admin) {
             return
         }
         const candidate = relevantMonth()
@@ -146,8 +146,8 @@ function Storage() {
         get userIdForUserName() {
             return userIdForUserName
         },
-        add(year, month, day, context, id, modifiedByAdmin, request, postAction) {
-            checkEditabilityOfMonth(year, month, id)
+        add(admin, year, month, day, context, id, modifiedByAdmin, request, postAction) {
+            checkEditabilityOfMonth(year, month, admin)
             const dayIndex = day - 1
             let currentEntry = data.years[year][month][dayIndex][context]
             if (currentEntry !== undefined) {
@@ -164,8 +164,8 @@ function Storage() {
                 }
             writeChanges(newData, postAction)
         },
-        remove(year, month, day, context, id, request, postAction) {
-            checkEditabilityOfMonth(year, month, id)
+        remove(admin, year, month, day, context, id, modifiedByAdmin, request, postAction) {
+            checkEditabilityOfMonth(year, month, admin)
             const dayIndex = day - 1
             let currentId = data.years[year][month][dayIndex][context].id
             if (currentId !== id) {

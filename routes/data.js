@@ -60,10 +60,15 @@ function validMonth(month) {
     return Number.isInteger(month) && month >= 1 && month <= 12
 }
 
-function userIsAdminOrIdMatches(req) {
-    let userForSessionUserId = storage.userForId.get(req.session.userId)
+function userIsAdmin(request) {
+    let userForSessionUserId = storage.userForId.get(request.session.userId)
+    return userForSessionUserId.admin
+}
+
+function userIsAdminOrIdMatches(request) {
+    let userForSessionUserId = storage.userForId.get(request.session.userId)
     let userIsAdmin = userForSessionUserId.admin
-    return userIsAdmin || req.body.id === req.session.userId
+    return userIsAdmin || request.body.id === request.session.userId
 }
 
 router.post('/add/:year/:month', function (request, response) {
@@ -80,6 +85,7 @@ router.post('/add/:year/:month', function (request, response) {
     // TODO check against current user ID - rules still outstanding
     if (userIsAdminOrIdMatches(request)) {
         storage.add(
+            userIsAdmin(request),
             year,
             month,
             request.body.day,
@@ -106,6 +112,7 @@ router.post('/remove/:year/:month', function (request, response) {
     // TODO check against current user ID - rules still outstanding
     if (userIsAdminOrIdMatches(request)) {
         storage.remove(
+            userIsAdmin(request),
             year,
             month,
             request.body.day,
