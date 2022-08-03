@@ -49,6 +49,7 @@ function Storage() {
     }
 
     function backupAndReadExistingData() {
+        // TODO use path.join
         const destinationPath = 'history/data_' + new Date().toISOString() + '.json'
         console.log(dataPath + " is present, copying to [" + destinationPath + "]")
         if (!fs.existsSync(historyDirectory)) {
