@@ -116,7 +116,7 @@ router.post('/remove/:year/:month', function (request, response) {
     } else {
         console.log("Attempt by non-admin user " + request.session.userId + " to remove user " + request.body.id)
         response.send();
-    }``
+    }
 })
 
 module.exports = router
