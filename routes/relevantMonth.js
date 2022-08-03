@@ -12,8 +12,8 @@ module.exports = () => {
         .withDayOfMonth(1)
         .plusMonths(offset)
     return {
-        year: result.year,
-        month: result.month,
+        year: result.year(),
+        month: result.month().value(),
         editable: today.dayOfMonth() < 10 || today.dayOfMonth() >= 15
     }
 }

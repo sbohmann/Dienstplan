@@ -18,6 +18,7 @@ router.get('/months/:year/:month', function (request, response, next) {
     let month = {}
     month.year = Number(request.params.year)
     month.month = Number(request.params.month)
+    console.log(month.year, month.month)
     if (!validYear(month.year) || !validMonth(month.month)) {
         return next(createError(404))
     }
