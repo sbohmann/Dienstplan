@@ -66,11 +66,12 @@ function addUser(user, response) {
         throw new Error("Attempt to add user ID 0")
     }
     storage.addUser(user)
-    let newPassword = generateRandomPassword()
-    storage.setPassword(user.id, newPassword)
+    // let newPassword = generateRandomPassword()
+    // storage.setPassword(user.id, newPassword)
+    storage.setPassword(user.id, user.name, true) // TODO enforce change
     response.send({
         user,
-        newPassword
+        newPassword: user.name
     })
 }
 

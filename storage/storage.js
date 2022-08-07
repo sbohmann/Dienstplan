@@ -179,12 +179,13 @@ function Storage() {
         writeData(postAction) {
             writeChanges(data, postAction)
         },
-        setPassword(userId, newPassword) {
+        setPassword(userId, newPassword, provisional) {
             let user = userForId.get(userId)
             let newSalt = bcrypt.genSaltSync()
             const newHash = bcrypt.hashSync(newPassword, newSalt)
             user.salt = newSalt
             user.hash = newHash
+            user.passwordChangeRequired = provisional
             writeChanges(data)
         },
         addUser(user) {
