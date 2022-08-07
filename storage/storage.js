@@ -181,7 +181,7 @@ function Storage() {
         },
         setPassword(userId, newPassword, provisional) {
             let user = userForId.get(userId)
-            let newSalt = bcrypt.genSaltSync()
+            let newSalt = bcrypt.genSaltSync(10)
             const newHash = bcrypt.hashSync(newPassword, newSalt)
             user.salt = newSalt
             user.hash = newHash

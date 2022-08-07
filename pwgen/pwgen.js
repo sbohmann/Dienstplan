@@ -10,7 +10,7 @@ function passwordMissing(user) {
 
 for (let user of storage.data.users) {
     if (passwordMissing(user) || overwrite) {
-        const salt = bcrypt.genSaltSync()
+        const salt = bcrypt.genSaltSync(20)
         const password = Array.from(crypto.randomBytes(6))
             .map(value => {
                 const low = value & 0xf
