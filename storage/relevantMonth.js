@@ -6,8 +6,8 @@ const RelevantMonthOffset = 5
 module.exports = () => {
     const today = joda.LocalDate.now()
     const offset = today.dayOfMonth() >= 15
-        ? RelevantMonthOffset + 1
-        : RelevantMonthOffset
+        ? RelevantMonthOffset
+        : RelevantMonthOffset - 1
     const result = today
         .withDayOfMonth(1)
         .plusMonths(offset)
