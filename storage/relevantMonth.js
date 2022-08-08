@@ -1,7 +1,7 @@
 const joda = require('@js-joda/core')
 
 // TODO configuration
-const RelevantMonthOffset = 2
+const RelevantMonthOffset = 5
 
 module.exports = () => {
     const today = joda.LocalDate.now()

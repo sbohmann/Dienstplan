@@ -10,7 +10,7 @@ let historyDirectory = 'history'
 function Data() {
     return {
         sessionSecret: "",
-        users: [],
+        users: [{id: 0, name: "admin", admin: true}],
         years: {}
     }
 }
