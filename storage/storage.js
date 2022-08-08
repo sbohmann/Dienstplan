@@ -11,7 +11,7 @@ function Data() {
     return {
         sessionSecret: "",
         users: [],
-        years: []
+        years: {}
     }
 }
 
