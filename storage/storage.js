@@ -2,7 +2,7 @@ const fs = require('fs')
 const bcrypt = require('bcrypt')
 const writeFileAtomic = require('write-file-atomic')
 
-const relevantMonth = require('./relevantMonth')
+const editableMonth = require('./editableMonth')
 
 let dataPath = 'data.json'
 let historyDirectory = 'history'
@@ -126,7 +126,7 @@ function Storage() {
         if (admin) {
             return
         }
-        const candidate = relevantMonth()
+        const candidate = editableMonth()
         if (year === candidate.year
             && month === candidate.month
             && candidate.editable === true) {

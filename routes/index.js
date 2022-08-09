@@ -4,10 +4,10 @@ const joda = require('@js-joda/core')
 const storage = require('../storage/storage.js')
 const createError = require('http-errors')
 const dateNames = require('./dateNames')
-const relevantMonth = require('../storage/relevantMonth')
+const editableMonth = require('../storage/editableMonth')
 
 router.get('/', function (request, response) {
-    let {year, month} = relevantMonth()
+    let {year, month} = editableMonth()
     response.status(302)
     response.set('Location', '/months/' + year + '/' + month)
     response.send()
@@ -75,7 +75,7 @@ function monthLink(month, isYear, delta) {
 }
 
 function isEditable(month) {
-    let candidate = relevantMonth()
+    let candidate = editableMonth()
     return month.year === candidate.year
         && month.month === candidate.month
         && candidate.editable

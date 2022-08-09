@@ -1,13 +1,13 @@
 const joda = require('@js-joda/core')
 
 // TODO configuration, plus add constant for the end of the editing period
-const RelevantMonthOffset = 5
+const EditableMonthOffset = 5
 
 module.exports = () => {
     const now = joda.LocalDateTime.now()
     const offset = now.dayOfMonth() >= 15
-        ? RelevantMonthOffset
-        : RelevantMonthOffset - 1
+        ? EditableMonthOffset
+        : EditableMonthOffset - 1
     const result = now
         .withDayOfMonth(1)
         .plusMonths(offset)
