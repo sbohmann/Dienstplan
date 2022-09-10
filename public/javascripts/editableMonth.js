@@ -4,14 +4,6 @@ let confirmBookingButton
 let editUserTitle
 let bookingConfirmationText
 
-let monthData
-let users
-let year
-let month
-let userId
-let userIsAdmin
-let userName
-
 window.onload = () => {
     let match  = window.location.pathname.match(/\/(\d+)\/(\d+)/)
     year = Number(match[1])
@@ -111,37 +103,38 @@ function fillTableContent(finishTableSetup) {
     request.send()
 }
 
-function fill(dayBookings, dayOfMonth, context, primary) {
+function fill(booking, dayOfMonth, context, primary) {
     const id = context + '_' + dayOfMonth
     let cell = document.getElementById(id)
-    if (dayBookings) {
+    if (booking) {
         cell.classList.remove('add-button')
         cell.classList.add('booked')
-        if (userIsAdmin || dayBookings.id === userId) {
+        if (userIsAdmin || booking.id === userId) {
             cell.classList.add('remove-button')
             cell.onclick = () => {
                 confirmBookingButton.onclick = () => {
                     hideConfirmationDialog()
-                    remove(dayOfMonth, dayBookings.id, context)
+                    remove(dayOfMonth, booking.id, context)
                 }
                 setMultilineTextContent(bookingConfirmationText, [
-                    "Entfernen " + dayBookings.name,
+                    "Entfernen " + booking.name,
                     date(dayOfMonth)])
                 showConfirmationDialog()
             }
         } else {
             cell.classList.remove('remove-button')
         }
-        if (dayBookings.modifiedByAdmin) {
+        if (markAsAdminBooking(booking)) {
             cell.classList.add('administrator-modification')
         } else {
             cell.classList.remove('administrator-modification')
         }
-        cell.textContent = dayBookings.name.toUpperCase()
+        cell.textContent = booking.name.toUpperCase()
     } else {
         cell.classList.remove('booked')
         cell.classList.remove('remove-button')
         cell.classList.add('add-button')
+        cell.classList.remove('administrator-modification')
         cell.onclick = () => {
             if (userIsAdmin) {
                 for (let user of users) {
@@ -175,6 +168,14 @@ function fill(dayBookings, dayOfMonth, context, primary) {
         }
         cell.textContent = ""
     }
+}
+
+function markAsAdminBooking(booking) {
+    if (booking.modifiedByAdmin) {
+        let ignoreAdministrationBooking = userIsAdmin && booking.id === userId
+        return !ignoreAdministrationBooking
+    }
+    return false
 }
 
 function bookingPermissible(primary) {

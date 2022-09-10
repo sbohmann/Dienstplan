@@ -1,11 +1,3 @@
-let monthData
-let users
-let year
-let month
-let userId
-let userIsAdmin
-let userName
-
 window.onload = () => {
     let match  = window.location.pathname.match(/\/(\d+)\/(\d+)/)
     year = Number(match[1])
@@ -33,15 +25,15 @@ function fillTableContent() {
         for (let dayIndex = 0; dayIndex < days.length; ++dayIndex) {
             const dayOfMonth = dayIndex + 1
             const day = days[dayIndex]
-            fill(day.primary, dayOfMonth, "primary", true)
-            fill(day.reserve, dayOfMonth, "reserve", false)
-            fill(day.secondReserve, dayOfMonth, "secondReserve", false)
+            fill(day.primary, dayOfMonth, "primary")
+            fill(day.reserve, dayOfMonth, "reserve")
+            fill(day.secondReserve, dayOfMonth, "secondReserve")
         }
     }
     request.send()
 }
 
-function fill(dayBookings, dayOfMonth, context, primary) {
+function fill(dayBookings, dayOfMonth, context) {
     const id = context + '_' + dayOfMonth
     let cell = document.getElementById(id)
     if (dayBookings) {
@@ -66,6 +58,7 @@ function fill(dayBookings, dayOfMonth, context, primary) {
         cell.textContent = dayBookings.name.toUpperCase()
     } else {
         cell.textContent = ""
+        cell.classList.remove('administrator-modification')
     }
 }
 
