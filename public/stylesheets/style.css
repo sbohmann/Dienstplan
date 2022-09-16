@@ -211,8 +211,8 @@ p.active {
 }
 
 .day_cell.administrator-modification {
-    color: #993333;
-    font-weight: bolder;
+    /*color: #993333;*/
+    /*font-weight: bolder;*/
 }
 
 #date-navigation {
