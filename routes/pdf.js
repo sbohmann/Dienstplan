@@ -17,21 +17,27 @@ router.get('/months/:year/:month', function (request, response) {
     let days = storage.data.years[year][month]
     response.setHeader('Content-Type', 'application/pdf');
     let document = new PDFDocument({size: 'A4'})
+    document.page.margins = {
+        top : 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+    }
     document.image('pdf/c9_oeamtc.png', 10, 10, {scale: 0.5})
     document.image('pdf/wgv.png', 330, 5, {scale: 0.25})
     document.font('Helvetica-Bold')
-    let y = 130
+    let y = 95
     document.fontSize(24)
     document.text("Ärzte-Dienstplan C9", 100, y)
-    y += 30
+    y += 25
     document.text(dateNames.month[month - 1] + " " + year, 100, y)
     y += 40
     top = y
-    const left = 90
-    const right = 495
-    const dayStep = 20
-    const dayNameStep = 65
-    document.fontSize(10)
+    const left = 55
+    const right = 535
+    const dayStep = 25
+    const dayNameStep = 90
+    document.fontSize(14)
     document.strokeColor('#aabbcc')
     document.moveTo(left, y - 4).lineTo(right,y - 4).stroke()
     let first = true
@@ -68,9 +74,9 @@ router.get('/months/:year/:month', function (request, response) {
         // TODO limit text output to bounds inside the table cells
         x += dayNameStep
         if (day.primary !== undefined) {
-            document.text(day.primary.name, 185, y)
+            document.text(day.primary.name, x, y)
         }
-        y += 15
+        y += 19
         document.strokeColor('#aabbcc')
         document.moveTo(left, y - 4).lineTo(right,y - 4).stroke()
         first = false
